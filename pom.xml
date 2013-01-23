@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mor.web.sitePersonnel</groupId>
+    <artifactId>POMSitePersonnel</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>POMSitePersonnel</name>
+    <url>http://maven.apache.org</url>
+    <description>
+        Ceci est le site personnel de Laurent Morissette
+    </description>
+    
+    <!-- Manaement definition -->
+    <distributionManagement>
+        <repository>
+            <id>Lsurent-PC</id>
+            <name>Lsurent-PC-releases</name>
+            <url>http://localhost:8080/repo/libs-releases-local</url>
+        </repository>
+    </distributionManagement>
+    
+
+
+
+    <developers>
+        <developer>
+            <id>Laurent</id>
+            <name>Laurent Morissette</name>
+            <email> laurent.morissette@gmail.com</email>
+            <roles>
+                <role>Team leader</role>
+                <role>QA</role>
+            </roles>
+        </developer>
+    </developers>
+    <!-- QA aspects -->
+    <issueManagement>
+        <system>Trac</system>
+        <url>http://trac2.assembla.com/XMLBlogDEV</url>
+    </issueManagement>
+    <scm>
+        <connection>
+            scm:svn:http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/
+        </connection>
+        <developerConnection>
+            scm:http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/
+        </developerConnection>
+        <url>http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/</url>
+    </scm>
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <distribution>manual</distribution>
+            <url>http://www.menet.umn.edu/docs/software/pgp/mitlicen.txt</url>
+        </license>
+    </licenses>
+    <ciManagement>
+        <system>
+            Hudson
+        </system>
+        <url>
+            http://localhost:8080/
+        </url>
+
+    </ciManagement>
+
+    <!-- Architecture -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.7</version>
+                </plugin>
+                <plugin>
+            <groupId>com.mycila.maven-license-plugin</groupId>
+            <artifactId>maven-license-plugin</artifactId>
+            <configuration>
+                <headerFile>src/main/etc/Licence.txt</headerFile>
+            </configuration>
+        </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <showDeprecation>true</showDeprecation>
+
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <modules>
+        <module>XMLBlog</module>
+        <module>stePersonnelEar</module>
+        
+  
+    
+  </modules>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.0.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <version>0.7</version>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

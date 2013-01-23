@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <parent>
+        <artifactId>POMSitePersonnel</artifactId>
+        <groupId>com.mor.web.sitePersonnel</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mor.web.sitePersonnel</groupId>
+    <artifactId>stePersonnelEar</artifactId>
+    <name>stePersonnelEar</name>
+    <packaging>ear</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <url>http://maven.apache.org</url>
+   
+    <dependencies>
+        <dependency>
+            <groupId>com.mor.web.sitePersonnel</groupId>
+            <artifactId>XMLBlog</artifactId>
+            <version>1.0-RELEASE</version>
+            <type>jar</type>
+        </dependency>
+
+
+
+    </dependencies>
+</project>
