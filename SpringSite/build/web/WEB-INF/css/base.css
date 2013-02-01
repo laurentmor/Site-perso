@@ -1,0 +1,34 @@
+/* 
+    Document   : base
+    Created on : 2010-11-15, 10:35:00
+    Author     : Lsurent
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+#content-base{
+    display: block;
+    background-color: #A8B1B8;
+}
+.clear{
+    clear: both;
+}
+#navigation #menu{
+    margin: 10px 0px 0px 10px;
+    background-color:#6D98AB;
+    color: #00275E;
+    font-family: Arial;
+    font-weight: bold;
+    border: 5px white solid;
+}
+.entry{
+    
+}
+.entry.title{
+    
+}

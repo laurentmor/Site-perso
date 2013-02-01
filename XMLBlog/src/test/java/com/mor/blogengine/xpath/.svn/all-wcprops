@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/lmorissette-BlogEngine/!svn/ver/40/POM/XMLBlog/src/test/java/com/mor/blogengine/xpath
+END
+testsState
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/lmorissette-BlogEngine/!svn/ver/23/POM/XMLBlog/src/test/java/com/mor/blogengine/xpath/testsState
+END
+SearchEngineTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/lmorissette-BlogEngine/!svn/ver/50/POM/XMLBlog/src/test/java/com/mor/blogengine/xpath/SearchEngineTest.java
+END
+XpathSuite.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/lmorissette-BlogEngine/!svn/ver/43/POM/XMLBlog/src/test/java/com/mor/blogengine/xpath/XpathSuite.java
+END
+XPathExpressionBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/lmorissette-BlogEngine/!svn/ver/48/POM/XMLBlog/src/test/java/com/mor/blogengine/xpath/XPathExpressionBuilderTest.java
+END
+SearchEngineConfiguratorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/lmorissette-BlogEngine/!svn/ver/50/POM/XMLBlog/src/test/java/com/mor/blogengine/xpath/SearchEngineConfiguratorTest.java
+END

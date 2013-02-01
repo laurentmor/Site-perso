@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/lmorissette-BlogEngine/!svn/ver/40/POM/XMLBlog/src/test/resources/blog-resources
+END
+blog.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/lmorissette-BlogEngine/!svn/ver/31/POM/XMLBlog/src/test/resources/blog-resources/blog.xsd
+END
+blog.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/lmorissette-BlogEngine/!svn/ver/40/POM/XMLBlog/src/test/resources/blog-resources/blog.xml
+END
+config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/lmorissette-BlogEngine/!svn/ver/40/POM/XMLBlog/src/test/resources/blog-resources/config.xml
+END
+blog-without-some-data.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/lmorissette-BlogEngine/!svn/ver/32/POM/XMLBlog/src/test/resources/blog-resources/blog-without-some-data.xml
+END

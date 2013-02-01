@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/lmorissette-BlogEngine/!svn/ver/40/POM/XMLBlog/src/test/java/com/mor/blogengine/exception
+END
+ElementExistingExceptionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/lmorissette-BlogEngine/!svn/ver/40/POM/XMLBlog/src/test/java/com/mor/blogengine/exception/ElementExistingExceptionTest.java
+END
+ExceptionSuite.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/lmorissette-BlogEngine/!svn/ver/43/POM/XMLBlog/src/test/java/com/mor/blogengine/exception/ExceptionSuite.java
+END
+NoMatchesFoundExceptionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/lmorissette-BlogEngine/!svn/ver/43/POM/XMLBlog/src/test/java/com/mor/blogengine/exception/NoMatchesFoundExceptionTest.java
+END

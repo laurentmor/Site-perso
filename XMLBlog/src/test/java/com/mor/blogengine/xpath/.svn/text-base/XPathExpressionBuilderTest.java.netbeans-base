@@ -1,0 +1,292 @@
+
+/*
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+ */
+package com.mor.blogengine.xpath;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import com.mor.blogengine.test.data.AbstractInMemoryXmlDataSourceTestCase;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.dom4j.tree.DefaultAttribute;
+
+//~--- JDK imports ------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ *
+ * @author laurent
+ */
+@SuppressWarnings("unchecked")
+public class XPathExpressionBuilderTest extends AbstractInMemoryXmlDataSourceTestCase {
+    private float xPathVersion;
+
+    /**
+     *
+     * @param testName
+     */
+    public XPathExpressionBuilderTest(String testName) {
+        super(testName);
+    }
+
+    public static Test suite() {
+        TestSuite suite = new TestSuite(XPathExpressionBuilderTest.class);
+
+        return suite;
+    }
+
+    /**
+     *
+     * @throws java.lang.Exception
+     */
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        xPathVersion = Float.valueOf(properties.getProperty("xpath.version"));
+    }
+
+    /**
+     *
+     * @throws java.lang.Exception
+     */
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
+    /**
+     * Test of compileExpression method, of class XPathExpressionBuilder.
+     */
+    public void testCompileExpression() {
+        System.out.println("compileExpression");
+
+        ArrayList a = new ArrayList();
+
+        a.add("Node");
+
+        XPathExpressionBuilder instance  = new XPathExpressionBuilder(null, "root", a, null, xPathVersion);
+        String                 expResult = "/root//Node";
+        String                 result    = instance.compileExpression();
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     *
+     */
+    public void testCreateWithPrefix() {
+        String[]               nodes   = { "Node" };
+        DefaultAttribute[]     attribs = { new DefaultAttribute("int", "1") };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder("test", "Root", Arrays.asList(nodes),
+                                             Arrays.asList(attribs), true, xPathVersion);
+
+        assertNotNull(builder);
+
+        String exp = "/test:Root//test:Node[@int='1']";
+
+        assertEquals(exp, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testCreateWithNoPrefix() {
+        String[]               nodes   = { "Node" };
+        DefaultAttribute[]     attribs = { new DefaultAttribute("int", "1") };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder("test", "Root", Arrays.asList(nodes),
+                                             Arrays.asList(attribs), false, xPathVersion);
+
+        assertNotNull(builder);
+
+        String exp = "/Root//Node[@int='1']";
+
+        assertEquals(exp, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testCreateWithNoArgs() {
+        XPathExpressionBuilder builder = new XPathExpressionBuilder();
+
+        assertNotNull(builder);
+    }
+
+    /**
+     *
+     */
+    public void testsetNodesWithNullSubNodeList() {
+        String[]               nodes   = { "Node" };
+        DefaultAttribute[]     attribs = { new DefaultAttribute("int", "1") };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder();
+
+        builder.setRootNode("Root");
+        builder.setSubNodeList(null);
+        builder.setNodes(Arrays.asList(nodes));
+        builder.setPrefix("test");
+        builder.addAttributesList(Arrays.asList(attribs));
+        assertNotNull(builder);
+
+        String exp = "/Root//Node[@int='1']";
+
+        assertEquals(exp, builder.compileExpression());
+        builder.setRootNode("Root");
+        builder.setSubNodeList(nodes);
+        builder.setNodes(Arrays.asList(nodes));
+        builder.setPrefix("test");
+        builder.addAttributesList(Arrays.asList(attribs));
+        assertNotNull(builder);
+        exp = "/Root//Node[@int='1']";
+        assertEquals(exp, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testAddNodesToExpressionWithConsiderPrefixAnddLength_1() {
+        String[]               nodes   = { "Node", "node" };
+        DefaultAttribute[]     attribs = { new DefaultAttribute("int", "1") };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder();
+
+        builder.setConsiderPrefix(true);
+        builder.setPrefix("test");
+        builder.setRootNode("root");
+        builder.setSubNodeList(nodes);
+
+        String lExpression = "";
+
+        lExpression += "/" + builder.getPrefix() + ":" + builder.getRootNode();
+        lExpression += builder.addNodesToExpression(true);
+        assertEquals(lExpression, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testAddNodesToExpressionWithConsiderPrefixAnddLength_2() {
+        String[]               nodes   = { "node" };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder();
+
+        builder.setConsiderPrefix(true);
+        builder.setPrefix("test");
+        builder.setRootNode("root");
+        builder.setSubNodeList(nodes);
+
+        String lExpression = "";
+
+        lExpression += "/" + builder.getPrefix() + ":" + builder.getRootNode();
+        lExpression += builder.addNodesToExpression(true);
+        assertEquals(lExpression, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testAddNodesToExpressionWithoutConsiderPrefixAnddLength_1() {
+        String[]               nodes   = { "Node", "node" };
+        DefaultAttribute[]     attribs = { new DefaultAttribute("int", "1"), new DefaultAttribute("s", "a") };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder();
+
+        builder.setConsiderPrefix(false);
+        builder.setPrefix("test");
+        builder.setRootNode("root");
+        builder.setSubNodeList(nodes);
+        builder.addAttributesList(Arrays.asList(attribs));
+
+        String lExpression = "";
+
+        lExpression += "/" + builder.getRootNode();
+        lExpression += builder.addNodesToExpression(false);
+        lExpression += builder.addAttributesToExpression();
+        assertEquals(lExpression, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testAddNodesToExpressionWithoutConsiderPrefixAnddLength_2() {
+        String[]               nodes   = { "Node" };
+        DefaultAttribute[]     attribs = { new DefaultAttribute("s", "a") };
+        XPathExpressionBuilder builder = new XPathExpressionBuilder();
+
+        builder.setConsiderPrefix(false);
+        builder.setPrefix("test");
+        builder.setRootNode("root");
+        builder.setSubNodeList(nodes);
+        builder.addAttributesList(Arrays.asList(attribs));
+
+        String lExpression = "";
+
+        lExpression += "/" + builder.getRootNode();
+        lExpression += builder.addNodesToExpression(false);
+        lExpression += builder.addAttributesToExpression();
+        assertEquals(lExpression, builder.compileExpression());
+    }
+
+    /**
+     *
+     */
+    public void testIsNumber() {
+        assertTrue(new XPathExpressionBuilder().isNumber("3"));
+        assertFalse(new XPathExpressionBuilder().isNumber("P3"));
+    }
+
+    /**
+     *
+     */
+    public void TestTransferArrayData() {
+        Object[] arrayOfLength0 = {};
+
+        assertEquals(arrayOfLength0, new XPathExpressionBuilder().transferArrayData(arrayOfLength0));
+
+        Object[] arrayOfLength1 = { "str" };
+
+        assertEquals(arrayOfLength0, new XPathExpressionBuilder().transferArrayData(arrayOfLength1));
+        assertNull(new XPathExpressionBuilder().transferArrayData(null));
+        assertNotNull(new XPathExpressionBuilder().transferArrayData(arrayOfLength1));
+        assertNull(new XPathExpressionBuilder().transferArrayData(new Integer[12]));
+
+        String[] a = { new String("xxx") };
+
+        assertNotNull(new XPathExpressionBuilder().transferArrayData(a));
+    }
+
+    /**
+     *
+     */
+    public void testIsBoolean() {
+        assertTrue(new XPathExpressionBuilder().isBoolean("true"));
+        assertFalse(new XPathExpressionBuilder().isBoolean("P3"));
+    }
+
+    /**
+     *
+     */
+    public void testFormatKeyAttributeValue() {
+        List nodes = new ArrayList();
+
+        nodes.add("node1");
+
+        List<DefaultAttribute> attrib = new ArrayList();
+
+        attrib.add(new DefaultAttribute("att1", "1"));
+
+        XPathExpressionBuilder builder = new XPathExpressionBuilder("pref", "root", nodes, attrib, 2.0F);
+
+        assertNotNull(builder.formatKeyAttributeValue("int", "1"));
+        assertNotNull(builder.formatKeyAttributeValue("ID", "ID_1"));
+        assertNotNull(builder.formatKeyAttributeValue("inta", "aaaa1"))
+        ;
+        assertNotNull(builder.formatKeyAttributeValue("x", "true"));
+    }
+}
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

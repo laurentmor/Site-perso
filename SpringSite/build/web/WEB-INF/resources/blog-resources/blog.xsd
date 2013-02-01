@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!-- Définition du ROOT elem 'Blog' -->
+    <xsd:annotation>
+        <!-- DOC-->
+        <xsd:documentation>
+            XSD pour le blog engine XML
+
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="Blog">
+        <xsd:complexType>
+            <xsd:sequence>
+                <!-- Début de définition de l'élément Entry -->
+                <xsd:element name="Entry ">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            L'élément Entry représente un billet donné
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <!-- DOC-->
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Text"/>
+                            <xsd:element name="Resume" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>Un court résumé du post</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <!-- Début de définition de l'élément Comment -->
+                            <xsd:element name="Comment">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        L'élément comment représente un commentaire d'un lecteur à propos d'un billet donné
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <!-- DOC-->
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="CommentText"/>
+                                    </xsd:sequence>
+                                    <xsd:attribute name="ID" use="required"/>
+                                    <xsd:attribute name="entryID" use="required"/>
+                                    <xsd:attribute name="date"  use="required"/>
+                                    <xsd:attribute name="author" />
+                                    <xsd:attribute name="webPage" />
+                                    <!-- Début de séquence définissant les sous éléments de Comment -->
+                                                                        <!-- attributs de l'élément Comment-->
+                                                                        <!--  Fin des attributs de l'élément comment-->
+                                </xsd:complexType>
+                            </xsd:element>
+                            <!-- Fin de séquence définissant les sous éléments de Comment -->
+                        </xsd:sequence>
+                        <xsd:attribute name="date"  use="required"/>
+                        <xsd:attribute name="categoryID" />
+                        <xsd:attribute name="allowComments" default="false"/>
+                        <xsd:attribute name="ID"/>
+                        <xsd:attribute name="commentsCounts" />
+                        <!-- Début de séquence définissant les sous éléments de Entry -->
+                                                <!-- Fin de séquence définissant les sous éléments de Entry -->
+                                                <!-- attributs de l'élément Entry-->
+                                                <!--  Fin des attributs de l'élément Entry-->
+                    </xsd:complexType>
+                </xsd:element>
+                <!-- Fin de définition de l'élément Entry -->
+                                <!-- Début de définition de l'élément Category -->
+                <xsd:element name="Category" maxOccurs="unbounded" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            L'élément Categoy représente une catégorie pour un billet donné
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <!-- DOC-->
+                    <xsd:complexType>
+                        <xsd:attribute name="ID" use="required"/>
+                        <xsd:attribute name="name" use="required"/>
+                        <xsd:attribute name="description" />
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <!-- Début de séquence définissant les sous éléments du Blog -->
+                        <!-- Fin de séquence définissant les sous éléments du Blog -->
+        </xsd:complexType>
+    </xsd:element>
+    <!-- Fin du ROOT element-->
+</xsd:schema>
