@@ -220,7 +220,7 @@ public final class XPathExpressionBuilder {
      *@return
      */
     String addAttributesToExpression() {
-        if (mAttributes != null) {
+        if (mAttributes == null) {
             List l=new ArrayList(convertAttributeListToStringList(mAttributes));
             int lLength = mAttributes.size();
             String lExpression = "";

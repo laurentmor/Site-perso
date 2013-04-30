@@ -1,0 +1,24 @@
+/* 
+    Document   : base-style
+    Created on : 2013-04-27, 21:51:57
+    Author     : laurent
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+#h { background-color: #086FA1 }
+body {
+    background-color: #235D79 }
+#x{ 
+    background-color: #034769 }
+#header {
+    background-color: #3CA0D0;
+    height: 50px;
+
+}
+.primary-5 { background-color: #63ADD0 }
+
+
+
+

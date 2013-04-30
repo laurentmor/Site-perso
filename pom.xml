@@ -93,7 +93,7 @@
                                 <plugin>
                                     <groupId>org.codehaus.mojo</groupId>
                                     <artifactId>cobertura-maven-plugin</artifactId>
-                                    <version>>1.0</version>
+                                    <version>&gt;1.0</version>
                                 </plugin>
                                 <plugin>
                                     <groupId>org.codehaus.mojo</groupId>
@@ -126,8 +126,6 @@
     <modules>
         <module>XMLBlog</module>
         <module>stePersonnelEar</module>
-        
-  
-    
-    </modules>
+    <module>Blog</module>
+  </modules>
 </project>
