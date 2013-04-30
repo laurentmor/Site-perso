@@ -13,6 +13,8 @@ body {
 #x{ 
     background-color: #034769 }
 #header {
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
     background-color: #3CA0D0;
     height: 50px;
 
