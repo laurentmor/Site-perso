@@ -54,6 +54,63 @@ public final class XPathExpressionBuilder {
      */
     private List<String> mSubNodeList = null;
 
+    
+    /**
+     * <pre>
+     * Build an XPATH expression builder Object with Following parameters<br/>
+     *
+     * @param pRootNode Main node of document<br/>
+     * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
+     * @param pAttributesList final node attributes list<br/>
+     * Usage:<br/>
+     * <code>
+     *  String prefix="aPrfix";
+     *  String root="Root";
+     *  List nodes=new Arraylist();
+     *  nodes.add("Node1");
+     *  Attribute attrib=new Attribute("number","1");
+     *  List attributes=new ArrayList();
+     *  attributes.add(attrib);
+     * //in the end with would do:
+     * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
+     * //expression would then be:
+     * /aPrefix:root//aPrefix:Node1[@nuber="1"]
+     * </code>
+     * </pre><br/>
+     * @param xpathVersion <br/>
+     */
+    public XPathExpressionBuilder(String pRootNode, List pNodeList,
+             XPathVersion xpathVersion) {
+        this(null, pRootNode, pNodeList, null, false, xpathVersion);
+    } 
+    /**
+     * <pre>
+     * Build an XPATH expression builder Object with Following parameters<br/>
+     *
+     * @param pRootNode Main node of document<br/>
+     * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
+     * @param pAttributesList final node attributes list<br/>
+     * Usage:<br/>
+     * <code>
+     *  String prefix="aPrfix";
+     *  String root="Root";
+     *  List nodes=new Arraylist();
+     *  nodes.add("Node1");
+     *  Attribute attrib=new Attribute("number","1");
+     *  List attributes=new ArrayList();
+     *  attributes.add(attrib);
+     * //in the end with would do:
+     * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
+     * //expression would then be:
+     * /aPrefix:root//aPrefix:Node1[@nuber="1"]
+     * </code>
+     * </pre><br/>
+     * @param xpathVersion <br/>
+     */
+    public XPathExpressionBuilder(String pPrefix,String pRootNode, List pNodeList,
+             XPathVersion xpathVersion,boolean consider) {
+        this(pPrefix, pRootNode, pNodeList, null, consider, xpathVersion);
+    }
     /**
      * <pre>
      * Build an XPATH expression builder Object with Following parameters<br/>
@@ -154,6 +211,7 @@ public final class XPathExpressionBuilder {
     List convertAttributeListToStringList(List<DefaultAttribute> pList) {
 
         List lList = new ArrayList();
+      if(pList!=null){    
         for (DefaultAttribute attribute : pList) {
 
 
@@ -163,7 +221,7 @@ public final class XPathExpressionBuilder {
 
             lList.add(lKeyValueString);
 
-        }
+        }}
 
 
 
@@ -221,6 +279,8 @@ public final class XPathExpressionBuilder {
      */
     String addAttributesToExpression() {
         if (mAttributes == null) {
+            return "";
+        } else {
             List l=new ArrayList(convertAttributeListToStringList(mAttributes));
             int lLength = mAttributes.size();
             String lExpression = "";
@@ -245,7 +305,7 @@ public final class XPathExpressionBuilder {
             return lExpression;
         }
 
-        return "";
+     
     }
 
     /**
