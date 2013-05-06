@@ -1,6 +1,6 @@
 
 /*
-See licence.txt
+ See licence.txt
  * 5. Utilise des listes plutôt que des arrays: c'est un peu plus slow, mais c'est plus facile d'utilisation et ça réduit le risque d'erreurs
  * 6. Certains attributs ne sont pas préfixés par 'm' donc la convention n'est pas uniforme
  * 8. Il faut éviter d'appeler des méthodes dans un constructeur: ces méthodes peuvent être redéfinies par une sous-classe et l'effet est imprévisible
@@ -14,13 +14,13 @@ import org.dom4j.tree.DefaultAttribute;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.math.NumberUtils;
 
 /**
- * Builder class that can supply either XPATH 1.0 and 2.0 if VERSION_SUPPORT is set to 2.0f
+ * Builder class that can supply either XPATH 1.0 and 2.0 if VERSION_SUPPORT is
+ * set to 2.0f
+ *
  * @author Laurent<br/>
  */
 public final class XPathExpressionBuilder {
@@ -54,13 +54,13 @@ public final class XPathExpressionBuilder {
      */
     private List<String> mSubNodeList = null;
 
-    
     /**
      * <pre>
      * Build an XPATH expression builder Object with Following parameters<br/>
      *
      * @param pRootNode Main node of document<br/>
-     * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
+     * @param pNodeList sub-Node list that compose a tree i.e
+     * Node1,Node2,Node3<br/>
      * @param pAttributesList final node attributes list<br/>
      * Usage:<br/>
      * <code>
@@ -74,21 +74,24 @@ public final class XPathExpressionBuilder {
      * //in the end with would do:
      * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
      * //expression would then be:
-     * /aPrefix:root//aPrefix:Node1[@nuber="1"]
+     * /aPrefix:root//aPrefix:Node1[
+     * @nuber="1"]
      * </code>
      * </pre><br/>
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pRootNode, List pNodeList,
-             XPathVersion xpathVersion) {
+            XPathVersion xpathVersion) {
         this(null, pRootNode, pNodeList, null, false, xpathVersion);
-    } 
+    }
+
     /**
      * <pre>
      * Build an XPATH expression builder Object with Following parameters<br/>
      *
      * @param pRootNode Main node of document<br/>
-     * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
+     * @param pNodeList sub-Node list that compose a tree i.e
+     * Node1,Node2,Node3<br/>
      * @param pAttributesList final node attributes list<br/>
      * Usage:<br/>
      * <code>
@@ -102,21 +105,24 @@ public final class XPathExpressionBuilder {
      * //in the end with would do:
      * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
      * //expression would then be:
-     * /aPrefix:root//aPrefix:Node1[@nuber="1"]
+     * /aPrefix:root//aPrefix:Node1[
+     * @nuber="1"]
      * </code>
      * </pre><br/>
      * @param xpathVersion <br/>
      */
-    public XPathExpressionBuilder(String pPrefix,String pRootNode, List pNodeList,
-             XPathVersion xpathVersion,boolean consider) {
+    public XPathExpressionBuilder(String pPrefix, String pRootNode, List pNodeList,
+            XPathVersion xpathVersion, boolean consider) {
         this(pPrefix, pRootNode, pNodeList, null, consider, xpathVersion);
     }
+
     /**
      * <pre>
      * Build an XPATH expression builder Object with Following parameters<br/>
      *
      * @param pRootNode Main node of document<br/>
-     * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
+     * @param pNodeList sub-Node list that compose a tree i.e
+     * Node1,Node2,Node3<br/>
      * @param pAttributesList final node attributes list<br/>
      * Usage:<br/>
      * <code>
@@ -130,7 +136,8 @@ public final class XPathExpressionBuilder {
      * //in the end with would do:
      * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
      * //expression would then be:
-     * /aPrefix:root//aPrefix:Node1[@nuber="1"]
+     * /aPrefix:root//aPrefix:Node1[
+     * @nuber="1"]
      * </code>
      * </pre><br/>
      * @param xpathVersion <br/>
@@ -143,12 +150,14 @@ public final class XPathExpressionBuilder {
     /**
      * <pre>
      * Build an XPATH expression builder Object with Following parameters<br/>
-     * @param pPrefix an element can have a prefix or not i.e &lt;XXX:YYY&gt;<br/>
+     *
+     * @param pPrefix an element ca# n have a prefix or not i.e
+     * &lt;XXX:YYY&gt;<br/>
      * @param pRootNode Main node of document<br/>
-     * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
+     * @param pNodeList sub-Node list that compose a tree i.e
+     * Node1,Node2,Node3<br/>
      * @param pAttributesList final node attributes list<br/>
-     * Usage:
-     * <code>
+     * Usage:      <code>
      *  String prefix="aPrfix";
      *  String root="Root";
      *  List nodes=new Arraylist();
@@ -159,7 +168,8 @@ public final class XPathExpressionBuilder {
      * //in the end with would do:
      * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
      * //expression would then be:
-     * /aPrefix:root//aPrefix:Node1[\@num=1 ]
+     * /aPrefix:root//aPrefix:Node1[\
+     * @num=1 ]
      * @param includePrefix
      * @param xpathVersion
      *
@@ -170,20 +180,19 @@ public final class XPathExpressionBuilder {
             List<DefaultAttribute> pAttributesList, boolean includePrefix, XPathVersion xpathVersion) {
         mConsiderPrefix = includePrefix;
 
-        if (mConsiderPrefix) {
+        if (includePrefix) {
             mPrefix = (pPrefix);
         }
 
         mRootNode = pRootNode;
         mSubNodeList = pNodeList;
-        mAttributes=pAttributesList;
+        mAttributes = pAttributesList;
         mVersionSupport = xpathVersion;
     }
 
-
-
     /**
      * Provide needed expression to do the search
+     *
      * @return well formed xpath expression
      */
     public String compileExpression() {
@@ -211,17 +220,18 @@ public final class XPathExpressionBuilder {
     List convertAttributeListToStringList(List<DefaultAttribute> pList) {
 
         List lList = new ArrayList();
-      if(pList!=null){    
-        for (DefaultAttribute attribute : pList) {
+        if (pList != null) {
+            for (DefaultAttribute attribute : pList) {
 
 
-            String lCurrentKey = attribute.getName();
-            String lCurrentValue = attribute.getValue();
-            String lKeyValueString = formatKeyAttributeValue(lCurrentKey, lCurrentValue);
+                String lCurrentKey = attribute.getName();
+                String lCurrentValue = attribute.getValue();
+                String lKeyValueString = formatKeyAttributeValue(lCurrentKey, lCurrentValue);
 
-            lList.add(lKeyValueString);
+                lList.add(lKeyValueString);
 
-        }}
+            }
+        }
 
 
 
@@ -229,10 +239,9 @@ public final class XPathExpressionBuilder {
         return lList;
     }
 
-
-
-
-
+    String addNodesToExpression() {
+        return addNodesToExpression(false);
+    }
 
     /**
      *
@@ -241,7 +250,7 @@ public final class XPathExpressionBuilder {
      */
     String addNodesToExpression(final boolean includePrefix) {
         int lNodeCount = mSubNodeList.size();
-        String nodes = "";
+
         StringBuilder sb = new StringBuilder();
 
 
@@ -254,7 +263,6 @@ public final class XPathExpressionBuilder {
 
             } else {
                 sb = sb.append("//").append(mPrefix).append(":").append(mSubNodeList.get(0));
-
             }
         } else {
             if (lNodeCount > 1) {
@@ -269,21 +277,22 @@ public final class XPathExpressionBuilder {
         }
         sb.trimToSize();
 
-        nodes = sb.toString().trim();
 
-        return nodes;
+
+        return sb.toString();
     }
 
     /**
-     *@return
+     * @return
      */
     String addAttributesToExpression() {
         if (mAttributes == null) {
+            System.out.println("null");
             return "";
         } else {
-            List l=new ArrayList(convertAttributeListToStringList(mAttributes));
+            List l = new ArrayList(convertAttributeListToStringList(mAttributes));
             int lLength = mAttributes.size();
-            String lExpression = "";
+
             StringBuilder sb = new StringBuilder();
 
             if (lLength > 1) {
@@ -302,10 +311,10 @@ public final class XPathExpressionBuilder {
                 sb = sb.append("[@").append(l.get(0)).append("]");
             }
 
-            return lExpression;
+            return sb.toString();
         }
 
-     
+
     }
 
     /**
@@ -319,9 +328,7 @@ public final class XPathExpressionBuilder {
 
         // strong typing was introduced in XPATH 2.0 only
         if (XPathVersion.typed == mVersionSupport) {
-            if (pKey.equalsIgnoreCase("ID")) {
-                lKeyValueString = pKey + "=" + "'" + (pValue) + "'";
-            } else if (NumberUtils.isNumber(pValue)) {
+            if (NumberUtils.isNumber(pValue)) {
                 lKeyValueString = pKey + "=" + "xs:double(" + pValue + ")";
             } else if (Boolean.parseBoolean(pValue)) {
                 lKeyValueString = pKey + "=" + "xs:boolean(" + pValue + ")";
@@ -333,8 +340,6 @@ public final class XPathExpressionBuilder {
 
         return lKeyValueString;
     }
-
-
 }
 
 
