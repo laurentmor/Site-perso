@@ -1,1 +1,7 @@
-#
+#################################
+#config file from travis service#
+#################################
+
+language:java
+mvn test
+
