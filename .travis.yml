@@ -2,6 +2,6 @@
 #config file from travis service#
 #################################
 
-language:java
+language: java
 mvn test
 
