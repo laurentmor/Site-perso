@@ -85,14 +85,14 @@ public class XPathExpressionBuilderTest {
     
     @Test
     public void testConvertAttributeListToStringListNonNull() {
-//        
-//        XPathExpressionBuilder builder=new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
-//        List result=builder.convertAttributeListToStringList(attList);
-//        List<String> expected=new ArrayList();
-//        expected.add("A1='V1'");
-//        expected.add("A2='V2'");
-//        expected.add("A3='V3'");
-//        assertEquals(expected.get(0), result.get(0));
+        
+        XPathExpressionBuilder builder=new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
+        List result=builder.convertAttributeListToStringList(attList);
+        List<String> expected=new ArrayList();
+        expected.add("A1='V1'");
+        expected.add("A2='V2'");
+        expected.add("A3='V3'");
+        assertEquals(expected.get(0), result.get(0));
         
     }
     
