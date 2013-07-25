@@ -4,7 +4,7 @@ dir
 42
 http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/XMLBlog/src/test/java/com/mor/blogengine/dao
 http://svn.xp-dev.com/svn/lmorissette-BlogEngine
-
+delete
 
 
 2010-08-05T19:26:05.748518Z
@@ -31,7 +31,7 @@ file
 50
 
 
-
+delete
 2010-11-09T02:13:21.632000Z
 acf889782a39f4a79eeb559d35d298ae
 2011-03-13T22:47:26.507728Z
@@ -65,7 +65,7 @@ file
 50
 
 
-
+delete
 2010-11-09T03:15:21.003000Z
 15edf611341c542a6e399407f86859dd
 2011-03-13T22:47:26.507728Z
@@ -99,7 +99,7 @@ file
 50
 
 
-
+delete
 2010-11-09T03:15:21.020000Z
 838eaa7efcd6a17e77de9be7fe72492d
 2011-03-13T22:47:26.507728Z
@@ -133,7 +133,7 @@ file
 43
 
 
-
+delete
 2010-08-14T18:08:19.994307Z
 dddbb5024c15e156b15b34a4d590e36e
 2010-08-17T01:31:20.614168Z

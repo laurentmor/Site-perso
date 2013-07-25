@@ -6,8 +6,6 @@ package com.mor.blogengine.xpath;
 
 import java.util.ArrayList;
 import java.util.List;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.dom4j.tree.DefaultAttribute;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,110 +13,152 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 
 /**
  *
  * @author laurent
  */
-public class XPathExpressionBuilderTest extends TestCase {
-
-    static junit.framework.Test suite() {
-        return new TestSuite(XPathExpressionBuilderTest.class);
-    }
-
+public class XPathExpressionBuilderTest {
+    private List<String> nodes=null;
+    private String root=null;
+    private String ns=null;
+    private List<DefaultAttribute> attList=null;
+    @Rule public TestName name = new TestName();
     public XPathExpressionBuilderTest() {
     }
-
-    //@BeforeClass
-    public static void setUpClass() throws Exception {
+    
+    @BeforeClass
+    public static void setUpClass() {
     }
-
-    //@AfterClass
-    public static void tearDownClass() throws Exception {
+    
+    @AfterClass
+    public static void tearDownClass() {
     }
-
-    //@Before
+    
+    @Before
     public void setUp() {
+        System.out.println("test : "+name.getMethodName());
+        ns="NS";
+        root="R1";
+        nodes=new ArrayList<String>();
+        nodes.add("N1");
+        nodes.add("N2");
+        nodes.add("N3");
+        attList=new ArrayList<DefaultAttribute>();
+        attList.add(new DefaultAttribute("A1", "V1"));
+        attList.add(new DefaultAttribute("A2", "V2"));
+        attList.add(new DefaultAttribute("A3", "V3"));
     }
-
-    //@After
+    
+    @After
     public void tearDown() {
+        nodes.clear();
+        nodes=null;
+        root=null;
+        ns=null;
     }
 
     /**
-     * Test of compileExpression method, of class XPathExpressionBuilder.
+     * Test afin d'obtenir une expression sans attributs et sans prefixe de NS
      */
-    //@Test
-    public void testCompileExpression() {
-        System.out.println("compileExpression");
-        List list=new ArrayList();
-        List<DefaultAttribute> attributes=new ArrayList<DefaultAttribute>();
-        list.add("Node1");
-        attributes.add(new DefaultAttribute("att1", "val1"));
-        XPathExpressionBuilder instance = new XPathExpressionBuilder("root",list , attributes, XPathVersion.typeLess);
-        String expResult = "/root//Node1[@att1=val1]";
-        String result = instance.compileExpression();
-        System.out.println(result);
-        assertEquals(expResult, result);
+    @Test
+    public void testExpressionSansNSSansAttributs(){
+    XPathExpressionBuilder builder=new XPathExpressionBuilder(root,nodes,XPathVersion.typeLess);
+    String expected="/R1//N1//N2//N3";
+    String result=builder.compileExpression();
+    assertEquals(expected, result);
+    }
+    
+    /**
+     * Test afin d'obtenir une expression sans attributs 
+     */
+    @Test
+    public void testExpressionSansAttributs(){
+    XPathExpressionBuilder builder=new XPathExpressionBuilder(ns,root,nodes, XPathVersion.typeLess,true);
+    String expected="/NS:R1//NS:N1//NS:N2//NS:N3";
+    String result=builder.compileExpression();
+    assertEquals(expected, result);
     }
 
-    /**
-     * Test of convertAttributeListToStringList method, of class XPathExpressionBuilder.
-     */
-    //@Test
-    public void testConvertAttributeListToStringList() {
-        System.out.println("convertAttributeListToStringList");
-        List<DefaultAttribute> pList = null;
-        XPathExpressionBuilder instance = null;
-        List expResult = null;
-        List result = instance.convertAttributeListToStringList(pList);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    
+    @Test
+    public void testConvertAttributeListToStringListNonNull() {
+//        
+//        XPathExpressionBuilder builder=new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
+//        List result=builder.convertAttributeListToStringList(attList);
+//        List<String> expected=new ArrayList();
+//        expected.add("A1='V1'");
+//        expected.add("A2='V2'");
+//        expected.add("A3='V3'");
+//        assertEquals(expected.get(0), result.get(0));
+        
+    }
+    
+    
+    @Test
+    public void testConvertAttributeListToStringListNull() {
+        
+        XPathExpressionBuilder builder=new XPathExpressionBuilder(root, nodes, null, XPathVersion.typeLess);
+        
+        List result=builder.convertAttributeListToStringList(null);
+        List<String> expected=new ArrayList();
+        
+        assertEquals(expected, result);
+        
     }
 
-    /**
-     * Test of addNodesToExpression method, of class XPathExpressionBuilder.
-     */
-    //@Test
-    public void testAddNodesToExpression() {
-        System.out.println("addNodesToExpression");
-        boolean includePrefix = false;
-        XPathExpressionBuilder instance = null;
-        String expResult = "";
-        String result = instance.addNodesToExpression(includePrefix);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testAddNodesToExpressionAvecNS() {
+    XPathExpressionBuilder builder=new  XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess,true);
+     String result=builder.addNodesToExpression(true);
+     String expected="//NS:N1//NS:N2//NS:N3";
+     assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testAddNodesToExpressionSansNS() {
+    XPathExpressionBuilder builder=new  XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess,false);
+     String result=builder.addNodesToExpression();
+     String expected="//N1//N2//N3";
+     assertEquals(expected, result);
     }
 
-    /**
-     * Test of addAttributesToExpression method, of class XPathExpressionBuilder.
-     */
-    //@Test
-    public void testAddAttributesToExpression() {
-        System.out.println("addAttributesToExpression");
-        XPathExpressionBuilder instance = null;
-        String expResult = "";
+   
+    @Test
+    public void testAddPlusieursAttributs() {
+        
+        XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
+        String expResult = "[@A1='V1' and @A2='V2' and @A3='V3']";
         String result = instance.addAttributesToExpression();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
+    }
+    
+    @Test
+    public void testAddUnAttribut() {
+        attList.clear();
+        attList.add(new DefaultAttribute("A1", "V1"));
+        XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
+        String expResult = "[@A1='V1']";
+        String result = instance.addAttributesToExpression();
+        assertEquals(expResult, result);
+       
     }
 
-    /**
-     * Test of formatKeyAttributeValue method, of class XPathExpressionBuilder.
-     */
-    //@Test
-    public void testFormatKeyAttributeValue() {
-        System.out.println("formatKeyAttributeValue");
-        String pKey = "";
-        String pValue = "";
-        XPathExpressionBuilder instance = null;
-        String expResult = "";
-        String result = instance.formatKeyAttributeValue(pKey, pValue);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        @Test
+    public void testFormatKeyAttributeValueAvecInt() {
+        XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typed);
+        String result=instance.formatKeyAttributeValue("K1","3");
+        String expected="K1=xs:double(3)";
+        assertEquals(expected, result);
+    }
+            @Test
+    public void testFormatKeyAttributeValueAvecBoolean() {
+        XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typed);
+        String result=instance.formatKeyAttributeValue("K1","true");
+        String expected="K1=xs:boolean(true)";
+        assertEquals(expected, result);
     }
 }

@@ -5,7 +5,7 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
+@charset "UTF-8";
 
 #h { background-color: #086FA1 }
 body {
@@ -17,9 +17,22 @@ body {
     padding: 0px 0px 0px 0px;
     background-color: #3CA0D0;
     height: 50px;
+    margin-bottom: 0px;
 
 }
-.primary-5 { background-color: #63ADD0 }
+#menu{
+    margin-top: 0px;
+    border-right:  3px solid #FFFFFF;
+    border-bottom:   3px solid #FFFFFF;
+    width: 225px;
+    height: 150px;
+    background-color: #63ADD0;
+    float: left;
+}
+#menu #nav {
+    
+    list-style-type: none;
+}
 
 
 

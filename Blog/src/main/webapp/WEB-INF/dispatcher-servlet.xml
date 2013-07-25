@@ -37,9 +37,30 @@
           p:viewName="index" />
     <bean name="testController" 
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="test"
-    />
+          p:viewName="test"/>
+    
               
           
-
+<bean id="messageSource"
+    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <property name="basename" value="classpath:messages" />
+    <property name="defaultEncoding" value="UTF-8"/>
+</bean>
+ 
+<bean id="localeChangeInterceptor"
+    class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+    <property name="paramName" value="lang" />
+</bean>
+ 
+<bean id="localeResolver"
+    class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+    <property name="defaultLocale" value="fr_FR"/>
+</bean>
+ 
+<bean id="handlerMapping"
+    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    <property name="interceptors">
+        <ref bean="localeChangeInterceptor" />
+    </property>
+</bean>
 </beans>

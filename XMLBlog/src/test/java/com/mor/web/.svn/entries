@@ -4,7 +4,7 @@ dir
 42
 http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/XMLBlog/src/test/java/com/mor/web
 http://svn.xp-dev.com/svn/lmorissette-BlogEngine
-
+delete
 
 
 2010-08-05T19:26:05.748518Z
@@ -28,4 +28,8 @@ lmorissette
 
 util
 dir
+
+
+
+delete
 

@@ -4,7 +4,7 @@ dir
 42
 http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/XMLBlog/src/test/java/com/mor/common
 http://svn.xp-dev.com/svn/lmorissette-BlogEngine
-
+delete
 
 
 2010-08-05T19:26:05.748518Z
@@ -31,7 +31,7 @@ file
 44
 
 
-
+delete
 2010-09-16T12:45:50.046421Z
 1be9a6b8a808b45e908cde46f12d47f3
 2010-10-22T21:31:47.356805Z
