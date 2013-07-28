@@ -4,7 +4,7 @@
  */
 package com.mor.blogengine.xpath;
 
-import com.mor.blogengine.test.common.PropertiesConsumingTestCase;
+import com.mor.common.PropertiesConsumingTestCase;
 import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
