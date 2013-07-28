@@ -25,9 +25,10 @@
         -->
     <entry key="application.mode">test</entry>
     <entry key="log.level" >INFO</entry>
+    <entry key="file.encoding">UTF-8</entry>
 
     <!-- Used to enable full-logging -->
-    <entry key="application.debug">Off</entry>
+    <entry key="application.debug">On</entry>
     <!-- xpath version -->
     <entry key="xpath.version">1.0f</entry>
 
