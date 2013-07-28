@@ -11,18 +11,13 @@ import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogEntry;
-import com.mor.blogengine.xml.BlogEntityFactory;
-import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xpath.SearchCriteria;
-import com.mor.common.PropertiesUserObject;
-import java.net.URL;
 
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -32,9 +27,9 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
-public class EntryController extends PropertiesUserObject implements IBlogElementController<BlogEntry, DocumentException> {
+public class EntryController extends BlogControllerBase implements IBlogElementController<BlogEntry, DocumentException> {
 
-    private IBlogEntityFactory factory = null;
+    
     private IRepository<BlogEntry, DefaultElement, SearchCriteria, DocumentException> repo = null;
 
     /**
@@ -42,10 +37,10 @@ public class EntryController extends PropertiesUserObject implements IBlogElemen
      * @param repository
      */
     public EntryController( Properties config) {
-        this.mConfig = config;
+        super(config);
         
-        repo = new BlogEntryRepository(config);
-        factory = new BlogEntityFactory();
+        repo = new BlogEntryRepository(mConfig,document);
+        
 
     }
 

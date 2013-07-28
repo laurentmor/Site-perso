@@ -10,11 +10,8 @@ package com.mor.blogengine.dao;
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
-import com.mor.blogengine.xml.IXmlFileManager;
-import com.mor.blogengine.xml.XmlFileManagerImpl;
 import com.mor.blogengine.xpath.SearchCriteria;
 import com.mor.blogengine.xpath.SearchEngine;
-import com.mor.common.PropertiesUserObject;
 
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
@@ -23,12 +20,13 @@ import org.dom4j.tree.DefaultElement;
 
 import java.util.List;
 import java.util.Properties;
+import org.dom4j.Document;
 
 /**
  *
  * @author laurent
  */
-public class BlogCategoryRepository extends PropertiesUserObject
+public class BlogCategoryRepository extends BlogRepositoryBase
         implements IRepository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> {
    
 
@@ -38,8 +36,8 @@ public class BlogCategoryRepository extends PropertiesUserObject
      * @param repo document instance that holds blog data
      * @param config global configuration file for application
      */
-    public BlogCategoryRepository(final Properties config) {
-        this.mConfig  = config;
+    public BlogCategoryRepository(final Properties config,final Document d) {
+        super(d, config);
         
     }
 
@@ -53,7 +51,7 @@ public class BlogCategoryRepository extends PropertiesUserObject
      */
     @Override
     public boolean add(BlogCategory t) throws ElementExistingException, DocumentException {
-        DefaultElement       de    = null;
+       
         List<DefaultElement> list  = null;
         boolean              added = false;
 
@@ -69,9 +67,9 @@ public class BlogCategoryRepository extends PropertiesUserObject
             }
         } catch (NoMatchesFoundException ex) {
             trace("No match of element foud proceeding to add operation");
-            de    = t.toElement();
-            added = XmlFileManagerImpl.getInstanceForDoc(mConfig).add(de);
-            XmlFileManagerImpl.getInstanceForDoc( mConfig).saveChanges();
+            
+            added = handler.add(t.toElement());
+            
         }
 
         return added;
@@ -101,9 +99,9 @@ public class BlogCategoryRepository extends PropertiesUserObject
     @Override
     public boolean remove(BlogCategory t) throws NoMatchesFoundException, DocumentException {
         boolean                         removed            = false;
-        IXmlFileManager<DefaultElement> xmlFileManagerImpl = null;
+        
 
-        xmlFileManagerImpl = XmlFileManagerImpl.getInstanceForDoc(mConfig);
+        
 
         List foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
@@ -112,7 +110,7 @@ public class BlogCategoryRepository extends PropertiesUserObject
 
             throw new NoMatchesFoundException();
         } else {
-            removed = xmlFileManagerImpl.remove(foundMatches);
+            removed = handler.remove(foundMatches);
         }
 
         return removed;
@@ -132,7 +130,7 @@ public class BlogCategoryRepository extends PropertiesUserObject
     public boolean edit(BlogCategory t, BlogCategory t2)
             throws NoMatchesFoundException, DocumentException, ElementExistingException {
         boolean                         edited             = false;
-        IXmlFileManager<DefaultElement> xmlFileManagerImpl = XmlFileManagerImpl.getInstanceForDoc(mConfig);
+       
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
         if ((foundMatches == null)) {
@@ -146,7 +144,7 @@ public class BlogCategoryRepository extends PropertiesUserObject
                 throw ex;
             }
 
-            xmlFileManagerImpl.saveChanges();
+            
 
             return edited;
         }
@@ -164,7 +162,7 @@ public class BlogCategoryRepository extends PropertiesUserObject
     @Override
     public List<DefaultElement> getElementsForCriteria(SearchCriteria searchParam, String paramValue)
             throws NoMatchesFoundException {
-        List<DefaultElement> list = new SearchEngine(mConfig).getElementsForCriteria("Category",
+        List<DefaultElement> list = new SearchEngine(mConfig,doc).getElementsForCriteria("Category",
                                         searchParam, paramValue);
 
         return list;

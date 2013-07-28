@@ -26,28 +26,18 @@ package com.mor.blogengine.xml;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import com.mor.blogengine.xml.io.XmlDataSourceProvider;
 import com.mor.common.PropertiesUserObject;
-import java.util.logging.Logger;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import org.xml.sax.SAXException;
 
 /**
  * Classe utilitaire pour la gestion du XML de blog
@@ -56,10 +46,10 @@ import org.xml.sax.SAXException;
  * @version $version
  *
  */
-public final class XmlFileManagerImpl extends PropertiesUserObject implements IXmlFileManager<DefaultElement> {
+public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHandler<DefaultElement> {
 
     /** class instance */
-    static final XmlFileManagerImpl mInstance = null;
+    static final XMLHandlerImpl mInstance = null;
 
     /** parsed  XML document */
     private Document mDoc = null;
@@ -67,8 +57,7 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
     /** XML root */
     private DefaultElement mRootElement = null;
 
-    /** XML file to load */
-    private URL mXmlFile = null;
+
     boolean     mInited  = false;
 
  
@@ -78,29 +67,28 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
      * @return an instance of class
      * @throws DocumentException
      */
-    public static XmlFileManagerImpl getInstanceForDoc(Properties config) throws DocumentException {
+    public static XMLHandlerImpl getInstanceForDoc(Properties config,Document domTree) {
         if ((config != null) ) {
             if (mInstance == null) {
-                return new XmlFileManagerImpl(config);
+                return new XMLHandlerImpl(config,domTree);
             }
         }
 
         return mInstance;
     }
 
-    private XmlFileManagerImpl(Properties config) {
+    private XMLHandlerImpl(Properties config,Document d) {
         this.mConfig = config;
-      
+         mDoc=d;
         mInited      = init(this.mConfig);
     }
 
 
      boolean init(Properties config) {
-        try {
         
-            mDoc     = new XmlDataSourceProvider(config).provide(getXml(), getSchema());
+        
           mConfig  = config;
-          mXmlFile = getClass().getResource(mConfig.getProperty("datasource.xml"));
+          
 
           boolean inited = false;
 
@@ -110,62 +98,9 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
           }
 
           return inited;
-        } catch (SAXException ex) {
-            Logger.getLogger(XmlFileManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(XmlFileManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(XmlFileManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(XmlFileManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        
     }
-    /**
-     * writes in a file
-     * @param document DOM model to write in
-     * @param pOutputFile output file
-     * @throws java.io.IOException
-     * @param pDocument
-     */
-    boolean write(Document pDocument) {
-        boolean written = false;
-
-        try {
-            XMLWriter writer = new XMLWriter(new FileWriter(mXmlFile.getFile()));
-
-            writer.write(pDocument);
-            writer.close();
-            written = true;
-        } catch (IOException ex) {
-            written = false;
-            trace("Error saving file..." + ex);
-        }
-
-        return written;
-    }
-
-    /**
-     *   Saves changes in blog structure
-     * @return  true if saved correctly
-     */
-    @Override
-    public boolean saveChanges() {
-        boolean saved = false;
-
-        if (mInited) {
-            if (isPersistingNecessary()) {
-                write(mDoc);
-                trace("saving...");
-                saved = true;
-            } else {
-                saved = true;
-                trace("if persisting was set to on changes would be saved to file");
-            }
-        }
-
-        return saved;
-    }
+    
 
     /**
      * Add given Node to blog structure
@@ -197,8 +132,7 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
 
             list.add(element);
             removed = remove(list);
-            saveChanges();
-        } catch (Exception e) {
+           } catch (Exception e) {
             trace("" + e);
         }
 
@@ -241,7 +175,7 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
             added = true;
         }
 
-        saveChanges();
+        
 
         return added;
     }
@@ -261,7 +195,7 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
             removed = mRootElement.remove(e);
         }
 
-        saveChanges();
+        
 
         return removed;
     }
@@ -279,7 +213,7 @@ public final class XmlFileManagerImpl extends PropertiesUserObject implements IX
             if (foundChild != null) {
                 trace("child  found");
                 removed = foundParent.remove(foundChild);
-                saveChanges();
+        
 
                 return removed;
             }

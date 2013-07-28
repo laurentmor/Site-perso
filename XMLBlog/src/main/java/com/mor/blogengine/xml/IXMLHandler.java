@@ -35,14 +35,9 @@ import java.util.List;
  * @author Laurent
  * @version  1.0.3
  */
-public interface IXmlFileManager<T> {
+public interface IXMLHandler<T> {
 
-    /**
-     * Saving changes in a blog
-     * @return true if everything saved correctly
-     */
-    public boolean saveChanges();
-
+   
     /**
      * add an element in blog structure
      *

@@ -14,7 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Class to give access to properties file to sub-class and enabling some properties value interrogation<br/>
+ * Class to give access to properties file to sub-class and enabling some
+ * properties value interrogation<br/>
+ *
  * @author laurent
  */
 public abstract class PropertiesUserObject {
@@ -23,11 +25,12 @@ public abstract class PropertiesUserObject {
      *
      */
     protected Properties mConfig = null;
-    final boolean YES = true;
-    final boolean NO = false;
+    final  static boolean YES = true;
+    final static boolean NO = false;
 
     /**
      * Does some logging if application is in test mode and debug is set to On
+     *
      * @param level - trace level to apply
      * @param traceMessage - what to trace
      */
@@ -61,10 +64,12 @@ public abstract class PropertiesUserObject {
 
     /**
      *
-     * @return the supported  xpath version of specs
+     * @return the supported xpath version of specs
      */
     protected final XPathVersion getSupportedXpathVersion() {
-        if(2.0f==Float.parseFloat(mConfig.getProperty("xpath.version")))return XPathVersion.typed;
+        if (2.0f == Float.parseFloat(mConfig.getProperty("xpath.version"))) {
+            return XPathVersion.typed;
+        }
         return (XPathVersion.typeLess);
     }
 
@@ -78,6 +83,10 @@ public abstract class PropertiesUserObject {
 
     private Level getLoggingLevel() {
         return Level.parse(mConfig.getProperty("log.level"));
+    }
+
+    protected String getFileEncoding() {
+        return mConfig.getProperty("file.encoding");
     }
 
     /**

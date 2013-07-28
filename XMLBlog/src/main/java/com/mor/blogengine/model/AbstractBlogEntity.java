@@ -68,7 +68,7 @@ public abstract class AbstractBlogEntity implements Serializable {
     /**
      * Namespace URI part index in NS definition
      */
-    private final int URI_PART = 1;
+    private static final int URI_PART = 1;
 
     /**
      * Xml representation of this Entry

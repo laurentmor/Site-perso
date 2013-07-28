@@ -1,29 +1,23 @@
 
 /*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.mor.blogengine.controllers;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import com.mor.blogengine.dao.BlogCommentRepository;
 import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogComment;
-import com.mor.blogengine.xml.BlogEntityFactory;
-import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xpath.SearchCriteria;
-import com.mor.common.PropertiesUserObject;
-import java.net.URL;
 
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -34,23 +28,19 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
-public class CommentController extends PropertiesUserObject implements IBlogElementController<BlogComment, DocumentException> {
+public class CommentController extends BlogControllerBase implements IBlogElementController<BlogComment, DocumentException> {
 
-    /**
-     * Model objects factory
-     */
-    private IBlogEntityFactory                                                          factory = null;
-    private IRepository<BlogComment, DefaultElement, SearchCriteria, DocumentException> repo    = null;
+    private IRepository<BlogComment, DefaultElement, SearchCriteria, DocumentException> repo = null;
 
     /**
      *
      * @param repository
      */
-    public CommentController( Properties config) {
-        this.mConfig=config;
-        
-        repo    = new BlogCommentRepository(config);
-        factory = new BlogEntityFactory();
+    public CommentController(Properties config) {
+        super(config);
+
+        repo = new BlogCommentRepository(mConfig, document);
+
     }
 
     @Override

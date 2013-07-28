@@ -22,6 +22,7 @@ import static com.mor.blogengine.xpath.SearchCriteria.SINGLE_WITH_PARENT;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.dom4j.Document;
 
 /**
  * Search for content in XML data Structure<br/>
@@ -30,8 +31,8 @@ import java.util.Properties;
  */
 public final class SearchEngine extends PropertiesUserObject implements IBlogSearchEngine<DefaultElement> {
     private SearchEngineConfigurator<List> configurator = null;
-
     private XPathVersion                          mXpathVersion;
+    
 
     /**
      *
@@ -39,18 +40,15 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
      * @param pDoc
      * @param config
      */
-    public SearchEngine(Properties config) {
+    public SearchEngine(Properties config,Document d) {
 
-        init(config);
+        init(config,d);
     }
 
-    void init(Properties config) {
-
-        mConfig       = config;
-
-
-        configurator  = new SearchEngineConfigurator(mConfig);
-        mXpathVersion = getSupportedXpathVersion();
+    void init(Properties config,Document d) {
+     mConfig       = config;
+     configurator  = new SearchEngineConfigurator(mConfig,d);
+     mXpathVersion = getSupportedXpathVersion();
     }
 
     // -----------------------Search Methods definitions ----------------------//

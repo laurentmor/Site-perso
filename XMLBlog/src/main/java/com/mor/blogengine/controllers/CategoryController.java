@@ -11,18 +11,13 @@ import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
-import com.mor.blogengine.xml.BlogEntityFactory;
-import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xpath.SearchCriteria;
-import com.mor.common.PropertiesUserObject;
-import java.net.URL;
 
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -33,12 +28,9 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
-public class CategoryController extends PropertiesUserObject implements IBlogElementController<BlogCategory, DocumentException> {
+public class CategoryController extends BlogControllerBase implements IBlogElementController<BlogCategory, DocumentException> {
 
-    /**
-     * Model objects factory
-     */
-    private IBlogEntityFactory factory = null;
+    
     /**
      * reppository to interface with data source
      */
@@ -49,17 +41,13 @@ public class CategoryController extends PropertiesUserObject implements IBlogEle
      * @param repository the repository object
      */
     public CategoryController(Properties config) {
-        if (config != null) {
-             mConfig = config;
-             
-            trace("Configuring CategoryController");
-            repo = new BlogCategoryRepository(config);
-            factory = new BlogEntityFactory();
+        super(config);
+        repo=new BlogCategoryRepository(mConfig, document);
             
            
         }
 
-    }
+    
 
     @Override
     public Map<String, BlogCategory> getAllElements() {
