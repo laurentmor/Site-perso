@@ -6,8 +6,11 @@
 package com.mor.blogengine.xpath;
 
 //~--- non-JDK imports --------------------------------------------------------
+import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.common.PropertiesUserObject;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.InvalidXPathException;
@@ -28,21 +31,23 @@ public class SearchEngineConfigurator<resultType> extends PropertiesUserObject {
         mDoc = searchDoc;
     }
 
-    resultType findContent(String pExpression) throws InvalidXPathException {
-        XPath xpathSelector = null;
+    resultType findContent(String pExpression) throws InvalidXPathException, NoMatchesFoundException {
 
-        xpathSelector = DocumentHelper.createXPath(pExpression);
+
+        XPath xpathSelector = DocumentHelper.createXPath(pExpression);
 
         resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
                 ? xpathSelector.selectNodes(mDoc)
                 : null);
         trace("Searched " + pExpression);
+        if (list == null) {
 
+            throw new NoMatchesFoundException(pExpression, isInTestModeWithDebugOn());
+
+        }
 
         return list;
     }
 }
-
-
 //~ Formatted by Jindent --- http://www.jindent.com
 

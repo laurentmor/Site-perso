@@ -26,6 +26,7 @@ package com.mor.blogengine.xpath;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import com.mor.blogengine.exception.NoMatchesFoundException;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ import java.util.List;
  * @author Laurent
  * @version 0.1 initial
  * @version 1.0 changed visibility according to arvhitecture plan arch_plan.pdf
- * @version 2.0  made all mehods prite due to the introduction of searchCriteria concep public access no longer needed
+ * @version 2.0  made all mehods private due to the introduction of searchCriteria concept public access no longer needed
  */
 public interface IBlogSearchEngine<returnType> {
 
@@ -44,8 +45,9 @@ public interface IBlogSearchEngine<returnType> {
      * @param criteria
      * @param criteriaValue
      * @return list of found elements
+     * @throws com.mor.blogengine.exception.NoMatchesFoundException
      */
-    public List<returnType> getElementsForCriteria(String elementType, SearchCriteria criteria, String criteriaValue);
+    public List<returnType> getElementsForCriteria(String elementType, SearchCriteria criteria, String criteriaValue) throws NoMatchesFoundException;
 }
 
 
