@@ -31,8 +31,7 @@ public class SearchEngineConfiguratorTest extends PropertiesConsumingTestCase {
 
     @Rule
     public TestName name = new TestName();
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
+;
     private static Document document = null;
 
     public SearchEngineConfiguratorTest() {
