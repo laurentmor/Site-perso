@@ -1,4 +1,3 @@
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -48,7 +47,7 @@ public abstract class PropertiesUserObject {
 
     /**
      *
-     * @return true if we have to save change in file
+     * @return YES if we have to save change in file
      */
     protected boolean isPersistingNecessary() {
         if (isDebugPropertiesSet()) {
@@ -58,7 +57,7 @@ public abstract class PropertiesUserObject {
         }
 
         throw new MissingResourceException(
-                "Properties application.[mode,debug] not set correctly - pleas check config..  ", getClass().getName(),
+                "Properties application.[mode,debug] not set correctly - please check config...  ", getClass().getName(),
                 "application.[mode,debug]");
     }
 
