@@ -1,15 +1,3 @@
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\controllers\CommentController.java:46: warning: [unchecked] unchecked conversion
-factory=new BlogEntityFactory();
-^
-
-could not parse error message:   required: IBlogEntityFactory<BlogComment>
-found:    BlogEntityFactory
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\controllers\EntryController.java:46: warning: [unchecked] unchecked conversion
-factory=new BlogEntityFactory();
-^
-
-could not parse error message:   required: IBlogEntityFactory<BlogEntry>
-found:    BlogEntityFactory
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:176: warning: [unchecked] unchecked conversion
 mSubNodeList = pNodeList;
 ^
@@ -60,12 +48,6 @@ could not parse error message:   required: resultType
 found:    List
 where resultType is a type-variable:
 resultType extends Object declared in class SearchEngineConfigurator
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\controllers\CategoryController.java:49: warning: [unchecked] unchecked conversion
-factory=new BlogEntityFactory();
-^
-
-could not parse error message:   required: IBlogEntityFactory<BlogCategory>
-found:    BlogEntityFactory
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:52: warning: [unchecked] unchecked conversion
 configurator = new SearchEngineConfigurator(mConfig, d);
 ^
@@ -158,3 +140,4 @@ could not parse error message:   required: List<DefaultAttribute>
 found:    List
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:154: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
 lNodes.add("Entry");
+^
