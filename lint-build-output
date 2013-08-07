@@ -1,16 +1,10 @@
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:176: warning: [unchecked] unchecked conversion
-mSubNodeList = pNodeList;
-^
-
-could not parse error message:   required: List<String>
-found:    List
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:219: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:205: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
 lList.add(lKeyValueString);
 ^
 
 could not parse error message:   where E is a type-variable:
 E extends Object declared in interface List
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:281: warning: [unchecked] unchecked call to ArrayList(Collection<? extends E>) as a member of the raw type ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:267: warning: [unchecked] unchecked call to ArrayList(Collection<? extends E>) as a member of the raw type ArrayList
 List l = new ArrayList(convertAttributeListToStringList(mAttributes));
 ^
 
@@ -60,6 +54,12 @@ lNodes.add("Category");
 
 could not parse error message:   where E is a type-variable:
 E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:68: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, null, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:79: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
 lNodes.add("Entry");
 ^
@@ -72,6 +72,12 @@ lAttList.add(lAttribute);
 
 could not parse error message:   where E is a type-variable:
 E extends Object declared in interface List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:86: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:86: warning: [unchecked] unchecked conversion
 String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
 ^
@@ -94,6 +100,12 @@ C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine
 String exp = new XPathExpressionBuilder("Blog", lNodesList, lAttList, mXpathVersion).compileExpression();
 ^
 
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:100: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodesList, lAttList, mXpathVersion).compileExpression();
+^
+
 could not parse error message:   required: List<DefaultAttribute>
 found:    ArrayList
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:117: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
@@ -108,6 +120,12 @@ lAttList.add(lAttribute);
 
 could not parse error message:   where E is a type-variable:
 E extends Object declared in interface List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:124: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:124: warning: [unchecked] unchecked conversion
 String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
 ^
@@ -136,8 +154,19 @@ C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine
 String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
 ^
 
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:142: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
 could not parse error message:   required: List<DefaultAttribute>
 found:    List
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:154: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
 lNodes.add("Entry");
 ^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:156: warning: [unchecked] unchecked conversion
+return configurator.findContent(new XPathExpressionBuilder("Blog", lNodes, null,
