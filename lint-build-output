@@ -1,15 +1,3 @@
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:205: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
-lList.add(lKeyValueString);
-^
-
-could not parse error message:   where E is a type-variable:
-E extends Object declared in interface List
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\XPathExpressionBuilder.java:267: warning: [unchecked] unchecked call to ArrayList(Collection<? extends E>) as a member of the raw type ArrayList
-List l = new ArrayList(convertAttributeListToStringList(mAttributes));
-^
-
-could not parse error message:   where E is a type-variable:
-E extends Object declared in class ArrayList
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\dao\BlogCategoryRepository.java:113: warning: [unchecked] unchecked conversion
 removed = handler.remove(foundMatches);
 ^
