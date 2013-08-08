@@ -1,27 +1,3 @@
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\dao\BlogCategoryRepository.java:113: warning: [unchecked] unchecked conversion
-removed = handler.remove(foundMatches);
-^
-
-could not parse error message:   required: List<DefaultElement>
-found:    List
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xml\BlogEntityFactory.java:42: warning: [unchecked] unchecked conversion
-List<DefaultElement>   list = pList;
-^
-
-could not parse error message:   required: List<DefaultElement>
-found:    List
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xml\BlogEntityFactory.java:63: warning: [unchecked] unchecked conversion
-List<DefaultElement>      list = pList;
-^
-
-could not parse error message:   required: List<DefaultElement>
-found:    List
-C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xml\BlogEntityFactory.java:84: warning: [unchecked] unchecked conversion
-List<DefaultElement>     list = pList;
-^
-
-could not parse error message:   required: List<DefaultElement>
-found:    List
 C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngineConfigurator.java:39: warning: [unchecked] unchecked cast
 resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
 ^
