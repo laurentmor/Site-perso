@@ -13,7 +13,7 @@ public enum XPathVersion {
     typeLess(1.0f), typed(2.0f);
     private float version = 0.0f;
 
-     XPathVersion(float v) {
+    XPathVersion(float v) {
         version = v;
     }
 

@@ -1,6 +1,5 @@
-
 /**
- * -Package containing all classes of  controllers layer
+ * -Package containing all classes of controllers layer
  *
  */
 package com.mor.blogengine.controllers;

@@ -16,7 +16,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.List;
 import java.util.Properties;
 import org.dom4j.Document;
@@ -34,8 +33,8 @@ public class BlogCommentRepository extends BlogRepositoryBase
      * @param repo document instance that holds blog data
      * @param config global configuration file for application
      */
-    public BlogCommentRepository(final Properties config,final Document document) {
-     super(document,config);
+    public BlogCommentRepository(final Properties config, final Document document) {
+        super(document, config);
 
     }
 
@@ -65,19 +64,17 @@ public class BlogCommentRepository extends BlogRepositoryBase
     public boolean append(BlogComment what, String parentID) throws NoMatchesFoundException {
         trace("Appending element... " + what.getCommentText());
 
-        List<DefaultElement> foundList = new SearchEngine(mConfig,doc).getElementsForCriteria("Entry",
+        List<DefaultElement> foundList = new SearchEngine(mConfig, doc).getElementsForCriteria("Entry",
                 SearchCriteria.SINGLE, parentID);
-
 
         try {
             DefaultElement relatedEntry = foundList.get(0);
-            
+
             boolean appended = handler.append(relatedEntry, what.toElement());
 
-            
-
             return appended;
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             trace(ex.getMessage());
         }
 
@@ -97,14 +94,8 @@ public class BlogCommentRepository extends BlogRepositoryBase
     public boolean remove(BlogComment t) throws NoMatchesFoundException, DocumentException {
         List<DefaultElement> list = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
+        return handler.remove(list.get(0), t.getEntryID());
 
-        if (list != null) {
-            trace("comment found removing it ...");
-
-            return handler.remove(list.get(0), t.getEntryID());
-        }
-
-        return false;
     }
 
     /**
@@ -136,7 +127,7 @@ public class BlogCommentRepository extends BlogRepositoryBase
     @Override
     public List<DefaultElement> getElementsForCriteria(SearchCriteria searchParam, String paramValue)
             throws NoMatchesFoundException {
-        List<DefaultElement> list = new SearchEngine(mConfig,doc).getElementsForCriteria("Comment",
+        List<DefaultElement> list = new SearchEngine(mConfig, doc).getElementsForCriteria("Comment",
                 searchParam, paramValue);
 
         if (list == null) {

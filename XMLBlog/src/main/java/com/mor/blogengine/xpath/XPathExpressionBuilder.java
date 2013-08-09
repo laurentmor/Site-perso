@@ -12,7 +12,6 @@ package com.mor.blogengine.xpath;
 import org.dom4j.tree.DefaultAttribute;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.math.NumberUtils;
@@ -61,26 +60,12 @@ public final class XPathExpressionBuilder {
      * @param pRootNode Main node of document<br/>
      * @param pNodeList sub-Node list that compose a tree i.e
      * Node1,Node2,Node3<br/>
-     * @param pAttributesList final node attributes list<br/>
-     * Usage:<br/>
-     * <code>
-     *  String prefix="aPrfix";
-     *  String root="Root";
-     *  List nodes=new Arraylist();
-     *  nodes.add("Node1");
-     *  Attribute attrib=new Attribute("number","1");
-     *  List attributes=new ArrayList();
-     *  attributes.add(attrib);
-     * //in the end with would do:
-     * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
-     * //expression would then be:
-     * /aPrefix:root//aPrefix:Node1[
      * @nuber="1"]
      * </code>
      * </pre><br/>
      * @param xpathVersion <br/>
      */
-    public XPathExpressionBuilder(String pRootNode, List pNodeList,
+    public XPathExpressionBuilder(String pRootNode, List<String> pNodeList,
             XPathVersion xpathVersion) {
         this(null, pRootNode, pNodeList, null, false, xpathVersion);
     }
@@ -89,29 +74,17 @@ public final class XPathExpressionBuilder {
      * <pre>
      * Build an XPATH expression builder Object with Following parameters<br/>
      *
+     * @param pPrefix
      * @param pRootNode Main node of document<br/>
      * @param pNodeList sub-Node list that compose a tree i.e
      * Node1,Node2,Node3<br/>
-     * @param pAttributesList final node attributes list<br/>
-     * Usage:<br/>
-     * <code>
-     *  String prefix="aPrfix";
-     *  String root="Root";
-     *  List nodes=new Arraylist();
-     *  nodes.add("Node1");
-     *  Attribute attrib=new Attribute("number","1");
-     *  List attributes=new ArrayList();
-     *  attributes.add(attrib);
-     * //in the end with would do:
-     * String expression=new  XPathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
-     * //expression would then be:
-     * /aPrefix:root//aPrefix:Node1[
+     * @param consider
      * @nuber="1"]
      * </code>
      * </pre><br/>
      * @param xpathVersion <br/>
      */
-    public XPathExpressionBuilder(String pPrefix, String pRootNode, List pNodeList,
+    public XPathExpressionBuilder(String pPrefix, String pRootNode, List<String> pNodeList,
             XPathVersion xpathVersion, boolean consider) {
         this(pPrefix, pRootNode, pNodeList, null, consider, xpathVersion);
     }
@@ -142,7 +115,7 @@ public final class XPathExpressionBuilder {
      * </pre><br/>
      * @param xpathVersion <br/>
      */
-    public XPathExpressionBuilder(String pRootNode, List pNodeList,
+    public XPathExpressionBuilder(String pRootNode, List<String> pNodeList,
             List<DefaultAttribute> pAttributesList, XPathVersion xpathVersion) {
         this(null, pRootNode, pNodeList, pAttributesList, false, xpathVersion);
     }
@@ -176,7 +149,7 @@ public final class XPathExpressionBuilder {
      * </code>
      * </pre>
      */
-    public XPathExpressionBuilder(String pPrefix, String pRootNode, List pNodeList,
+    public XPathExpressionBuilder(String pPrefix, String pRootNode, List<String> pNodeList,
             List<DefaultAttribute> pAttributesList, boolean includePrefix, XPathVersion xpathVersion) {
         mConsiderPrefix = includePrefix;
 
@@ -198,7 +171,6 @@ public final class XPathExpressionBuilder {
     public String compileExpression() {
         StringBuilder sb = new StringBuilder();
 
-
         if (mConsiderPrefix) {
             sb = sb.append("/").append(mPrefix).append(":").append(mRootNode);
         } else {
@@ -217,12 +189,11 @@ public final class XPathExpressionBuilder {
      * @param pList
      * @return
      */
-    List convertAttributeListToStringList(List<DefaultAttribute> pList) {
+    List<String> convertAttributeListToStringList(List<DefaultAttribute> pList) {
 
-        List lList = new ArrayList();
+        List<String> lList = new ArrayList<String>();
         if (pList != null) {
             for (DefaultAttribute attribute : pList) {
-
 
                 String lCurrentKey = attribute.getName();
                 String lCurrentValue = attribute.getValue();
@@ -232,9 +203,6 @@ public final class XPathExpressionBuilder {
 
             }
         }
-
-
-
 
         return lList;
     }
@@ -253,13 +221,11 @@ public final class XPathExpressionBuilder {
 
         StringBuilder sb = new StringBuilder();
 
-
         if (includePrefix) {      // Include prefix if ns is present
             if (lNodeCount > 1) {    // check nodes count
                 for (String node : mSubNodeList) {
                     sb = sb.append("//").append(mPrefix).append(":").append(node);
                 }
-
 
             } else {
                 sb = sb.append("//").append(mPrefix).append(":").append(mSubNodeList.get(0));
@@ -277,8 +243,6 @@ public final class XPathExpressionBuilder {
         }
         sb.trimToSize();
 
-
-
         return sb.toString();
     }
 
@@ -287,10 +251,10 @@ public final class XPathExpressionBuilder {
      */
     String addAttributesToExpression() {
         if (mAttributes == null) {
-            System.out.println("null");
+
             return "";
         } else {
-            List l = new ArrayList(convertAttributeListToStringList(mAttributes));
+            List<String> l = new ArrayList<String>(convertAttributeListToStringList(mAttributes));
             int lLength = mAttributes.size();
 
             StringBuilder sb = new StringBuilder();
@@ -314,7 +278,6 @@ public final class XPathExpressionBuilder {
             return sb.toString();
         }
 
-
     }
 
     /**
@@ -324,7 +287,6 @@ public final class XPathExpressionBuilder {
      */
     String formatKeyAttributeValue(String pKey, String pValue) {
         String lKeyValueString = "";
-
 
         // strong typing was introduced in XPATH 2.0 only
         if (XPathVersion.typed == mVersionSupport) {

@@ -1,6 +1,5 @@
-
 /**
- * Package containing all classes of  model definition
+ * Package containing all classes of model definition
  *
  */
 package com.mor.blogengine.model;

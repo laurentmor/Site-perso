@@ -1,46 +1,50 @@
 
 /*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.mor.blogengine.xml;
 
 //~--- JDK imports ------------------------------------------------------------
-
+import com.mor.blogengine.model.BlogCategory;
+import com.mor.blogengine.model.BlogComment;
+import com.mor.blogengine.model.BlogEntry;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Factory object to create concreate model objects from XML content<br/>
  *
- * @param <T>
+ * @param <dataStructure>
+ *
  * @author laurent
+ *
  */
-public interface IBlogEntityFactory<T> {
+public interface IBlogEntityFactory<dataStructure> {
 
     /**
      * Create a map of entries
      *
-     * @param pList the list to  create from
+     * @param pList the list to create from
      * @return Created map
      */
-    public Map<String, T> createEntryMap(List pList);
+    public Map<String, BlogEntry> createEntryMap(List<dataStructure> pList);
 
     /**
      * Create a map categories
      *
-     * @param pList the list to  create from
+     * @param pList the list to create from
      * @return Created map
      */
-    public Map<String, T> createCategoryMap(List pList);
+    public Map<String, BlogCategory> createCategoryMap(List<dataStructure> pList);
 
     /**
      * Create a map of Comment
      *
-     * @param pList the list to  create from
+     * @param pList the list to create from
      * @return Created map
      */
-    public Map<String, T> createCommentMap(List pList);
+    public Map<String, BlogComment> createCommentMap(List<dataStructure> pList);
 }
 
 

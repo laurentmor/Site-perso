@@ -41,12 +41,12 @@
     </issueManagement>
     <scm>
         <connection>
-            scm:svn:http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/
+            scm:git:https://github.com/laurentmor/Site-perso.git
         </connection>
         <developerConnection>
-            scm:http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/
+            scm:https://github.com/laurentmor/Site-perso.git
         </developerConnection>
-        <url>http://svn.xp-dev.com/svn/lmorissette-BlogEngine/POM/</url>
+        <url>https://github.com/laurentmor/Site-perso.git</url>
     </scm>
     <licenses>
         <license>
@@ -57,7 +57,7 @@
     </licenses>
     <ciManagement>
         <system>
-            Hudson
+            Trsvis
         </system>
         <url>
             http://localhost:8080/
@@ -87,6 +87,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <showDeprecation>true</showDeprecation>
+                       
                         
                         <reporting>
                             <plugins>
@@ -112,7 +113,17 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        
+        <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
     <dependencies>
         <dependency>
@@ -126,6 +137,6 @@
     <modules>
         <module>XMLBlog</module>
         <module>stePersonnelEar</module>
-    <module>Blog</module>
-  </modules>
+        <module>Blog</module>
+    </modules>
 </project>

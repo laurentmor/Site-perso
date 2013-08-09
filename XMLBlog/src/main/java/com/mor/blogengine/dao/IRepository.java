@@ -3,14 +3,13 @@ package com.mor.blogengine.dao;
 //~--- non-JDK imports --------------------------------------------------------
 
 /*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.List;
 
 /**
@@ -18,22 +17,22 @@ import java.util.List;
  * This repository inteface is intended to hide implementation details
  * from the controller layer
  * For instance: adding a BlogEntry is really simple proces,<br/>
- * the {@link #add(java.lang.Object)}  implementation would  use
- * {@link #getElementsForCriteria(java.lang.Object, java.lang.String)  }
+ * the {@link #add(java.lang.Object)} implementation would use null {@link #getElementsForCriteria(java.lang.Object, java.lang.String)
+ * }
  * to check if such entry exsist in which case return false<br/>
- * User would be notified by controller and asked
- * if he'd like to edit the found entry
+ * User would be notified by controller and asked if he'd like to edit the found
+ * entry
  *
- * Changes :
- *  Removed find method to generalize search mecanism.
+ * Changes : Removed find method to generalize search mecanism.
  *
  * @param <T> Repository type @see model layer
  * @param <ret> Specify return type of blog data structure
  * @param <searchParamsType> search criterias data holder
- * @param <datasourceException> if there is a problem with data source the proper data source exception is thrown
+ * @param <datasourceException> if there is a problem with data source the
+ * proper data source exception is thrown
  * @author laurent
  *
- *  </pre>
+ * </pre>
  */
 public interface IRepository<T, ret, searchParamsType, datasourceException extends Throwable> {
 
@@ -50,8 +49,8 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
     /**
      * append a element to a parernt one to a blog
      *
-     * @param what  the element to append
-     * @param parentID  the Id of parent element to append to
+     * @param what the element to append
+     * @param parentID the Id of parent element to append to
      * @return true if element appended correctly
      * @throws NoMatchesFoundException
      * @throws ElementExistingException if element to append already exist
@@ -64,7 +63,7 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
     /**
      * append a element to a parernt one to a blog
      *
-     * @param what  the element to append
+     * @param what the element to append
      *
      * @return true if element appended correctly
      * @throws NoMatchesFoundException
@@ -88,7 +87,7 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * edit a element in a blog
      *
      * @param t the element to edit
-     * @param t2  the new element
+     * @param t2 the new element
      * @return true if element edited correctly
      * @throws NoMatchesFoundException
      * @throws ElementExistingException if element to add exist
@@ -100,8 +99,8 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
     /**
      * Enable the search for certain category and criteria in XML <br/>
      *
-     * @param searchParam  what to search<br/>
-     * @param paramValue  search for what criteria<br/>
+     * @param searchParam what to search<br/>
+     * @param paramValue search for what criteria<br/>
      *
      * @return list of results<br/>
      * @throws NoMatchesFoundException

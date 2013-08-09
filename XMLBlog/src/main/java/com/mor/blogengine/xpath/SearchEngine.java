@@ -19,13 +19,9 @@ import static com.mor.blogengine.xpath.SearchCriteria.SINGLE;
 import static com.mor.blogengine.xpath.SearchCriteria.SINGLE_WITH_PARENT;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.InvalidXPathException;
 
@@ -36,7 +32,7 @@ import org.dom4j.InvalidXPathException;
  */
 public final class SearchEngine extends PropertiesUserObject implements IBlogSearchEngine<DefaultElement> {
 
-    private SearchEngineConfigurator<List> configurator = null;
+    private SearchEngineConfigurator<List<DefaultElement>> configurator = null;
     private XPathVersion mXpathVersion;
 
     /**
@@ -69,12 +65,12 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
         lNodes.add("Category");
 
         String exp = new XPathExpressionBuilder("Blog", lNodes, null, mXpathVersion).compileExpression();
-        
-            return configurator.findContent(exp);
-     
+
+        return configurator.findContent(exp);
+
     }
 
-    List getEntriesForCategory(String pCatID) throws NoMatchesFoundException {
+    List<DefaultElement> getEntriesForCategory(String pCatID) throws NoMatchesFoundException {
         trace("Building XPath search Query to get entries for a category");
 
         ArrayList lNodes = new ArrayList();
@@ -91,7 +87,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
         return configurator.findContent(exp);
     }
 
-    List getEntriesforDate(String pDate) throws NoMatchesFoundException {
+    List<DefaultElement> getEntriesforDate(String pDate) throws NoMatchesFoundException {
         trace("Building XPath search Query to get entries for a date");
 
         ArrayList lNodesList = new ArrayList();
@@ -129,7 +125,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
         return configurator.findContent(exp);
     }
 
-    List getComentsForEntry(String ID) throws NoMatchesFoundException {
+    List<DefaultElement> getComentsForEntry(String ID) throws NoMatchesFoundException {
         trace("Building XPath search Query to get comment for an entry");
 
         ArrayList lNodes = new ArrayList();
@@ -149,7 +145,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
         return configurator.findContent(exp);
     }
 
-    List getEntries() throws NoMatchesFoundException {
+    List<DefaultElement> getEntries() throws NoMatchesFoundException {
         trace("Building XPath search Query to get all entries");
 
         ArrayList lNodes = new ArrayList();
@@ -171,7 +167,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
      */
     @Override
     public List<DefaultElement> getElementsForCriteria(String elementType, SearchCriteria criteria,
-            String criteriaValue) throws NoMatchesFoundException{
+            String criteriaValue) throws NoMatchesFoundException {
         if (elementType != null) {
             if (elementType.equalsIgnoreCase("Entry")) {
                 if (criteria == ALL) {
@@ -207,7 +203,6 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
         return null;
     }
 }
-
 
 //~ Formatted by Jindent --- http://www.jindent.com
 

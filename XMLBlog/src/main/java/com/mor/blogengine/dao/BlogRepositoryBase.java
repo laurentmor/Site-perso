@@ -15,15 +15,15 @@ import org.dom4j.tree.DefaultElement;
  *
  * @author laurent
  */
-public class BlogRepositoryBase extends PropertiesUserObject{
+public class BlogRepositoryBase extends PropertiesUserObject {
 
-    IXMLHandler<DefaultElement> handler=null;
-    Document doc=null;
+    IXMLHandler<DefaultElement> handler = null;
+    Document doc = null;
 
     public BlogRepositoryBase(Document d, Properties p) {
-    doc=d;
-    mConfig=p;
-    handler= XMLHandlerImpl.getInstanceForDoc(mConfig, doc);
+        doc = d;
+        mConfig = p;
+        handler = XMLHandlerImpl.getInstanceForDoc(mConfig, doc);
     }
-    
+
 }

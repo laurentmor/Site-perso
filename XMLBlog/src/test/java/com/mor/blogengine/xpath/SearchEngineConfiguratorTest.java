@@ -5,12 +5,8 @@
 package com.mor.blogengine.xpath;
 
 import com.mor.blogengine.exception.NoMatchesFoundException;
-import com.mor.common.PropertiesConsumingTestCase;
+import com.mor.common.XMLConsumingTestCase;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.tree.DefaultElement;
 import org.junit.After;
@@ -21,27 +17,20 @@ import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import static org.junit.Assert.*;
-import org.junit.rules.ExpectedException;
 
 /**
  *
  * @author laurent
  */
-public class SearchEngineConfiguratorTest extends PropertiesConsumingTestCase {
-
-    @Rule
-    public TestName name = new TestName();
-;
-    private static Document document = null;
+public class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
 
     public SearchEngineConfiguratorTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
-        setupTestSettings();
-        document = DocumentHelper.createDocument();
-        document.add(new DefaultElement("root"));
+        initialise();
+
     }
 
     @AfterClass
@@ -50,7 +39,7 @@ public class SearchEngineConfiguratorTest extends PropertiesConsumingTestCase {
 
     @Before
     public void setUp() {
-        System.out.println("test : " + name.getMethodName());
+        logTestName();
     }
 
     @After
@@ -60,10 +49,11 @@ public class SearchEngineConfiguratorTest extends PropertiesConsumingTestCase {
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
+     *
+     * @throws com.mor.blogengine.exception.NoMatchesFoundException
      */
     @Test
     public void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
-
 
         SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<List<DefaultElement>>(properties, document);
         List<DefaultElement> fnd = configurator.findContent("/root");
@@ -74,19 +64,16 @@ public class SearchEngineConfiguratorTest extends PropertiesConsumingTestCase {
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
+     *
+     * @throws com.mor.blogengine.exception.NoMatchesFoundException
      */
     @Test(expected = NoMatchesFoundException.class)
     public void testConfigurerCorrectementAvecNonElementExistant() throws NoMatchesFoundException {
-        SearchEngineConfigurator<List<DefaultElement>> configurator =
-                new SearchEngineConfigurator<List<DefaultElement>>(properties,
+        SearchEngineConfigurator<List<DefaultElement>> configurator
+                = new SearchEngineConfigurator<List<DefaultElement>>(properties,
                 document);
 
         List<DefaultElement> fnd = configurator.findContent("/notFound");
-
-
-
-
-
 
     }
 }

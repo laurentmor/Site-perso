@@ -1,14 +1,13 @@
 
 /*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.mor.blogengine.xpath;
 
 /**
  *
- *  Enum for parametrized searching
- * i.e search post of certain date or category
+ * Enum for parametrized searching i.e search post of certain date or category
  *
  * @author laurent
  *
@@ -18,49 +17,43 @@ public enum SearchCriteria {
     /**
      * Get All elements
      */
-    ALL {}
-    ,
-
+    ALL {
+    },
     /**
      * Get elements for Date
      */
-    DATE {}
-    ,
-
+    DATE {
+    },
     /**
      *
      */
-    MONTH {}
-    ,
-
+    MONTH {
+    },
     /**
      * Get element for category
      */
-    CATEGORY {}
-    ,
-
+    CATEGORY {
+    },
     /**
      * Get Element for author
      */
-    AUTHOR {}
-    ,
-
+    AUTHOR {
+    },
     /**
      * Get a single element
      */
-    SINGLE {}
-    ,
-
+    SINGLE {
+    },
     /**
      *
      */
-    SINGLE_WITH_PARENT {}
-    ,
-
+    SINGLE_WITH_PARENT {
+    },
     /**
      *
      */
-    BY_ENTRY_ID {}
+    BY_ENTRY_ID {
+    }
 }
 
 

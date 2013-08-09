@@ -16,7 +16,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -37,8 +36,8 @@ public class BlogEntryRepository extends BlogRepositoryBase
      * @param config global configuration file for application
      */
     public BlogEntryRepository(final Properties config, final Document d) {
-      super(d, config);
-        
+        super(d, config);
+
     }
 
     /**
@@ -51,18 +50,19 @@ public class BlogEntryRepository extends BlogRepositoryBase
      */
     @Override
     public boolean add(BlogEntry t) throws ElementExistingException, DocumentException {
-        
+
         boolean added = false;
         List<DefaultElement> list = null;
 
         try {
             list = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
-        } catch (NoMatchesFoundException ex) {
+        }
+        catch (NoMatchesFoundException ex) {
             Logger.getLogger(BlogEntryRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (list == null) {
-                      
+
             added = handler.add(t.toElement());
 
             return added;
@@ -95,9 +95,6 @@ public class BlogEntryRepository extends BlogRepositoryBase
     @Override
     public boolean remove(BlogEntry t) throws NoMatchesFoundException, DocumentException {
         boolean removed = false;
-        
-
-        
 
         List<DefaultElement> list = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
@@ -127,7 +124,8 @@ public class BlogEntryRepository extends BlogRepositoryBase
             boolean edited = remove(t) && add(t2);
 
             return edited;
-        } catch (ElementExistingException ex) {
+        }
+        catch (ElementExistingException ex) {
             throw ex;
         }
     }
@@ -144,7 +142,7 @@ public class BlogEntryRepository extends BlogRepositoryBase
     @Override
     public List<DefaultElement> getElementsForCriteria(SearchCriteria searchParam, String paramValue)
             throws NoMatchesFoundException {
-        List<DefaultElement> list = new SearchEngine(mConfig,doc).getElementsForCriteria("Entry",
+        List<DefaultElement> list = new SearchEngine(mConfig, doc).getElementsForCriteria("Entry",
                 searchParam, paramValue);
 
         if (list == null) {

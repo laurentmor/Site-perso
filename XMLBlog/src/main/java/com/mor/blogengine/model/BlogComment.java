@@ -1,16 +1,15 @@
 
 /*
-* blogComment.java
-*
-* Created on 5 mai 2007, 14:36
-*
-* To change this template, choose Tools | Template Manager
-* and open the template in the editor.
+ * blogComment.java
+ *
+ * Created on 5 mai 2007, 14:36
+ *
+ * To change this template, choose Tools | Template Manager
+ * and open the template in the editor.
  */
 package com.mor.blogengine.model;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import com.mor.blogengine.text.StringUtil;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -25,16 +24,17 @@ import org.dom4j.tree.DefaultElement;
  *
  */
 public final class BlogComment extends AbstractBlogEntity {
+
     private static final long serialVersionUID = -3684562856217228760L;
-    private String            mAuthor          = null;
-    private String            mCommentText     = null;
-    private String            mDate            = null;
-    private String            mEntryID         = null;
-    private String            mWebPage         = null;
+    private String mAuthor = null;
+    private String mCommentText = null;
+    private String mDate = null;
+    private String mEntryID = null;
+    private String mWebPage = null;
 
     /**
      *
-     *   @param element XML node to create a comment from
+     * @param element XML node to create a comment from
      */
     public BlogComment(DefaultElement element) {
         mAassociatedElement = element;
@@ -137,7 +137,7 @@ public final class BlogComment extends AbstractBlogEntity {
         // QName lCommentTextDecl = new QName("CommentText", mNamespace);
         // QName lReturnelementdecl = new QName("Comment", mNamespace);
         DefaultElement lReturnElement = null;
-        DefaultElement lCommentText   = new DefaultElement("CommentText");
+        DefaultElement lCommentText = new DefaultElement("CommentText");
 
         lCommentText.addText(mCommentText);
         lReturnElement = new DefaultElement("Comment");
@@ -162,7 +162,34 @@ public final class BlogComment extends AbstractBlogEntity {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(19, 1001).append(getAuthor()).append(getCommentText()).append(getDate()).append(
-            getWebPage()).toHashCode();
+                getWebPage()).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BlogComment other = (BlogComment) obj;
+        if ((this.mAuthor == null) ? (other.mAuthor != null) : !this.mAuthor.equals(other.mAuthor)) {
+            return false;
+        }
+        if ((this.mCommentText == null) ? (other.mCommentText != null) : !this.mCommentText.equals(other.mCommentText)) {
+            return false;
+        }
+        if ((this.mDate == null) ? (other.mDate != null) : !this.mDate.equals(other.mDate)) {
+            return false;
+        }
+        if ((this.mEntryID == null) ? (other.mEntryID != null) : !this.mEntryID.equals(other.mEntryID)) {
+            return false;
+        }
+        if ((this.mWebPage == null) ? (other.mWebPage != null) : !this.mWebPage.equals(other.mWebPage)) {
+            return false;
+        }
+        return true;
     }
 
     /**

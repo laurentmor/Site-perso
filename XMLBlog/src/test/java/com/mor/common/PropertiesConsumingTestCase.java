@@ -12,9 +12,9 @@ import java.util.Properties;
  */
 public class PropertiesConsumingTestCase {
 
-    protected static Properties properties = null;
+    public static Properties properties = null;
 
-    protected static void setupTestSettings() {
+    public static void setupTestSettings() {
         properties = new Properties();
         properties.put("application.mode", "test");
         properties.put("application.debug", "On");

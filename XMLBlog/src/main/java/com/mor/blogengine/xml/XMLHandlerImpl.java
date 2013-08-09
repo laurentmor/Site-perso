@@ -1,31 +1,27 @@
 /*
-# Copyright (c) 2007-2009 Laurent Morissette
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+ # Copyright (c) 2007-2009 Laurent Morissette
+ #
+ # Permission is hereby granted, free of charge, to any person obtaining a copy
+ # of this software and associated documentation files (the "Software"), to deal
+ # in the Software without restriction, including without limitation the rights
+ # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ # copies of the Software, and to permit persons to whom the Software is
+ # furnished to do so, subject to the following conditions:
+ #
+ # The above copyright notice and this permission notice shall be included in
+ # all copies or substantial portions of the Software.
+ #
+ # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
  */
-
-
-
 package com.mor.blogengine.xml;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import com.mor.common.PropertiesUserObject;
 
 import org.dom4j.Document;
@@ -33,8 +29,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -48,62 +42,50 @@ import java.util.Properties;
  */
 public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHandler<DefaultElement> {
 
-    /** class instance */
+    /**
+     * class instance
+     */
     static final XMLHandlerImpl mInstance = null;
 
-    /** parsed  XML document */
+    /**
+     * parsed XML document
+     */
     private Document mDoc = null;
 
-    /** XML root */
+    /**
+     * XML root
+     */
     private DefaultElement mRootElement = null;
 
-
-    boolean     mInited  = false;
-
- 
-/** Get an insance of  class using singleton pattern implementation
-     * @param pDoc
+    /**
+     * Get an insance of class using singleton pattern implementation
+     *
      * @param config
+     * @param domTree
      * @return an instance of class
-     * @throws DocumentException
      */
-    public static XMLHandlerImpl getInstanceForDoc(Properties config,Document domTree) {
-        if ((config != null) ) {
+    public static XMLHandlerImpl getInstanceForDoc(Properties config, Document domTree) {
+        if ((config != null)) {
             if (mInstance == null) {
-                return new XMLHandlerImpl(config,domTree);
+                return new XMLHandlerImpl(config, domTree);
             }
         }
 
         return mInstance;
     }
 
-    private XMLHandlerImpl(Properties config,Document d) {
+    private XMLHandlerImpl(Properties config, Document d) {
         this.mConfig = config;
-         mDoc=d;
-        mInited      = init(this.mConfig);
+        mDoc = d;
+
+        if (mDoc != null) {
+            mRootElement = (DefaultElement) mDoc.getRootElement();
+        }
     }
-
-
-     boolean init(Properties config) {
-        
-        
-          mConfig  = config;
-          
-
-          boolean inited = false;
-
-          if (mDoc != null) {
-              mRootElement = (DefaultElement) mDoc.getRootElement();
-              inited       = true;
-          }
-
-          return inited;
-        
-    }
-    
 
     /**
      * Add given Node to blog structure
+     *
      * @param element the element to add
      * @return added or not (true or false)
      */
@@ -119,7 +101,8 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     }
 
     /**
-     * remove  given element to blog structure
+     * remove given element to blog structure
+     *
      * @param element the element to remove
      * @return removed or not (true or false)
      */
@@ -132,7 +115,8 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
 
             list.add(element);
             removed = remove(list);
-           } catch (Exception e) {
+        }
+        catch (Exception e) {
             trace("" + e);
         }
 
@@ -141,20 +125,22 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
 
     /**
      * Append a node to parent node
+     *
      * @param root The node to add under
      * @param content what to add to root node
      * @return appended or not
      */
     @Override
     public boolean append(DefaultElement root, DefaultElement content) {
-        String         elemID    = root.valueOf("@ID");
+        String elemID = root.valueOf("@ID");
         DefaultElement elemInDoc = (DefaultElement) mRootElement.elementByID(elemID);
 
-        if(elemInDoc!=null){elemInDoc.add(content);
+        if (elemInDoc != null) {
+            elemInDoc.add(content);
 
-        int indexOfappended = elemInDoc.indexOf(content);
+            int indexOfappended = elemInDoc.indexOf(content);
 
-        return (indexOfappended != -1);
+            return (indexOfappended != -1);
         }
         return false;
     }
@@ -163,6 +149,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
      *
      *
      * Add given Nodes to blog structure
+     *
      * @param addBatch the elements to add
      * @return added or not (true or false)
      */
@@ -175,13 +162,12 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
             added = true;
         }
 
-        
-
         return added;
     }
 
     /**
-     * remove  given elements to blog structure
+     * remove given elements to blog structure
+     *
      * @param removeBatch the elements to remove
      * @return removed or not (true or false)
      */
@@ -195,14 +181,12 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
             removed = mRootElement.remove(e);
         }
 
-        
-
         return removed;
     }
 
     @Override
     public boolean remove(DefaultElement child, String parentID) {
-        boolean        removed     = false;
+        boolean removed = false;
         DefaultElement foundParent = (DefaultElement) mRootElement.elementByID(parentID);
 
         if (foundParent != null) {
@@ -213,7 +197,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
             if (foundChild != null) {
                 trace("child  found");
                 removed = foundParent.remove(foundChild);
-        
 
                 return removed;
             }
@@ -233,7 +216,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
         return removed;
     }
 
-    
 }
 
 

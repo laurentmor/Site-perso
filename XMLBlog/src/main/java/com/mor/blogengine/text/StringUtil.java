@@ -1,7 +1,6 @@
 package com.mor.blogengine.text;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**

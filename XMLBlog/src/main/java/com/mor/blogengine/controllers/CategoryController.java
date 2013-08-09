@@ -17,7 +17,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -28,9 +27,10 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
+@SuppressWarnings("unchecked")
+
 public class CategoryController extends BlogControllerBase implements IBlogElementController<BlogCategory, DocumentException> {
 
-    
     /**
      * reppository to interface with data source
      */
@@ -38,32 +38,29 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
 
     /**
      *
-     * @param repository the repository object
+     * @param config
      */
     public CategoryController(Properties config) {
         super(config);
-        repo=new BlogCategoryRepository(mConfig, document);
-            
-           
-        }
+        repo = new BlogCategoryRepository(mConfig, getDocument());
 
-    
+    }
 
     @Override
     public Map<String, BlogCategory> getAllElements() {
         try {
-            List list = repo.getElementsForCriteria(SearchCriteria.ALL, null);
+            List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, null);
 
             if (list != null) {
-                return factory.createCategoryMap(list);
+                return getFactory().createCategoryMap(list);
             } else {
-            trace("test");
+                trace("test");
             }
-        } catch (NoMatchesFoundException ex) {
+        }
+        catch (NoMatchesFoundException ex) {
             trace(ex.getMessage());
             return null;
         }
-
 
         return null;
     }
@@ -72,7 +69,8 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     public boolean addNewElement(BlogCategory e) throws DocumentException {
         try {
             return repo.add(e);
-        } catch (ElementExistingException ex) {
+        }
+        catch (ElementExistingException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
 
             return false;
@@ -83,7 +81,8 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     public boolean deleteElement(BlogCategory e) throws DocumentException {
         try {
             return repo.remove(e);
-        } catch (NoMatchesFoundException ex) {
+        }
+        catch (NoMatchesFoundException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -94,9 +93,11 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     public boolean editElement(BlogCategory what, BlogCategory with) throws DocumentException {
         try {
             return repo.edit(what, with);
-        } catch (NoMatchesFoundException ex) {
+        }
+        catch (NoMatchesFoundException ex) {
             return false;
-        } catch (ElementExistingException ex) {
+        }
+        catch (ElementExistingException ex) {
             return false;
         }
     }

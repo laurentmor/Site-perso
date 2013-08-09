@@ -1,6 +1,5 @@
-
 /**
- * Package containing all classes of  data access  layer
+ * Package containing all classes of data access layer
  *
  */
 package com.mor.blogengine.dao;

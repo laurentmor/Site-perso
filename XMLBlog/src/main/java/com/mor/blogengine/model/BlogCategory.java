@@ -1,16 +1,15 @@
 
 /*
-* blogCategory.java
-*
-* Created on 5 mai 2007, 14:37
-*
-* To change this template, choose Tools | Template Manager
-* and open the template in the editor.
+ * blogCategory.java
+ *
+ * Created on 5 mai 2007, 14:37
+ *
+ * To change this template, choose Tools | Template Manager
+ * and open the template in the editor.
  */
 package com.mor.blogengine.model;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import com.mor.blogengine.text.StringUtil;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -24,10 +23,13 @@ import org.dom4j.tree.DefaultElement;
  * @author Laurent Morissette
  *
  */
-public final class BlogCategory extends AbstractBlogEntity  {
+public final class BlogCategory extends AbstractBlogEntity {
+
     private static final long serialVersionUID = 7735878793954382143L;
 
-    /** category name */
+    /**
+     * category name
+     */
     private String mCatName = null;
 
     /**
@@ -38,7 +40,8 @@ public final class BlogCategory extends AbstractBlogEntity  {
     /**
      * default constructor
      */
-    public BlogCategory() {}
+    public BlogCategory() {
+    }
 
     /**
      *
@@ -65,6 +68,7 @@ public final class BlogCategory extends AbstractBlogEntity  {
 
     /**
      * contruct a category in a blog
+     *
      * @param pCatName name of the category
      * @param pDesc description of category
      */
@@ -116,7 +120,7 @@ public final class BlogCategory extends AbstractBlogEntity  {
     /**
      *
      *
-     * @param pDescription the description to  set it to
+     * @param pDescription the description to set it to
      */
     private void setDescription(String pDescription) {
         this.mDescription = pDescription;
@@ -150,6 +154,24 @@ public final class BlogCategory extends AbstractBlogEntity  {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(15, 745).append(getCatName()).append(getDescription()).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BlogCategory other = (BlogCategory) obj;
+        if ((this.mCatName == null) ? (other.mCatName != null) : !this.mCatName.equals(other.mCatName)) {
+            return false;
+        }
+        if ((this.mDescription == null) ? (other.mDescription != null) : !this.mDescription.equals(other.mDescription)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

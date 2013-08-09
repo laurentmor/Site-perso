@@ -24,7 +24,7 @@ public abstract class PropertiesUserObject {
      *
      */
     protected Properties mConfig = null;
-    final  static boolean YES = true;
+    final static boolean YES = true;
     final static boolean NO = false;
 
     /**
@@ -97,18 +97,21 @@ public abstract class PropertiesUserObject {
                 && mConfig.getProperty("application.debug").equalsIgnoreCase("on"));
     }
 
-    public URL getSchema() {
+    protected final URL getSchema() {
         String s = mConfig.getProperty("datasource.xsd");
         URL url = getClass().getResource(s);
         trace("Retrieving schema URL at : " + url.getFile());
         return url;
     }
 
-    public URL getXml() {
+    /**
+     *
+     * @return
+     */
+    protected final URL getXml() {
         String s = mConfig.getProperty("datasource.xml");
         URL url = getClass().getResource(s);
         trace("Retrieving XML URL at : " + url.getFile());
-
 
         return url;
 

@@ -15,7 +15,6 @@ import org.dom4j.io.SAXReader;
 import org.xml.sax.SAXException;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.io.IOException;
 
 import java.net.URL;
@@ -31,12 +30,12 @@ import org.dom4j.io.XMLWriter;
  */
 public class XmlDataSourceProvider extends PropertiesUserObject {
 
-    public static final String JAXP_SCHEMA_LANGUAGE =
-            "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-    public static final String JAXP_SCHEMA_SOURCE =
-            "http://java.sun.com/xml/jaxp/properties/schemaSource";
+    public static final String JAXP_SCHEMA_LANGUAGE
+            = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+    public static final String JAXP_SCHEMA_SOURCE
+            = "http://java.sun.com/xml/jaxp/properties/schemaSource";
     private Document mProvidedDoc = null;
-    private URL xml=null;
+    private URL xml = null;
 
     public XmlDataSourceProvider(Properties p) {
         mConfig = p;
@@ -58,13 +57,13 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      */
     public Document provide()
             throws SAXException, ParserConfigurationException, DocumentException, IOException {
-      
+
         xml = getXml();
         URL schema = getSchema();
 
         if ((schema != null) && (xml != null)) {
-             
-            mProvidedDoc=createReaderAgainstSchema(schema).read(xml);
+
+            mProvidedDoc = createReaderAgainstSchema(schema).read(xml);
 
             return mProvidedDoc;
         }
@@ -98,7 +97,6 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
         trace("returning reader...");
         return reader;
 
-
     }
 
     /**
@@ -110,22 +108,21 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      * @param pDocument
      */
     boolean write(Document pDocument) {
-        
 
         try {
-            OutputFormat format=new OutputFormat();
+            OutputFormat format = new OutputFormat();
             format.setEncoding(getFileEncoding());
-            XMLWriter writer = new XMLWriter(new FileWriter(xml.getFile()),format);
+            XMLWriter writer = new XMLWriter(new FileWriter(xml.getFile()), format);
 
             writer.write(pDocument);
             writer.close();
             return true;
-        } catch (IOException ex) {
-           trace("Error saving file..." + ex);
-           return false; 
+        }
+        catch (IOException ex) {
+            trace("Error saving file..." + ex);
+            return false;
         }
 
-      
     }
 
     /**
@@ -133,22 +130,17 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      *
      * @return true if saved correctly
      */
-    
     public boolean saveChanges() {
-        
 
-        
-            if (isPersistingNecessary()) {
-                
-                trace("saving...");
-                 return write(mProvidedDoc);
-            } else {
-                 trace("if persisting was set to on changes would be saved to file");
-                 return true;
-            }
-        
+        if (isPersistingNecessary()) {
 
-        
+            trace("saving...");
+            return write(mProvidedDoc);
+        } else {
+            trace("if persisting was set to on changes would be saved to file");
+            return true;
+        }
+
     }
 }
 //~ Formatted by Jindent --- http://www.jindent.com

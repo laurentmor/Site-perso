@@ -9,8 +9,6 @@ package com.mor.blogengine.xpath;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.common.PropertiesUserObject;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.InvalidXPathException;
@@ -22,6 +20,7 @@ import org.dom4j.XPath;
  * @param <resultType>
  * @author laurent
  */
+@SuppressWarnings("unchecked")
 public class SearchEngineConfigurator<resultType> extends PropertiesUserObject {
 
     private Document mDoc = null;
@@ -32,7 +31,6 @@ public class SearchEngineConfigurator<resultType> extends PropertiesUserObject {
     }
 
     resultType findContent(String pExpression) throws InvalidXPathException, NoMatchesFoundException {
-
 
         XPath xpathSelector = DocumentHelper.createXPath(pExpression);
 

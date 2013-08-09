@@ -1,12 +1,11 @@
 
 /*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.mor.blogengine.controllers;
 
 //~--- JDK imports ------------------------------------------------------------
-
 import java.util.Date;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
 
     /**
      *
-     * @param parentID  the parent node ID to check for
+     * @param parentID the parent node ID to check for
      * @return All elements of concrete type
      * @throws dataSourceException
      *
