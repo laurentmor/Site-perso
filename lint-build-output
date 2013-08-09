@@ -1,0 +1,136 @@
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngineConfigurator.java:39: warning: [unchecked] unchecked cast
+resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
+^
+
+could not parse error message:   required: resultType
+found:    List
+where resultType is a type-variable:
+resultType extends Object declared in class SearchEngineConfigurator
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:52: warning: [unchecked] unchecked conversion
+configurator = new SearchEngineConfigurator(mConfig, d);
+^
+
+could not parse error message:   required: SearchEngineConfigurator<List<DefaultElement>>
+found:    SearchEngineConfigurator
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:66: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodes.add("Category");
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:68: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, null, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:79: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodes.add("Entry");
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:84: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+lAttList.add(lAttribute);
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in interface List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:86: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:86: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<DefaultAttribute>
+found:    List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:97: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodesList.add("Entry");
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:98: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lAttList.add(new DefaultAttribute("date", pDate));
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:100: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodesList, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:100: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodesList, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<DefaultAttribute>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:117: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodes.add(pSearchedElementName);
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:122: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+lAttList.add(lAttribute);
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in interface List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:124: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:124: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<DefaultAttribute>
+found:    List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:134: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodes.add("Entry");
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:135: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodes.add("Comment");
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:140: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+lAttList.add(lAttribute);
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in interface List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:142: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<String>
+found:    ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:142: warning: [unchecked] unchecked conversion
+String exp = new XPathExpressionBuilder("Blog", lNodes, lAttList, mXpathVersion).compileExpression();
+^
+
+could not parse error message:   required: List<DefaultAttribute>
+found:    List
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:154: warning: [unchecked] unchecked call to add(E) as a member of the raw type ArrayList
+lNodes.add("Entry");
+^
+
+could not parse error message:   where E is a type-variable:
+E extends Object declared in class ArrayList
+C:\Users\laurent\Desktop\apps\Code\site\XMLBlog\src\main\java\com\mor\blogengine\xpath\SearchEngine.java:156: warning: [unchecked] unchecked conversion
+return configurator.findContent(new XPathExpressionBuilder("Blog", lNodes, null,
