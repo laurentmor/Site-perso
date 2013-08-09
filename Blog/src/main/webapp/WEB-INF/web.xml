@@ -28,8 +28,8 @@
         <filter-name>sitemesh</filter-name>
         
         <filter-class>
-        com.opensymphony.module.sitemesh.filter.PageFilter
-    </filter-class>
+            com.opensymphony.module.sitemesh.filter.PageFilter
+        </filter-class>
     </filter>
     
     <filter-mapping>
