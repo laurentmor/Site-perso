@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
-@SuppressWarnings("unchecked")
+
 
 public class CommentController extends BlogControllerBase implements IBlogElementController<BlogComment, DocumentException> {
 
@@ -99,7 +99,7 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     @Override
     public Map<String, BlogComment> getAllElements(String parentID) throws DocumentException {
         try {
-            List list = repo.getElementsForCriteria(SearchCriteria.ALL, parentID);
+            List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, parentID);
 
             return getFactory().createCommentMap(list);
 

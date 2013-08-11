@@ -8,6 +8,7 @@ package com.mor.blogengine.xpath;
 //~--- non-JDK imports --------------------------------------------------------
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.common.PropertiesUserObject;
+import java.util.List;
 import java.util.Properties;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -20,8 +21,8 @@ import org.dom4j.XPath;
  * @param <resultType>
  * @author laurent
  */
-@SuppressWarnings("unchecked")
-public class SearchEngineConfigurator<resultType> extends PropertiesUserObject {
+
+public class SearchEngineConfigurator<resultType extends List<?>> extends PropertiesUserObject {
 
     private Document mDoc = null;
 
@@ -34,6 +35,7 @@ public class SearchEngineConfigurator<resultType> extends PropertiesUserObject {
 
         XPath xpathSelector = DocumentHelper.createXPath(pExpression);
 
+        @SuppressWarnings("unchecked")
         resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
                 ? xpathSelector.selectNodes(mDoc)
                 : null);
