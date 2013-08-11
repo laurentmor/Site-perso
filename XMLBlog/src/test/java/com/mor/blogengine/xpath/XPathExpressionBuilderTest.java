@@ -90,7 +90,7 @@ public class XPathExpressionBuilderTest {
 
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
         List result = builder.convertAttributeListToStringList(attList);
-        List<String> expected = new ArrayList();
+        List<String> expected = new ArrayList<>();
         expected.add("A1='V1'");
         expected.add("A2='V2'");
         expected.add("A3='V3'");
@@ -104,7 +104,7 @@ public class XPathExpressionBuilderTest {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, null, XPathVersion.typeLess);
 
         List result = builder.convertAttributeListToStringList(null);
-        List<String> expected = new ArrayList();
+        List<String> expected = new ArrayList<>();
 
         assertEquals(expected, result);
 

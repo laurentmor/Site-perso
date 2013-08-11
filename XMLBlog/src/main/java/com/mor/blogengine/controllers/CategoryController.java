@@ -27,8 +27,6 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
-@SuppressWarnings("unchecked")
-
 public class CategoryController extends BlogControllerBase implements IBlogElementController<BlogCategory, DocumentException> {
 
     /**

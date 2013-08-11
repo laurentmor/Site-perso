@@ -23,15 +23,11 @@ package com.mor.blogengine.xml;
 
 //~--- non-JDK imports --------------------------------------------------------
 import com.mor.common.PropertiesUserObject;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.tree.DefaultElement;
-
-//~--- JDK imports ------------------------------------------------------------
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.dom4j.Document;
+import org.dom4j.tree.DefaultElement;
 
 /**
  * Classe utilitaire pour la gestion du XML de blog

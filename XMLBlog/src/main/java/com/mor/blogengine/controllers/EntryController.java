@@ -27,7 +27,6 @@ import java.util.logging.Logger;
  *
  * @author laurent
  */
-@SuppressWarnings("unchecked")
 public class EntryController extends BlogControllerBase implements IBlogElementController<BlogEntry, DocumentException> {
 
     private IRepository<BlogEntry, DefaultElement, SearchCriteria, DocumentException> repo = null;

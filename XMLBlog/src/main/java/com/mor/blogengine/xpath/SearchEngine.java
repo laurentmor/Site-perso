@@ -6,24 +6,20 @@ package com.mor.blogengine.xpath;
  see License.txt
  */
 import com.mor.blogengine.exception.NoMatchesFoundException;
-import com.mor.common.PropertiesUserObject;
-
-import org.dom4j.tree.DefaultAttribute;
-import org.dom4j.tree.DefaultElement;
-
 import static com.mor.blogengine.xpath.SearchCriteria.ALL;
 import static com.mor.blogengine.xpath.SearchCriteria.BY_ENTRY_ID;
 import static com.mor.blogengine.xpath.SearchCriteria.CATEGORY;
 import static com.mor.blogengine.xpath.SearchCriteria.DATE;
 import static com.mor.blogengine.xpath.SearchCriteria.SINGLE;
 import static com.mor.blogengine.xpath.SearchCriteria.SINGLE_WITH_PARENT;
-
-//~--- JDK imports ------------------------------------------------------------
+import com.mor.common.PropertiesUserObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.dom4j.Document;
 import org.dom4j.InvalidXPathException;
+import org.dom4j.tree.DefaultAttribute;
+import org.dom4j.tree.DefaultElement;
 
 /**
  * Search for content in XML data Structure<br/>
@@ -38,8 +34,8 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     /**
      *
      *
-     * @param pDoc
      * @param config
+     * @param d
      */
     public SearchEngine(Properties config, Document d) {
 
@@ -48,7 +44,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
 
     void init(Properties config, Document d) {
         mConfig = config;
-        configurator = new SearchEngineConfigurator(mConfig, d);
+        configurator = new SearchEngineConfigurator<>(mConfig, d);
         mXpathVersion = getSupportedXpathVersion();
     }
 
@@ -60,7 +56,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     List<DefaultElement> getCategories() throws InvalidXPathException, NoMatchesFoundException {
         trace("Building XPath search Query to get all categories");
 
-        ArrayList lNodes = new ArrayList();
+        List<String> lNodes = new ArrayList<>();
 
         lNodes.add("Category");
 
@@ -73,12 +69,12 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     List<DefaultElement> getEntriesForCategory(String pCatID) throws NoMatchesFoundException {
         trace("Building XPath search Query to get entries for a category");
 
-        ArrayList lNodes = new ArrayList();
+        List<String> lNodes = new ArrayList<>();
 
         lNodes.add("Entry");
 
         DefaultAttribute lAttribute = new DefaultAttribute("categoryID", pCatID);
-        List lAttList = new ArrayList();
+        List<DefaultAttribute> lAttList = new ArrayList<>();
 
         lAttList.add(lAttribute);
 
@@ -90,8 +86,8 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     List<DefaultElement> getEntriesforDate(String pDate) throws NoMatchesFoundException {
         trace("Building XPath search Query to get entries for a date");
 
-        ArrayList lNodesList = new ArrayList();
-        ArrayList lAttList = new ArrayList();
+        List<String> lNodesList = new ArrayList<>();
+        List<DefaultAttribute> lAttList = new ArrayList<>();
 
         lNodesList.add("Entry");
         lAttList.add(new DefaultAttribute("date", pDate));
@@ -111,12 +107,12 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     List<DefaultElement> getSingleElement(String pSearchedElementName, String id) throws NoMatchesFoundException {
         trace("Building XPath search Query to get  a single element");
 
-        ArrayList lNodes = new ArrayList();
+        List<String> lNodes = new ArrayList<>();
 
         lNodes.add(pSearchedElementName);
 
         DefaultAttribute lAttribute = new DefaultAttribute("ID", id);
-        List lAttList = new ArrayList();
+        List<DefaultAttribute> lAttList = new ArrayList<>();
 
         lAttList.add(lAttribute);
 
@@ -128,13 +124,13 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     List<DefaultElement> getComentsForEntry(String ID) throws NoMatchesFoundException {
         trace("Building XPath search Query to get comment for an entry");
 
-        ArrayList lNodes = new ArrayList();
+        List<String> lNodes = new ArrayList<>();
 
         lNodes.add("Entry");
         lNodes.add("Comment");
 
         DefaultAttribute lAttribute = new DefaultAttribute("entryID", ID);
-        List lAttList = new ArrayList();
+        List<DefaultAttribute> lAttList = new ArrayList<>();
 
         lAttList.add(lAttribute);
 
@@ -148,7 +144,7 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     List<DefaultElement> getEntries() throws NoMatchesFoundException {
         trace("Building XPath search Query to get all entries");
 
-        ArrayList lNodes = new ArrayList();
+        List<String> lNodes = new ArrayList<>();
 
         lNodes.add("Entry");
 
