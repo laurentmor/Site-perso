@@ -11,16 +11,13 @@ import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogEntry;
 import com.mor.blogengine.xpath.SearchCriteria;
 import com.mor.blogengine.xpath.SearchEngine;
-
-import org.dom4j.DocumentException;
-import org.dom4j.tree.DefaultElement;
-
-//~--- JDK imports ------------------------------------------------------------
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.tree.DefaultElement;
 
 /**
  *
