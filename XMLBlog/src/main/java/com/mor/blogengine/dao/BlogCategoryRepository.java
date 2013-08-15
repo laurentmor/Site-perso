@@ -30,7 +30,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     /**
      * Default constructor
      *
-     * @param repo document instance that holds blog data
+     * @param d document instance that holds blog data
      * @param config global configuration file for application
      */
     public BlogCategoryRepository(final Properties config, final Document d) {

@@ -99,7 +99,7 @@ public abstract class PropertiesUserObject {
 
     protected final URL getSchema() {
         String s = mConfig.getProperty("datasource.xsd");
-        URL url = getClass().getResource(s);
+        URL url = this.getClass().getResource(s);
         trace("Retrieving schema URL at : " + url.getFile());
         return url;
     }

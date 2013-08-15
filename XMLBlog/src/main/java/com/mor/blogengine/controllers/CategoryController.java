@@ -12,16 +12,13 @@ import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
-
-import org.dom4j.DocumentException;
-import org.dom4j.tree.DefaultElement;
-
-//~--- JDK imports ------------------------------------------------------------
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.dom4j.DocumentException;
+import org.dom4j.tree.DefaultElement;
 
 /**
  *
@@ -68,7 +65,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
         try {
             return repo.add(e);
         }
-        catch (ElementExistingException ex) {
+        catch (com.mor.blogengine.exception.ElementExistingException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
 
             return false;

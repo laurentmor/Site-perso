@@ -41,7 +41,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     /**
      * class instance
      */
-    static final XMLHandlerImpl mInstance = null;
+    static  XMLHandlerImpl mInstance;
 
     /**
      * parsed XML document
@@ -62,10 +62,11 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
      */
     public static XMLHandlerImpl getInstanceForDoc(Properties config, Document domTree) {
         if ((config != null)) {
-            if (mInstance == null) {
-                return new XMLHandlerImpl(config, domTree);
+            if (mInstance != null) {
+                return mInstance;
             }
         }
+        mInstance=new XMLHandlerImpl(config, domTree);
 
         return mInstance;
     }

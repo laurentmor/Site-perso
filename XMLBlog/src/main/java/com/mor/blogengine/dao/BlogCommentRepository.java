@@ -30,7 +30,7 @@ public class BlogCommentRepository extends BlogRepositoryBase
     /**
      * Default constructor
      *
-     * @param repo document instance that holds blog data
+     * @param document document instance that holds blog data
      * @param config global configuration file for application
      */
     public BlogCommentRepository(final Properties config, final Document document) {

@@ -4,6 +4,7 @@
  */
 package com.mor.blogengine.xpath;
 
+import com.mor.blogengine.xpath.XPathVersion;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -32,8 +32,8 @@ public class EntryController extends BlogControllerBase implements IBlogElementC
     private IRepository<BlogEntry, DefaultElement, SearchCriteria, DocumentException> repo = null;
 
     /**
-     *
-     * @param repository
+     * Construct Entry controller class using given properties configuration
+     * @param config  related entryControlle configuration 
      */
     public EntryController(Properties config) {
         super(config);

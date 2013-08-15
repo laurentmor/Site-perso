@@ -35,6 +35,7 @@ public class SearchEngineConfigurator<resultType extends List<?>> extends Proper
 
         XPath xpathSelector = DocumentHelper.createXPath(pExpression);
 
+        @SuppressWarnings("unchecked")
         resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
                 ? xpathSelector.selectNodes(mDoc)
                 : null);

@@ -59,8 +59,8 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
         catch (NoMatchesFoundException ex) {
             Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (ElementExistingException ex) {
-            Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
+        catch (ElementExistingException x) {
+            Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, x);
         }
 
         return false;
@@ -99,7 +99,7 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     @Override
     public Map<String, BlogComment> getAllElements(String parentID) throws DocumentException {
         try {
-            List list = repo.getElementsForCriteria(SearchCriteria.ALL, parentID);
+            List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, parentID);
 
             return getFactory().createCommentMap(list);
 

@@ -7,22 +7,19 @@ package com.mor.blogengine.xml.io;
 
 //~--- non-JDK imports --------------------------------------------------------
 import com.mor.common.PropertiesUserObject;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Properties;
+import javax.xml.parsers.ParserConfigurationException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
-
-import org.xml.sax.SAXException;
-
-//~--- JDK imports ------------------------------------------------------------
-import java.io.IOException;
-
-import java.net.URL;
-import java.util.Properties;
-
-import javax.xml.parsers.ParserConfigurationException;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -45,8 +42,6 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      * <pre>
      * Provide a Dom4J document from various source type
      *
-     * @param xml
-     * @param schema
      *
      * @return built document
      * </pre>
@@ -112,7 +107,9 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
         try {
             OutputFormat format = new OutputFormat();
             format.setEncoding(getFileEncoding());
-            XMLWriter writer = new XMLWriter(new FileWriter(xml.getFile()), format);
+            XMLWriter writer;
+            writer = new XMLWriter(
+                    new OutputStreamWriter(new FileOutputStream(xml.getFile()), Charset.forName(getFileEncoding())));
 
             writer.write(pDocument);
             writer.close();

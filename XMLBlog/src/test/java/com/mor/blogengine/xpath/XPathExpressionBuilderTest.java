@@ -4,6 +4,8 @@
  */
 package com.mor.blogengine.xpath;
 
+import com.mor.blogengine.xpath.XPathExpressionBuilder;
+import com.mor.blogengine.xpath.XPathVersion;
 import java.util.ArrayList;
 import java.util.List;
 import org.dom4j.tree.DefaultAttribute;

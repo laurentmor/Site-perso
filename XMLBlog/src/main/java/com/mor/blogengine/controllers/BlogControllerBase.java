@@ -29,6 +29,11 @@ public abstract class BlogControllerBase extends PropertiesUserObject {
     private XmlDataSourceProvider provider = null;
     private IBlogEntityFactory<DefaultElement> factory = null;
 
+    /**
+     * Base class for controllers configuration  
+     * As we use same configuration in each context we can generalise it
+     * @param p Configuration settings
+     */
     public BlogControllerBase(final Properties p) {
 
         mConfig = p;
