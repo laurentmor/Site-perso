@@ -31,7 +31,7 @@ import java.util.List;
  * @param <returnType>
  * @author Laurent
  * @version 0.1 initial
- * @version 1.0 changed visibility according to arvhitecture plan arch_plan.pdf
+ * @version 1.0 changed visibility according to architecture plan arch_plan.pdf
  * @version 2.0 made all mehods private due to the introduction of
  * searchCriteria concept public access no longer needed
  */

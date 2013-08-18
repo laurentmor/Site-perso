@@ -80,9 +80,29 @@ public class XPathExpressionBuilderTest {
      * Test afin d'obtenir une expression sans attributs
      */
     @Test
-    public void testExpressionSansAttributs() {
+    public void testExpressionAvecNSSansAttributs() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, true);
         String expected = "/NS:R1//NS:N1//NS:N2//NS:N3";
+        String result = builder.compileExpression();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testExpressionAvecNSEtUnNoeud() {
+        nodes.clear();
+        nodes.add("N1");
+        XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, true);
+        String expected = "/NS:R1//NS:N1";
+        String result = builder.compileExpression();
+        assertEquals(expected, result);
+    }
+    
+     @Test
+    public void testExpressionSansNSEtUnNoeud() {
+        nodes.clear();
+        nodes.add("N1");
+        XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, false);
+        String expected = "/R1//N1";
         String result = builder.compileExpression();
         assertEquals(expected, result);
     }

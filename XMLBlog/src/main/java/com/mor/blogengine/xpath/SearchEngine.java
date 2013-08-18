@@ -43,6 +43,8 @@ public final class SearchEngine extends PropertiesUserObject implements IBlogSea
     }
 
     void init(Properties config, Document d) {
+        if(null==config) throw new IllegalArgumentException("Config properties must be set");
+        if(null==d) throw new IllegalArgumentException("Config properties must be set");
         mConfig = config;
         configurator = new SearchEngineConfigurator<>(mConfig, d);
         mXpathVersion = getSupportedXpathVersion();

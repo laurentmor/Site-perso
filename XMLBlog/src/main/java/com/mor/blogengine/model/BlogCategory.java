@@ -72,7 +72,9 @@ public final class BlogCategory extends AbstractBlogEntity {
      * @param pCatName name of the category
      * @param pDesc description of category
      */
+    
     public BlogCategory(String pCatName, String pDesc) {
+        if(null==pCatName)throw new IllegalArgumentException("Name is required");
         setCatName(pCatName);
         setDescription(pDesc);
         formatAttributesValuesAsHTML();
@@ -168,15 +170,12 @@ public final class BlogCategory extends AbstractBlogEntity {
         if ((this.mCatName == null) ? (other.mCatName != null) : !this.mCatName.equals(other.mCatName)) {
             return false;
         }
-        if ((this.mDescription == null) ? (other.mDescription != null) : !this.mDescription.equals(other.mDescription)) {
-            return false;
-        }
-        return true;
+        return !((this.mDescription == null) ? (other.mDescription != null) : !this.mDescription.equals(other.mDescription));
     }
 
     @Override
     public String toString() {
-        return mDescription;
+        return (this.mDescription==null) ?(mCatName) :"Name: "+mCatName+" Description: " +mDescription;
     }
 }
 

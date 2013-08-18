@@ -9,11 +9,7 @@ import com.mor.test.XMLConsumingTestCase;
 import java.util.List;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.tree.DefaultElement;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -25,25 +21,7 @@ public class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     public SearchEngineConfiguratorTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-        initialise();
-
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-        logTestName();
-    }
-
-    @After
-    public void tearDown() {
-    }
-
+   
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
@@ -53,7 +31,7 @@ public class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     @Test
     public void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
 
-        SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(getProperties(), getDocument());
+        SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(getProperties(), getDefautDocument());
         List<DefaultElement> fnd = configurator.findContent("/root");
         assertEquals("root", fnd.get(0).getName());
 
@@ -69,7 +47,7 @@ public class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     public void testConfigurerCorrectementAvecNonElementExistant() throws NoMatchesFoundException {
         SearchEngineConfigurator<List<DefaultElement>> configurator
                 = new SearchEngineConfigurator<>(getProperties(),
-                getDocument());
+                getDefautDocument());
 
          configurator.findContent("/notFound");
 
