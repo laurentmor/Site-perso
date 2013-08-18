@@ -45,8 +45,8 @@
                                     <xsd:attribute name="author" />
                                     <xsd:attribute name="webPage" />
                                     <!-- Début de séquence définissant les sous éléments de Comment -->
-                                                                        <!-- attributs de l'élément Comment-->
-                                                                        <!--  Fin des attributs de l'élément comment-->
+                                    <!-- attributs de l'élément Comment-->
+                                    <!--  Fin des attributs de l'élément comment-->
                                 </xsd:complexType>
                             </xsd:element>
                             <!-- Fin de séquence définissant les sous éléments de Comment -->
@@ -57,13 +57,13 @@
                         <xsd:attribute name="ID"/>
                         <xsd:attribute name="commentsCounts" />
                         <!-- Début de séquence définissant les sous éléments de Entry -->
-                                                <!-- Fin de séquence définissant les sous éléments de Entry -->
-                                                <!-- attributs de l'élément Entry-->
-                                                <!--  Fin des attributs de l'élément Entry-->
+                        <!-- Fin de séquence définissant les sous éléments de Entry -->
+                        <!-- attributs de l'élément Entry-->
+                        <!--  Fin des attributs de l'élément Entry-->
                     </xsd:complexType>
                 </xsd:element>
                 <!-- Fin de définition de l'élément Entry -->
-                                <!-- Début de définition de l'élément Category -->
+                <!-- Début de définition de l'élément Category -->
                 <xsd:element name="Category" maxOccurs="unbounded" minOccurs="0">
                     <xsd:annotation>
                         <xsd:documentation>
@@ -79,7 +79,7 @@
                 </xsd:element>
             </xsd:sequence>
             <!-- Début de séquence définissant les sous éléments du Blog -->
-                        <!-- Fin de séquence définissant les sous éléments du Blog -->
+            <!-- Fin de séquence définissant les sous éléments du Blog -->
         </xsd:complexType>
     </xsd:element>
     <!-- Fin du ROOT element-->

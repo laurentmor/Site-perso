@@ -30,7 +30,6 @@ public abstract class PropertiesUserObject {
     /**
      * Does some logging if application is in test mode and debug is set to On
      *
-     * @param level - trace level to apply
      * @param traceMessage - what to trace
      */
     protected void trace(String traceMessage) {

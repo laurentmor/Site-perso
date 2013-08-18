@@ -41,9 +41,11 @@ public class IncorrectPropertyValueException extends Exception {
      * <code>IncorrectPropertyValueException</code> with the specified detail
      * message.
      *
-     * @param msg the detail message.
+     * @param propertyName 
+     * @param currentValue 
+     * @param choices 
      */
-    public IncorrectPropertyValueException(String msg) {
-        super(msg);
+    public IncorrectPropertyValueException(String propertyName,String currentValue,String... choices ) {
+         System.err.println(propertyName+"is set incorrectly to : "+currentValue+ "it should be one of these values"+choices);
     }
 }

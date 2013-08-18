@@ -21,28 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.mor.blogengine.exception;
+package com.mor.blogengine.model;
+
+import com.mor.test.PropertiesConsumingTestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author laurent
  */
-public class MissingPropertyException extends Exception {
-
-    /**
-     * Creates a new instance of
-     * <code>MissingPropertyException</code> without detail message.
-     */
-    public MissingPropertyException() 
-    {
+public class BlogCategoryTest extends PropertiesConsumingTestCase{
+    
+    @Test 
+    public void categorieSansDescription(){
+     BlogCategory category=new BlogCategory("test sans description");
+        assertEquals("test sans description", category.toString());
     }
-    /**
-     * 
-     * @param property 
-     */
-    public MissingPropertyException(String property){
-        System.err.println("Property missing : "+property);
+    @Test(expected = IllegalArgumentException.class)
+    @SuppressWarnings("empty-statement")
+    public void categorieSansNom(){
+        BlogCategory blogCategory = new BlogCategory(null,"test");
+        
     }
-
+    
     
 }
