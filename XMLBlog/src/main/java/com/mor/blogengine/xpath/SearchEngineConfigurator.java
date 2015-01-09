@@ -6,12 +6,14 @@
 package com.mor.blogengine.xpath;
 
 //~--- non-JDK imports --------------------------------------------------------
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.common.PropertiesUserObject;
 import java.util.List;
 import java.util.Properties;
 import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
+import static org.dom4j.DocumentHelper.createXPath;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.XPath;
 
@@ -21,7 +23,6 @@ import org.dom4j.XPath;
  * @param <resultType>
  * @author laurent
  */
-
 public class SearchEngineConfigurator<resultType extends List<?>> extends PropertiesUserObject {
 
     private Document mDoc = null;
@@ -31,9 +32,9 @@ public class SearchEngineConfigurator<resultType extends List<?>> extends Proper
         mDoc = searchDoc;
     }
 
-    resultType findContent(String pExpression) throws InvalidXPathException, NoMatchesFoundException {
+    resultType findContent(String pExpression) throws InvalidXPathException, NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
 
-        XPath xpathSelector = DocumentHelper.createXPath(pExpression);
+        XPath xpathSelector = createXPath(pExpression);
 
         @SuppressWarnings("unchecked")
         resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
@@ -42,7 +43,7 @@ public class SearchEngineConfigurator<resultType extends List<?>> extends Proper
         trace("Searched " + pExpression);
         if (list == null) {
 
-            throw new NoMatchesFoundException(pExpression, isInTestModeWithDebugOn());
+            throw new NoMatchesFoundException(pExpression, isDebugOn());
 
         }
 

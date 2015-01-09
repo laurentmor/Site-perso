@@ -7,6 +7,8 @@ package com.mor.blogengine.dao;
 
 //~--- non-JDK imports --------------------------------------------------------
 import com.mor.blogengine.exception.ElementExistingException;
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
@@ -18,6 +20,8 @@ import org.dom4j.tree.DefaultElement;
 //~--- JDK imports ------------------------------------------------------------
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
 
 /**
@@ -64,10 +68,18 @@ public class BlogCategoryRepository extends BlogRepositoryBase
             }
         }
         catch (NoMatchesFoundException ex) {
-            trace("No match of element foud proceeding to add operation");
+            try {
+                trace("No match of element found proceeding to add operation");
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
+                Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex1);
+            }
 
             added = handler.add(t.toElement());
 
+        }
+        catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+            Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return added;
@@ -101,7 +113,12 @@ public class BlogCategoryRepository extends BlogRepositoryBase
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
         if (foundMatches == null) {
-            trace("No match of element found remove failed");
+            try {
+                trace("No match of element found remove failed");
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             throw new NoMatchesFoundException();
         } else {
@@ -129,7 +146,12 @@ public class BlogCategoryRepository extends BlogRepositoryBase
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
         if ((foundMatches == null)) {
-            trace("No match of element found edit failed");
+            try {
+                trace("No match of element found edit failed");
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             throw new NoMatchesFoundException();
         } else {

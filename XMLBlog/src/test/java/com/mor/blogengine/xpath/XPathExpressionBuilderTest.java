@@ -47,11 +47,11 @@ public class XPathExpressionBuilderTest {
         System.out.println("test : " + name.getMethodName());
         ns = "NS";
         root = "R1";
-        nodes = new ArrayList<String>();
+        nodes = new ArrayList<>();
         nodes.add("N1");
         nodes.add("N2");
         nodes.add("N3");
-        attList = new ArrayList<DefaultAttribute>();
+        attList = new ArrayList<>();
         attList.add(new DefaultAttribute("A1", "V1"));
         attList.add(new DefaultAttribute("A2", "V2"));
         attList.add(new DefaultAttribute("A3", "V3"));
@@ -111,7 +111,7 @@ public class XPathExpressionBuilderTest {
     public void testConvertAttributeListToStringListNonNull() {
 
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
-        List result = builder.convertAttributeListToStringList(attList);
+        List<String> result = builder.convertAttributeListToStringList(attList);
         List<String> expected = new ArrayList<>();
         expected.add("A1='V1'");
         expected.add("A2='V2'");
@@ -125,7 +125,7 @@ public class XPathExpressionBuilderTest {
 
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, null, XPathVersion.typeLess);
 
-        List result = builder.convertAttributeListToStringList(null);
+        List<String> result = builder.convertAttributeListToStringList(null);
         List<String> expected = new ArrayList<>();
 
         assertEquals(expected, result);

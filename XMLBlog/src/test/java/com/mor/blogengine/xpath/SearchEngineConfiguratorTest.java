@@ -4,9 +4,13 @@
  */
 package com.mor.blogengine.xpath;
 
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.test.XMLConsumingTestCase;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.tree.DefaultElement;
 import static org.junit.Assert.assertEquals;
@@ -31,9 +35,19 @@ public class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     @Test
     public void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
 
-        SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(getProperties(), getDefautDocument());
-        List<DefaultElement> fnd = configurator.findContent("/root");
-        assertEquals("root", fnd.get(0).getName());
+        try {
+            mConfig.remove("application.mode");
+            
+            SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(mConfig, getDefautDocument());
+            List<DefaultElement> fnd = configurator.findContent("/root");
+            assertEquals("root", fnd.get(0).getName());
+        }
+        catch (MissingPropertyException ex) {
+            Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IncorrectPropertyValueException ex) {
+            Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -49,7 +63,18 @@ public class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
                 = new SearchEngineConfigurator<>(getProperties(),
                 getDefautDocument());
 
-         configurator.findContent("/notFound");
+        try {
+            configurator.findContent("/notFound");
+        }
+        catch (InvalidXPathException ex) {
+            Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (MissingPropertyException ex) {
+            Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IncorrectPropertyValueException ex) {
+            Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 }

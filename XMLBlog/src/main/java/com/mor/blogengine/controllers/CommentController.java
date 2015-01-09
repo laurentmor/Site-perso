@@ -9,10 +9,10 @@ package com.mor.blogengine.controllers;
 import com.mor.blogengine.dao.BlogCommentRepository;
 import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogComment;
-import com.mor.blogengine.xml.BlogEntityFactory;
-import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xpath.SearchCriteria;
 
 import org.dom4j.DocumentException;
@@ -39,7 +39,7 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
      *
      * @param config
      */
-    public CommentController(Properties config) {
+    public CommentController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException {
         super(config);
 
         repo = new BlogCommentRepository(mConfig, getDocument());

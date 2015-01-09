@@ -5,13 +5,13 @@ import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
-import org.dom4j.tree.DefaultElement;
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 public abstract class XMLConsumingTestCase extends PropertiesConsumingTestCase {
 
-    @BeforeClass
-    public static void initialise() {
+    @Before
+    public  void initialise() {
 
         setupTestSettings();
 

@@ -6,6 +6,8 @@
 package com.mor.blogengine.xml.io;
 
 //~--- non-JDK imports --------------------------------------------------------
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.common.PropertiesUserObject;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +53,7 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      * @throws IOException
      */
     public Document provide()
-            throws SAXException, ParserConfigurationException, DocumentException, IOException {
+            throws SAXException, ParserConfigurationException, DocumentException, IOException, MissingPropertyException, IncorrectPropertyValueException {
 
         xml = getXml();
         URL schema = getSchema();
@@ -77,7 +79,7 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      * @return
      */
     private SAXReader createReaderAgainstSchema(URL schemaSource)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, IOException, MissingPropertyException, IncorrectPropertyValueException {
 
         trace("Parser created OK");
         SAXReader reader = new SAXReader();
@@ -102,7 +104,7 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      * @throws java.io.IOException
      * @param pDocument
      */
-    boolean write(Document pDocument) {
+    boolean write(Document pDocument) throws MissingPropertyException, IncorrectPropertyValueException {
 
         try {
             OutputFormat format = new OutputFormat();
@@ -127,7 +129,7 @@ public class XmlDataSourceProvider extends PropertiesUserObject {
      *
      * @return true if saved correctly
      */
-    public boolean saveChanges() {
+    public boolean saveChanges() throws MissingPropertyException, IncorrectPropertyValueException {
 
         if (isPersistingNecessary()) {
 

@@ -9,6 +9,8 @@ package com.mor.blogengine.controllers;
 import com.mor.blogengine.dao.BlogEntryRepository;
 import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogEntry;
 import com.mor.blogengine.xpath.SearchCriteria;
@@ -35,7 +37,7 @@ public class EntryController extends BlogControllerBase implements IBlogElementC
      * Construct Entry controller class using given properties configuration
      * @param config  related entryControlle configuration 
      */
-    public EntryController(Properties config) {
+    public EntryController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException {
         super(config);
 
         repo = new BlogEntryRepository(mConfig, getDocument());
@@ -49,7 +51,12 @@ public class EntryController extends BlogControllerBase implements IBlogElementC
             return getFactory().createEntryMap(elements);
         }
         catch (NoMatchesFoundException ex) {
-            trace(ex.getMessage());
+            try {
+                trace(ex.getMessage());
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
+                Logger.getLogger(EntryController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
 
         return null;

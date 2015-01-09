@@ -24,8 +24,13 @@
 package com.mor.blogengine.model;
 
 import com.mor.test.PropertiesConsumingTestCase;
+import java.lang.annotation.Annotation;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.bcel.generic.BREAKPOINT;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -43,6 +48,23 @@ public class BlogCategoryTest extends PropertiesConsumingTestCase{
     public void categorieSansNom(){
         BlogCategory blogCategory = new BlogCategory(null,"test");
         
+    }
+    //@Ignore
+    @Test
+    public void ABVC(){
+        System.out.println("ok");
+        
+        try {
+            Annotation[] annotations;
+            annotations = BlogCategoryTest.class.getMethod("ABVC" ).getAnnotations();
+            for (int i = 0; i < annotations.length; i++) {
+                Annotation annotation = annotations[i];
+                System.out.println(annotation.toString());
+            }
+        }
+        catch (NoSuchMethodException | SecurityException ex) {
+            Logger.getLogger(BlogCategoryTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

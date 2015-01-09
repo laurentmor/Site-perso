@@ -28,6 +28,7 @@ package com.mor.blogengine.exception;
  * @author laurent
  */
 public class MissingPropertyException extends Exception {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new instance of

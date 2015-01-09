@@ -9,6 +9,8 @@ package com.mor.blogengine.controllers;
 import com.mor.blogengine.dao.BlogCategoryRepository;
 import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
@@ -35,7 +37,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
      *
      * @param config
      */
-    public CategoryController(Properties config) {
+    public CategoryController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException {
         super(config);
         repo = new BlogCategoryRepository(mConfig, getDocument());
 
@@ -53,8 +55,16 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
             }
         }
         catch (NoMatchesFoundException ex) {
-            trace(ex.getMessage());
+            try {
+                trace(ex.getMessage());
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
+                Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             return null;
+        }
+        catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -65,7 +75,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
         try {
             return repo.add(e);
         }
-        catch (com.mor.blogengine.exception.ElementExistingException ex) {
+        catch (ElementExistingException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
 
             return false;

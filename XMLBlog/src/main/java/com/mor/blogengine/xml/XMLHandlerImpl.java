@@ -22,10 +22,14 @@
 package com.mor.blogengine.xml;
 
 //~--- non-JDK imports --------------------------------------------------------
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.common.PropertiesUserObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.tree.DefaultElement;
 
@@ -108,13 +112,18 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
         boolean removed = false;
 
         try {
-            ArrayList<DefaultElement> list = new ArrayList<DefaultElement>();
+            ArrayList<DefaultElement> list = new ArrayList<>();
 
             list.add(element);
             removed = remove(list);
         }
         catch (Exception e) {
-            trace("" + e);
+            try {
+                trace("" + e);
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                Logger.getLogger(XMLHandlerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return removed;
@@ -187,12 +196,22 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
         DefaultElement foundParent = (DefaultElement) mRootElement.elementByID(parentID);
 
         if (foundParent != null) {
-            trace("Parent found{0}");
+            try {
+                trace("Parent found{0}");
+            }
+            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                Logger.getLogger(XMLHandlerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             DefaultElement foundChild = (DefaultElement) foundParent.elementByID(child.valueOf("@ID"));
 
             if (foundChild != null) {
-                trace("child  found");
+                try {
+                    trace("child  found");
+                }
+                catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                    Logger.getLogger(XMLHandlerImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 removed = foundParent.remove(foundChild);
 
                 return removed;

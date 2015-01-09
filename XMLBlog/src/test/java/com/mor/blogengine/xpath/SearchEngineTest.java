@@ -27,6 +27,7 @@ import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.test.XMLConsumingTestCase;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -35,10 +36,10 @@ import org.junit.Test;
  */
 public class SearchEngineTest extends XMLConsumingTestCase {
 
-    SearchEngine engine = null;
+   static  SearchEngine engine = null;
 
     @Before
-    public void configure() {
+    public  void configure() {
         engine = new SearchEngine(getProperties(), getBlogDocument());
     }
 

@@ -23,11 +23,14 @@
  */
 package com.mor.blogengine.exception;
 
+import java.util.Arrays;
+
 /**
  *
  * @author laurent
  */
 public class IncorrectPropertyValueException extends Exception {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new instance of
@@ -45,7 +48,13 @@ public class IncorrectPropertyValueException extends Exception {
      * @param currentValue 
      * @param choices 
      */
-    public IncorrectPropertyValueException(String propertyName,String currentValue,String... choices ) {
-         System.err.println(propertyName+"is set incorrectly to : "+currentValue+ "it should be one of these values"+choices);
+    public IncorrectPropertyValueException(String propertyName,String currentValue,Enum<?>... choices ) {
+         System.err.print(propertyName+"is set incorrectly to : "+currentValue+ " it should be one of these values: ");
+         for (int i = 0; i < choices.length-1; i++) {
+            String choice = choices[i].name();
+            System.err.print(choice+",");
+            
+        }
+         System.err.println(choices[choices.length-1]);
     }
 }

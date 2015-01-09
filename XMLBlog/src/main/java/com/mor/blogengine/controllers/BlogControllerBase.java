@@ -4,6 +4,8 @@
  */
 package com.mor.blogengine.controllers;
 
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.xml.BlogEntityFactory;
 import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xml.io.XmlDataSourceProvider;
@@ -34,10 +36,10 @@ public abstract class BlogControllerBase extends PropertiesUserObject {
      * As we use same configuration in each context we can generalise it
      * @param p Configuration settings
      */
-    public BlogControllerBase(final Properties p) {
+    public BlogControllerBase(final Properties p) throws MissingPropertyException, IncorrectPropertyValueException {
 
         mConfig = p;
-        provider = new XmlDataSourceProvider(p);
+        provider = new XmlDataSourceProvider(mConfig);
         try {
             document = provider.provide();
             factory = new BlogEntityFactory();

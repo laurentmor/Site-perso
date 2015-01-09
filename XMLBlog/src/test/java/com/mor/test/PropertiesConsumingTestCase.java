@@ -18,27 +18,27 @@ import org.junit.rules.TestName;
 public abstract class PropertiesConsumingTestCase extends PropertiesUserObject{
 
     @Rule
-    public TestName name = new TestName();
+    public static TestName name = new TestName();
 
-    static Properties properties = null;
+  
 
-    @Before
-    public void logTestName() {
+    public static  void  logTestName() {
         System.out.println(name.getMethodName());
     }
 
-    @BeforeClass
-    public static void setupTestSettings() {
-        properties = new Properties();
-        properties.put("application.mode", "test");
-        properties.put("application.debug", "On");
-        properties.put("log.level", "INFO");
-        properties.put("xpath.version", "1.0f");
+    @Before
+    public  void setupTestSettings() {
+        logTestName();
+        mConfig=new Properties();
+        mConfig.put("application.mode", "test");
+        mConfig.put("application.debug", "On");
+        mConfig.put("log.level", "INFO");
+        mConfig.put("xpath.version", "1.0f");
        
     }
 
-    public final static Properties getProperties() {
-        return properties;
+    public   Properties getProperties() {
+        return mConfig;
     }
 
 }

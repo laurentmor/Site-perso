@@ -30,6 +30,7 @@ package com.mor.blogengine.exception;
  *
  */
 public class ElementExistingException extends Exception {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new instance of
