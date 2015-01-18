@@ -12,7 +12,6 @@ import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
-import com.mor.blogengine.xpath.SearchEngine;
 
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
@@ -178,7 +177,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     @Override
     public List<DefaultElement> getElementsForCriteria(SearchCriteria searchParam, String paramValue)
             throws NoMatchesFoundException {
-        List<DefaultElement> list = new SearchEngine(mConfig, doc).getElementsForCriteria("Category",
+        List<DefaultElement> list = searchEngine.getElementsForCriteria("Category",
                 searchParam, paramValue);
 
         return list;

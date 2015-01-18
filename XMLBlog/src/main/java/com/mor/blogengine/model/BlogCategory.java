@@ -1,183 +1,1 @@
-
-/*
- * blogCategory.java
- *
- * Created on 5 mai 2007, 14:37
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-package com.mor.blogengine.model;
-
-//~--- non-JDK imports --------------------------------------------------------
-import com.mor.blogengine.text.StringUtil;
-
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
-import org.dom4j.tree.DefaultAttribute;
-import org.dom4j.tree.DefaultElement;
-
-/**
- * Object representing a blog category
- *
- * @author Laurent Morissette
- *
- */
-public final class BlogCategory extends AbstractBlogEntity {
-
-    private static final long serialVersionUID = 7735878793954382143L;
-
-    /**
-     * category name
-     */
-    private String mCatName = null;
-
-    /**
-     * category description
-     */
-    private String mDescription = null;
-
-    /**
-     * default constructor
-     */
-    public BlogCategory() {
-    }
-
-    /**
-     *
-     * @param pElement XML node to create a category from
-     */
-    public BlogCategory(DefaultElement pElement) {
-        mAassociatedElement = pElement;
-        setCatName(mAassociatedElement.valueOf("@name"));
-        setEntityID();
-        setDescription(mAassociatedElement.valueOf("@description"));
-        formatAttributesValuesAsHTML();
-    }
-
-    /**
-     * contruct a category in a blog
-     *
-     * @param pCatName name of the category
-     */
-    public BlogCategory(String pCatName) {
-        setCatName(pCatName);
-        setDescription(null);
-        formatAttributesValuesAsHTML();
-    }
-
-    /**
-     * contruct a category in a blog
-     *
-     * @param pCatName name of the category
-     * @param pDesc description of category
-     */
-    
-    public BlogCategory(String pCatName, String pDesc) {
-        if(null==pCatName)throw new IllegalArgumentException("Name is required");
-        setCatName(pCatName);
-        setDescription(pDesc);
-        formatAttributesValuesAsHTML();
-    }
-
-    /**
-     *
-     * @return mCatname name of the category
-     */
-    public String getCatName() {
-        return mCatName;
-    }
-
-    /**
-     *
-     * @param mCatName name of the category
-     */
-    private void setCatName(String mCatName) {
-        this.mCatName = mCatName;
-    }
-
-    /**
-     *
-     * @param o
-     * @return 1 if both categoy are the same -1 if not
-     */
-    public int compareTo(Object o) {
-        BlogCategory lCatComp = (BlogCategory) o;
-
-        if (getEntityID().equalsIgnoreCase(lCatComp.getEntityID())) {
-            return 1;
-        }
-
-        return -1;
-    }
-
-    /**
-     *
-     * @return category description
-     */
-    public String getDescription() {
-        return mDescription;
-    }
-
-    /**
-     *
-     *
-     * @param pDescription the description to set it to
-     */
-    private void setDescription(String pDescription) {
-        this.mDescription = pDescription;
-    }
-
-    /**
-     * a-like as {@link #toString() }
-     *
-     * @return an XML representation of element
-     */
-    @Override
-    public DefaultElement toElement() {
-
-        // QName lElementDecl = new QName("Category", mNamespace);
-        DefaultElement lReturnElement = new DefaultElement("Category");
-
-        // Attribute= a=new Attribute("", mCatName)
-        lReturnElement.add(new DefaultAttribute("ID", getEntityID()));
-        lReturnElement.add(new DefaultAttribute("name", getCatName()));
-        lReturnElement.add(new DefaultAttribute("description", getDescription()));
-
-        return lReturnElement;
-    }
-
-    @Override
-    void formatAttributesValuesAsHTML() {
-        setCatName(StringUtil.toHTMLString(mCatName));
-        setDescription(StringUtil.toHTMLString(mDescription));
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(15, 745).append(getCatName()).append(getDescription()).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final BlogCategory other = (BlogCategory) obj;
-        if ((this.mCatName == null) ? (other.mCatName != null) : !this.mCatName.equals(other.mCatName)) {
-            return false;
-        }
-        return !((this.mDescription == null) ? (other.mDescription != null) : !this.mDescription.equals(other.mDescription));
-    }
-
-    @Override
-    public String toString() {
-        return (this.mDescription==null) ?(mCatName) :"Name: "+mCatName+" Description: " +mDescription;
-    }
-}
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
+/*  * The MIT License * * Copyright 2015 Laurent Morissette. * * Permission is hereby granted, free of charge, to any person obtaining a copy * of this software and associated documentation files (the "Software"), to deal * in the Software without restriction, including without limitation the rights * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell * copies of the Software, and to permit persons to whom the Software is * furnished to do so, subject to the following conditions: * * The above copyright notice and this permission notice shall be included in * all copies or substantial portions of the Software. * * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN * THE SOFTWARE. */package com.mor.blogengine.model;//~--- non-JDK imports --------------------------------------------------------import org.apache.commons.lang.builder.HashCodeBuilder;import org.dom4j.tree.DefaultAttribute;import org.dom4j.tree.DefaultElement;import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;/** * Object representing a blog category * * @author Laurent Morissette * */public final class BlogCategory extends AbstractBlogEntity {    private static final long serialVersionUID = 7735878793954382143L;    /**     * category name     */    private String mCatName = null;    /**     * category description     */    private String mDescription = null;    /**     * default constructor     */    public BlogCategory() {    }    /**     *     * @param pElement XML node to create a category from     */    public BlogCategory(DefaultElement pElement) {        if (null == pElement) {            throw new IllegalArgumentException("pElement required");        }        mAassociatedElement = pElement;        mCatName = mAassociatedElement.valueOf("@name");        setEntityID();        mDescription = mAassociatedElement.valueOf("@description");        formatAttributesValuesAsHTML();    }    /**     * contruct a category in a blog     *     * @param pCatName name of the category     */    public BlogCategory(String pCatName) {        mCatName = pCatName;        formatAttributesValuesAsHTML();    }    /**     * contruct a category in a blog     *     * @param pCatName name of the category     * @param pDesc description of category     */    public BlogCategory(String pCatName, String pDesc) {        if (null == pCatName) {            throw new IllegalArgumentException("Name is required");        }        mCatName = pCatName;        mDescription = pDesc;        formatAttributesValuesAsHTML();    }    /**     *     * @return mCatname name of the category     */    public String getCatName() {        return mCatName;    }    /**     *     * @param o     * @return 1 if both category are the same -1 if not     */    public int compareTo(Object o) {        BlogCategory lCatComp = (BlogCategory) o;        if (getEntityID().equalsIgnoreCase(lCatComp.getEntityID())) {            return 1;        }        return -1;    }    /**     *     * @return category description     */    public String getDescription() {        return mDescription;    }    /**     * a-like as {@link #toString() }     *     * @return an XML representation of element     */    @Override    public DefaultElement toElement() {        // QName lElementDecl = new QName("Category", mNamespace);        DefaultElement lReturnElement = new DefaultElement("Category");        // Attribute= a=new Attribute("", mCatName)        lReturnElement.add(new DefaultAttribute("ID", getEntityID()));        lReturnElement.add(new DefaultAttribute("name", getCatName()));        lReturnElement.add(new DefaultAttribute("description", getDescription()));        return lReturnElement;    }    @Override    void formatAttributesValuesAsHTML() {        mCatName = escapeHtml(mCatName);        mDescription = escapeHtml(mDescription);    }    @Override    public int hashCode() {        return new HashCodeBuilder(15, 745).append(getCatName()).append(getDescription()).toHashCode();    }    @Override    public boolean equals(Object obj) {        if (obj == null) {            return false;        }        if (getClass() != obj.getClass()) {            return false;        }        final BlogCategory other = (BlogCategory) obj;        if ((this.mCatName == null) ? (other.mCatName != null) : !this.mCatName.equals(other.mCatName)) {            return false;        }        return !((this.mDescription == null) ? (other.mDescription != null) : !this.mDescription.equals(other.mDescription));    }    @Override    public String toString() {        return (this.mDescription == null) ? (mCatName) : "Name: " + mCatName + " Description: " + mDescription;    }}//~ Formatted by Jindent --- http://www.jindent.com

@@ -1,212 +1,1 @@
-
-/*
- * blogComment.java
- *
- * Created on 5 mai 2007, 14:36
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-package com.mor.blogengine.model;
-
-//~--- non-JDK imports --------------------------------------------------------
-import com.mor.blogengine.text.StringUtil;
-
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
-import org.dom4j.tree.DefaultAttribute;
-import org.dom4j.tree.DefaultElement;
-
-/**
- * Object representing a blog comment
- *
- * @author Laurent Morissette
- *
- */
-public final class BlogComment extends AbstractBlogEntity {
-
-    private static final long serialVersionUID = -3684562856217228760L;
-    private String mAuthor = null;
-    private String mCommentText = null;
-    private String mDate = null;
-    private String mEntryID = null;
-    private String mWebPage = null;
-
-    /**
-     *
-     * @param element XML node to create a comment from
-     */
-    public BlogComment(DefaultElement element) {
-        mAassociatedElement = element;
-        setDate(element.valueOf("@date"));
-        setAuthor(element.valueOf("@author"));
-        setWebPage(element.valueOf("@webPage"));
-        setCommentText(element.element("CommentText").getText());
-        setEntityID();
-        setEntryID(element.valueOf("@entriID"));
-        formatAttributesValuesAsHTML();
-    }
-
-    /**
-     * Creates a new instance of blogComment
-     *
-     * @param entryID entry ID related to the comment
-     * @param pDate date of comment
-     * @param pAuthor author of the comment
-     * @param pPage web page of the author of comment
-     * @param pText text of comment
-     *
-     */
-    public BlogComment(String entryID, String pDate, String pAuthor, String pPage, String pText) {
-        setEntryID(entryID);
-        setDate(pDate);
-        setAuthor(pAuthor);
-        setWebPage(pPage);
-        setCommentText(pText);
-        formatAttributesValuesAsHTML();
-    }
-
-    /**
-     *
-     * @return
-     */
-    String getDate() {
-        return mDate;
-    }
-
-    /**
-     *
-     * @param mDate
-     */
-    private void setDate(String mDate) {
-        this.mDate = mDate;
-    }
-
-    /**
-     *
-     * @return
-     */
-    String getAuthor() {
-        return mAuthor;
-    }
-
-    /**
-     *
-     * @param mAuthor
-     */
-    private void setAuthor(String mAuthor) {
-        this.mAuthor = mAuthor;
-    }
-
-    /**
-     *
-     * @return
-     */
-    String getWebPage() {
-        return mWebPage;
-    }
-
-    /**
-     *
-     * @param mWebPage
-     */
-    private void setWebPage(String mWebPage) {
-        this.mWebPage = mWebPage;
-    }
-
-    /**
-     *
-     * @return text of comment
-     */
-    public String getCommentText() {
-        return mCommentText;
-    }
-
-    /**
-     *
-     * @param mCommentText
-     */
-    private void setCommentText(String mCommentText) {
-        this.mCommentText = mCommentText;
-    }
-
-    @Override
-    public DefaultElement toElement() {
-
-        // this is element Declaration in complete form.
-        // QName lCommentTextDecl = new QName("CommentText", mNamespace);
-        // QName lReturnelementdecl = new QName("Comment", mNamespace);
-        DefaultElement lReturnElement = null;
-        DefaultElement lCommentText = new DefaultElement("CommentText");
-
-        lCommentText.addText(mCommentText);
-        lReturnElement = new DefaultElement("Comment");
-
-        // lReturnElement.add(mNamespace);
-        lReturnElement.add(new DefaultAttribute("entryID", getEntryID()));
-        lReturnElement.add(new DefaultAttribute("ID", getEntityID()));
-        lReturnElement.add(new DefaultAttribute("date", mDate));
-        lReturnElement.add(new DefaultAttribute("author", mAuthor));
-        lReturnElement.add(new DefaultAttribute("webPage", mWebPage));
-        lReturnElement.add(lCommentText);
-
-        return lReturnElement;
-    }
-
-    @Override
-    void formatAttributesValuesAsHTML() {
-        setCommentText(StringUtil.toHTMLString(mCommentText));
-        setAuthor(StringUtil.toHTMLString(mAuthor));
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(19, 1001).append(getAuthor()).append(getCommentText()).append(getDate()).append(
-                getWebPage()).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final BlogComment other = (BlogComment) obj;
-        if ((this.mAuthor == null) ? (other.mAuthor != null) : !this.mAuthor.equals(other.mAuthor)) {
-            return false;
-        }
-        if ((this.mCommentText == null) ? (other.mCommentText != null) : !this.mCommentText.equals(other.mCommentText)) {
-            return false;
-        }
-        if ((this.mDate == null) ? (other.mDate != null) : !this.mDate.equals(other.mDate)) {
-            return false;
-        }
-        if ((this.mEntryID == null) ? (other.mEntryID != null) : !this.mEntryID.equals(other.mEntryID)) {
-            return false;
-        }
-        if ((this.mWebPage == null) ? (other.mWebPage != null) : !this.mWebPage.equals(other.mWebPage)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @return the EntryID
-     */
-    public String getEntryID() {
-        return mEntryID;
-    }
-
-    /**
-     * @param EntryID the EntryID to set
-     * @param mEntryID
-     */
-    void setEntryID(String mEntryID) {
-        this.mEntryID = mEntryID;
-    }
-}
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
+/*  * The MIT License * * Copyright 2015 Laurent Morissette. * * Permission is hereby granted, free of charge, to any person obtaining a copy * of this software and associated documentation files (the "Software"), to deal * in the Software without restriction, including without limitation the rights * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell * copies of the Software, and to permit persons to whom the Software is * furnished to do so, subject to the following conditions: * * The above copyright notice and this permission notice shall be included in * all copies or substantial portions of the Software. * * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN * THE SOFTWARE. */package com.mor.blogengine.model;//~--- non-JDK imports --------------------------------------------------------import org.apache.commons.lang.builder.HashCodeBuilder;import org.dom4j.tree.DefaultAttribute;import org.dom4j.tree.DefaultElement;import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;/** * Object representing a blog comment * * @author Laurent Morissette * */public final class BlogComment extends AbstractBlogEntity {    private static final long serialVersionUID = -3684562856217228760L;    private String mAuthor = null;    private String mCommentText = null;    private String mDate = null;    private String mEntryID = null;    private String mWebPage = null;    /**     *     * @param element XML node to create a comment from     */    public BlogComment(DefaultElement element) {        mAassociatedElement = element;        setDate(element.valueOf("@date"));        setAuthor(element.valueOf("@author"));        setWebPage(element.valueOf("@webPage"));        setCommentText(element.element("CommentText").getText());        setEntityID();        setEntryID(element.valueOf("@entriID"));        formatAttributesValuesAsHTML();    }    /**     * Creates a new instance of blogComment     *     * @param entryID entry ID related to the comment     * @param pDate date of comment     * @param pAuthor author of the comment     * @param pPage web page of the author of comment     * @param pText text of comment     *     */    public BlogComment(String entryID, String pDate, String pAuthor, String pPage, String pText) {        setEntryID(entryID);        setDate(pDate);        setAuthor(pAuthor);        setWebPage(pPage);        setCommentText(pText);        formatAttributesValuesAsHTML();    }    /**     *     * @return     */    String getDate() {        return mDate;    }    /**     *     * @param mDate     */    private void setDate(String mDate) {        this.mDate = mDate;    }    /**     *     * @return     */    String getAuthor() {        return mAuthor;    }    /**     *     * @param mAuthor     */    private void setAuthor(String mAuthor) {        this.mAuthor = mAuthor;    }    /**     *     * @return     */    String getWebPage() {        return mWebPage;    }    /**     *     * @param mWebPage     */    private void setWebPage(String mWebPage) {        this.mWebPage = mWebPage;    }    /**     *     * @return text of comment     */    public String getCommentText() {        return mCommentText;    }    /**     *     * @param mCommentText     */    private void setCommentText(String mCommentText) {        this.mCommentText = mCommentText;    }    @Override    public DefaultElement toElement() {        // this is element Declaration in complete form.        // QName lCommentTextDecl = new QName("CommentText", mNamespace);        // QName lReturnelementdecl = new QName("Comment", mNamespace);        DefaultElement lReturnElement = null;        DefaultElement lCommentText = new DefaultElement("CommentText");        lCommentText.addText(mCommentText);        lReturnElement = new DefaultElement("Comment");        // lReturnElement.add(mNamespace);        lReturnElement.add(new DefaultAttribute("entryID", getEntryID()));        lReturnElement.add(new DefaultAttribute("ID", getEntityID()));        lReturnElement.add(new DefaultAttribute("date", mDate));        lReturnElement.add(new DefaultAttribute("author", mAuthor));        lReturnElement.add(new DefaultAttribute("webPage", mWebPage));        lReturnElement.add(lCommentText);        return lReturnElement;    }    @Override    void formatAttributesValuesAsHTML() {        mAuthor=escapeHtml(mAuthor);        mCommentText=escapeHtml(mCommentText);    }    @Override    public int hashCode() {        return new HashCodeBuilder(19, 1001).append(getAuthor()).append(getCommentText()).append(getDate()).append(                getWebPage()).toHashCode();    }    @Override    public boolean equals(Object obj) {        if (obj == null) {            return false;        }        if (getClass() != obj.getClass()) {            return false;        }        final BlogComment other = (BlogComment) obj;        if ((this.mAuthor == null) ? (other.mAuthor != null) : !this.mAuthor.equals(other.mAuthor)) {            return false;        }        if ((this.mCommentText == null) ? (other.mCommentText != null) : !this.mCommentText.equals(other.mCommentText)) {            return false;        }        if ((this.mDate == null) ? (other.mDate != null) : !this.mDate.equals(other.mDate)) {            return false;        }        if ((this.mEntryID == null) ? (other.mEntryID != null) : !this.mEntryID.equals(other.mEntryID)) {            return false;        }        if ((this.mWebPage == null) ? (other.mWebPage != null) : !this.mWebPage.equals(other.mWebPage)) {            return false;        }        return true;    }    /**     * @return the EntryID     */    public String getEntryID() {        return mEntryID;    }    /**     * @param EntryID the EntryID to set     * @param mEntryID     */    void setEntryID(String mEntryID) {        this.mEntryID = mEntryID;    }}//~ Formatted by Jindent --- http://www.jindent.com
