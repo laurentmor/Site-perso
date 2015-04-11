@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/laurentmor/Site-perso.png?label=ready&title=Ready)](https://waffle.io/laurentmor/Site-perso)
 Site-perso
 ==========
 [![Build Status](https://secure.travis-ci.org/laurentmor/Site-perso.png)](http://travis-ci.org/laurentmor/Site-perso)
