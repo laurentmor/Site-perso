@@ -1,69 +1,74 @@
-/* 
- * The MIT License
+/**
+ * Copyright 2021 Laurent
  *
- * Copyright 2015 Laurent Morissette.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.mor.blogengine.xpath;
 
 import com.mor.blogengine.xpath.XPathExpressionBuilder;
 import com.mor.blogengine.xpath.XPathVersion;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.dom4j.tree.DefaultAttribute;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
  * @author laurent
  */
-public class XPathExpressionBuilderTest {
+@DisplayName("X Path Expression Builder Test")
+class XPathExpressionBuilderTest {
 
     private List<String> nodes = null;
+
     private String root = null;
+
     private String ns = null;
+
     private List<DefaultAttribute> attList = null;
-    @Rule
-    public TestName name = new TestName();
+
 
     public XPathExpressionBuilderTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
+    @BeforeAll
+    static void setUpClass() {
     }
 
-    @AfterClass
-    public static void tearDownClass() {
+    @AfterAll
+    static void tearDownClass() {
     }
 
-    @Before
-    public void setUp() {
-        System.out.println("test : " + name.getMethodName());
+    @BeforeEach
+    void setUp() {
         ns = "NS";
         root = "R1";
         nodes = new ArrayList<>();
@@ -76,8 +81,8 @@ public class XPathExpressionBuilderTest {
         attList.add(new DefaultAttribute("A3", "V3"));
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         nodes.clear();
         nodes = null;
         root = null;
@@ -88,7 +93,8 @@ public class XPathExpressionBuilderTest {
      * Test afin d'obtenir une expression sans attributs et sans prefixe de NS
      */
     @Test
-    public void testExpressionSansNSSansAttributs() {
+    @DisplayName("Test Expression Sans NS Sans Attributs")
+    void testExpressionSansNSSansAttributs() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, XPathVersion.typeLess);
         String expected = "/R1//N1//N2//N3";
         String result = builder.compileExpression();
@@ -99,7 +105,8 @@ public class XPathExpressionBuilderTest {
      * Test afin d'obtenir une expression sans attributs
      */
     @Test
-    public void testExpressionAvecNSSansAttributs() {
+    @DisplayName("Test Expression Avec NS Sans Attributs")
+    void testExpressionAvecNSSansAttributs() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, true);
         String expected = "/NS:R1//NS:N1//NS:N2//NS:N3";
         String result = builder.compileExpression();
@@ -107,7 +114,8 @@ public class XPathExpressionBuilderTest {
     }
 
     @Test
-    public void testExpressionAvecNSEtUnNoeud() {
+    @DisplayName("Test Expression Avec NS Et Un Noeud")
+    void testExpressionAvecNSEtUnNoeud() {
         nodes.clear();
         nodes.add("N1");
         XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, true);
@@ -115,9 +123,10 @@ public class XPathExpressionBuilderTest {
         String result = builder.compileExpression();
         assertEquals(expected, result);
     }
-    
-     @Test
-    public void testExpressionSansNSEtUnNoeud() {
+
+    @Test
+    @DisplayName("Test Expression Sans NS Et Un Noeud")
+    void testExpressionSansNSEtUnNoeud() {
         nodes.clear();
         nodes.add("N1");
         XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, false);
@@ -127,8 +136,8 @@ public class XPathExpressionBuilderTest {
     }
 
     @Test
-    public void testConvertAttributeListToStringListNonNull() {
-
+    @DisplayName("Test Convert Attribute List To String List Non Null")
+    void testConvertAttributeListToStringListNonNull() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
         List<String> result = builder.convertAttributeListToStringList(attList);
         List<String> expected = new ArrayList<>();
@@ -136,23 +145,20 @@ public class XPathExpressionBuilderTest {
         expected.add("A2='V2'");
         expected.add("A3='V3'");
         assertEquals(expected.get(0), result.get(0));
-
     }
 
     @Test
-    public void testConvertAttributeListToStringListNull() {
-
+    @DisplayName("Test Convert Attribute List To String List Null")
+    void testConvertAttributeListToStringListNull() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, null, XPathVersion.typeLess);
-
         List<String> result = builder.convertAttributeListToStringList(null);
         List<String> expected = new ArrayList<>();
-
         assertEquals(expected, result);
-
     }
 
     @Test
-    public void testAddNodesToExpressionAvecNS() {
+    @DisplayName("Test Add Nodes To Expression Avec NS")
+    void testAddNodesToExpressionAvecNS() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, true);
         String result = builder.addNodesToExpression(true);
         String expected = "//NS:N1//NS:N2//NS:N3";
@@ -160,7 +166,8 @@ public class XPathExpressionBuilderTest {
     }
 
     @Test
-    public void testAddNodesToExpressionSansNS() {
+    @DisplayName("Test Add Nodes To Expression Sans NS")
+    void testAddNodesToExpressionSansNS() {
         XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes, XPathVersion.typeLess, false);
         String result = builder.addNodesToExpression();
         String expected = "//N1//N2//N3";
@@ -168,28 +175,28 @@ public class XPathExpressionBuilderTest {
     }
 
     @Test
-    public void testAddPlusieursAttributs() {
-
+    @DisplayName("Test Add Plusieurs Attributs")
+    void testAddPlusieursAttributs() {
         XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
         String expResult = "[@A1='V1' and @A2='V2' and @A3='V3']";
         String result = instance.addAttributesToExpression();
         assertEquals(expResult, result);
-
     }
 
     @Test
-    public void testAddUnAttribut() {
+    @DisplayName("Test Add Un Attribut")
+    void testAddUnAttribut() {
         attList.clear();
         attList.add(new DefaultAttribute("A1", "V1"));
         XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typeLess);
         String expResult = "[@A1='V1']";
         String result = instance.addAttributesToExpression();
         assertEquals(expResult, result);
-
     }
 
     @Test
-    public void testFormatKeyAttributeValueAvecInt() {
+    @DisplayName("Test Format Key Attribute Value Avec Int")
+    void testFormatKeyAttributeValueAvecInt() {
         XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typed);
         String result = instance.formatKeyAttributeValue("K1", "3");
         String expected = "K1=xs:double(3)";
@@ -197,7 +204,8 @@ public class XPathExpressionBuilderTest {
     }
 
     @Test
-    public void testFormatKeyAttributeValueAvecBoolean() {
+    @DisplayName("Test Format Key Attribute Value Avec Boolean")
+    void testFormatKeyAttributeValueAvecBoolean() {
         XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList, XPathVersion.typed);
         String result = instance.formatKeyAttributeValue("K1", "true");
         String expected = "K1=xs:boolean(true)";

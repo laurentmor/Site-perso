@@ -1,7 +1,17 @@
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright 2021 Laurent
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.mor.blogengine.dao;
 
@@ -23,6 +33,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.dom4j.Document;
 
+import javax.naming.ConfigurationException;
+
 /**
  *
  * @author laurent
@@ -36,7 +48,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @param d document instance that holds blog data
      * @param config global configuration file for application
      */
-    public BlogCategoryRepository(final Properties config, final Document d) {
+    public BlogCategoryRepository(final Properties config, final Document d) throws ConfigurationException {
         super(d, config);
 
     }
@@ -50,7 +62,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @throws DocumentException if there is an issue with XML structure
      */
     @Override
-    public boolean add(BlogCategory t) throws ElementExistingException, DocumentException {
+    public boolean add(BlogCategory t) throws ElementExistingException, DocumentException, ConfigurationException {
 
         List<DefaultElement> list = null;
         boolean added = false;
@@ -90,7 +102,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @param what the category to append
      * @param parentID the Id of parent category to append to
      * @return true if Category appended correctly
-     * @deprecated do not use sun-category concept not considered
+     *  do not use subcategory concept not considered
      */
     @Override
     public boolean append(BlogCategory what, String parentID) {
@@ -115,7 +127,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
             try {
                 trace("No match of element found remove failed");
             }
-            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+            catch (MissingPropertyException | IncorrectPropertyValueException  ex) {
                 Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -148,7 +160,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
             try {
                 trace("No match of element found edit failed");
             }
-            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+            catch (MissingPropertyException | IncorrectPropertyValueException  ex) {
                 Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -157,8 +169,12 @@ public class BlogCategoryRepository extends BlogRepositoryBase
             try {
                 edited = remove(t) && add(t2);
             }
-            catch (ElementExistingException ex) {
-                throw ex;
+            catch (ElementExistingException | ConfigurationException ex) {
+                try {
+                    throw ex;
+                } catch (ConfigurationException e) {
+                    e.printStackTrace();
+                }
             }
 
             return edited;
@@ -191,7 +207,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @throws NoMatchesFoundException
      * @throws ElementExistingException if element to append already exist
      * @throws DocumentException if there is an issue with XML structure
-     * @deprecated do not use sun-category concept not considered
+     *
      */
     @Override
     public boolean append(BlogCategory what)

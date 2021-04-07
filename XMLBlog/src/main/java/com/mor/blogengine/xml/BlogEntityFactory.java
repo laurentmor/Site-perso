@@ -1,25 +1,17 @@
-/* 
- * The MIT License
+/**
+ * Copyright 2021 Laurent
  *
- * Copyright 2015 Laurent Morissette.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.mor.blogengine.xml;
 
@@ -41,6 +33,7 @@ import java.util.Map;
  * @author Laurent
  *
  */
+
 public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
 
     /**
@@ -54,12 +47,10 @@ public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
 
         Map<String, BlogEntry> map = new HashMap<String, BlogEntry>();
 
-        for (DefaultElement defaultElement : pList) {
-            BlogEntry entry = new BlogEntry(defaultElement);
+        pList.stream().map(BlogEntry::new).forEachOrdered(entry -> {
             String ID = entry.getEntityID();
-
             map.put(ID, entry);
-        }
+        });
 
         return map;
     }
@@ -75,12 +66,10 @@ public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
 
         Map<String, BlogCategory> map = new HashMap<String, BlogCategory>();
 
-        for (DefaultElement defaultElement : pList) {
-            BlogCategory category = new BlogCategory(defaultElement);
+        pList.stream().map(BlogCategory::new).forEachOrdered(category -> {
             String ID = category.getEntityID();
-
             map.put(ID, category);
-        }
+        });
 
         return map;
     }
@@ -96,12 +85,10 @@ public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
 
         Map<String, BlogComment> map = new HashMap<String, BlogComment>();
 
-        for (DefaultElement defaultElement : pList) {
-            BlogComment comment = new BlogComment(defaultElement);
+        pList.stream().map(BlogComment::new).forEachOrdered(comment -> {
             String ID = comment.getEntityID();
-
             map.put(ID, comment);
-        }
+        });
 
         return map;
     }

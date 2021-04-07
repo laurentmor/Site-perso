@@ -1,90 +1,56 @@
-/* 
- * The MIT License
+/**
+ * Copyright 2021 Laurent
  *
- * Copyright 2015 Laurent Morissette.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.mor.blogengine.xpath;
 
-import com.mor.blogengine.xpath.XPathVersion;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Rule;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.*;
 import org.junit.rules.TestName;
 
 /**
- *
  * @author laurent
  */
-public class XPathVersionTest {
+@DisplayName("XPath Version Test")
+class XPathVersionTest {
 
-    @Rule
-    public TestName name = new TestName();
 
-    public XPathVersionTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-        System.out.println("test : " + name.getMethodName());
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of valueOf method, of class XPathVersion.
      */
     @Test
-    public void testValueOf() {
-
+    @DisplayName("Test Value Of")
+    void testValueOf() {
         String aName = "typeLess";
         XPathVersion expResult = XPathVersion.typeLess;
         XPathVersion result = XPathVersion.valueOf(aName);
         assertEquals(expResult, result);
-
     }
 
     /**
      * Test of getVersion method, of class XPathVersion.
      */
     @Test
-    public void testGetVersion() {
-        System.out.println("getVersion");
+    @DisplayName("Test Get Version")
+    void testGetVersion() {
+
         XPathVersion instance = XPathVersion.typeLess;
         float expResult = 1.0F;
         float result = instance.getVersion();
         assertEquals(expResult, result, 0.0);
-
     }
 }

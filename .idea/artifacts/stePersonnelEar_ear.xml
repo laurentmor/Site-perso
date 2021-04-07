@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="stePersonnelEar:ear">
+    <output-path>$PROJECT_DIR$/stePersonnelEar/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>stePersonnelEar</module>
+        <packaging>ear</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="stePersonnelEar-1.0-SNAPSHOT.ear">
+      <element id="artifact" artifact-name="stePersonnelEar:ear exploded" />
+    </root>
+  </artifact>
+</component>

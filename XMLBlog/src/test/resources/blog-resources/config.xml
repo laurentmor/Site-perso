@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
-    Document   : engine-test-config.xml
-    Created on : 16 décembre 2009, 13:42
-    Author     : laurent
-    Description:
-        Purpose of the document follows.
+Copyright 2021 Laurent
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
 -->
+
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
@@ -30,7 +39,7 @@
     <!-- Used to enable full-logging -->
     <entry key="application.debug">On</entry>
     <!-- xpath version -->
-    <entry key="xpath.version">1.0f</entry>
+    <entry key="xpath.version">1.0</entry>
 
     <!-- Test data definition ==================== -->
 
@@ -49,7 +58,7 @@
     <entry key="category.with.description.notSameCat.name">cccc</entry>
     <entry key="category.with.description.notSameCat.description">Jokes</entry>
     <!-- Category without description -->
-   
+
     <entry key="category.without.discription.name.no.spec.char">recettes</entry>
     <entry key="category.without.discription.name.spec.char">recetté</entry>
     <entry key="category.without.discription.name.spec.char.expected">recett</entry>

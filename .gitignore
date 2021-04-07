@@ -4,3 +4,6 @@ nbactions.xml
 /XMLBlog/nb-configuration.xml
 target
 .svn
+*.iml
+.idea
+/stePersonnelEar/stePersonnelEar.iml
