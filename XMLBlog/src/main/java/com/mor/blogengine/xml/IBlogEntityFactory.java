@@ -19,6 +19,7 @@ package com.mor.blogengine.xml;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.model.BlogComment;
 import com.mor.blogengine.model.BlogEntry;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ import java.util.Map;
  * @author laurent
  *
  */
-public interface IBlogEntityFactory<dataStructure> {
+public interface IBlogEntityFactory<dataStructure > {
 
     /**
      * Create a map of entries
@@ -38,7 +39,9 @@ public interface IBlogEntityFactory<dataStructure> {
      * @param pList the list to create from
      * @return Created map
      */
-    public Map<String, BlogEntry> createEntryMap(List<dataStructure> pList);
+    default Map<String, BlogEntry> createEntryMap(List<org.dom4j.tree.DefaultElement> pList){
+        return null;
+    }
 
     /**
      * Create a map categories
@@ -46,7 +49,7 @@ public interface IBlogEntityFactory<dataStructure> {
      * @param pList the list to create from
      * @return Created map
      */
-    public Map<String, BlogCategory> createCategoryMap(List<dataStructure> pList);
+    Map<String, BlogCategory> createCategoryMap(List<dataStructure> pList);
 
     /**
      * Create a map of Comment
@@ -54,7 +57,7 @@ public interface IBlogEntityFactory<dataStructure> {
      * @param pList the list to create from
      * @return Created map
      */
-    public Map<String, BlogComment> createCommentMap(List<dataStructure> pList);
+    Map<String, BlogComment> createCommentMap(List<dataStructure> pList);
 }
 
 

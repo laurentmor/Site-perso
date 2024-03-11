@@ -48,7 +48,6 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
 
     /**
      *
-     * @param config
      */
     public CommentController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException, ConfigurationException {
         super(config);

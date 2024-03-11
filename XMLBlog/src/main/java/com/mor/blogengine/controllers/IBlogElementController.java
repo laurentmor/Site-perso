@@ -31,7 +31,6 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
     /**
      *
      * @return All elements of concrete type
-     * @throws dataSourceException
      */
     Map<String, Type> getAllElements() throws dataSourceException, ConfigurationException;
 
@@ -39,7 +38,6 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
      *
      * @param parentID the parent node ID to check for
      * @return All elements of concrete type
-     * @throws dataSourceException
      *
      */
     Map<String, Type> getAllElements(String parentID) throws dataSourceException, ConfigurationException;
@@ -49,7 +47,6 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
      *
      * @param e The element to add
      * @return true if element element was added correctly
-     * @throws dataSourceException
      */
     boolean addNewElement(Type e) throws dataSourceException, ConfigurationException;
 
@@ -58,7 +55,6 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
      *
      * @param e The element to remove
      * @return true if removed correctly
-     * @throws dataSourceException
      */
     boolean deleteElement(Type e) throws dataSourceException;
 
@@ -66,7 +62,6 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
      * edit an element
      *
      * @return true if edited correctly
-     * @throws dataSourceException
      * @param editWhat the element to edit
      * @param withWhat what to replace it with
      */
@@ -77,7 +72,6 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
      *
      * @param d the date to search for
      * @return resulting element
-     * @throws dataSourceException
      */
     Map<String, Type> getElementsForDate(String d) throws dataSourceException;
 }

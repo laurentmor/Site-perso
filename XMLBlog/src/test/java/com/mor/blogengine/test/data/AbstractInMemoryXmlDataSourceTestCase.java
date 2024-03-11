@@ -25,8 +25,6 @@ import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.xml.io.XmlDataSourceProvider;
 
-import junit.framework.TestCase;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.xml.sax.SAXException;
@@ -35,10 +33,8 @@ import org.xml.sax.SAXException;
 
 import javax.validation.constraints.NotNull;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileInputStream;
 
 import java.io.IOException;
-import java.net.URL;
 
 import java.util.Properties;
 
@@ -61,7 +57,6 @@ public abstract class AbstractInMemoryXmlDataSourceTestCase  {
 
     /**
      *
-     * @throws Exception
      */
 
     protected void setUp(@NotNull(message = "Bang!") Properties p)  {

@@ -30,7 +30,6 @@ public class StringUtil {
      * Apply well formed HTML conversion of a string for correct display
      *
      *
-     * @param pStr
      * @return HTML display version of string
      */
     public static String toHTMLString(String pStr) {
@@ -39,8 +38,6 @@ public class StringUtil {
 
     /**
      *
-     * @param S
-     * @return
      */
     public static String toStringHTML(String S) {
         return StringEscapeUtils.unescapeHtml(S);

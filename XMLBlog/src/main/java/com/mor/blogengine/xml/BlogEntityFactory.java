@@ -45,7 +45,7 @@ public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
     @Override
     public Map<String, BlogEntry> createEntryMap(final List<DefaultElement> pList) {
 
-        Map<String, BlogEntry> map = new HashMap<String, BlogEntry>();
+        Map<String, BlogEntry> map = new HashMap<>();
 
         pList.stream().map(BlogEntry::new).forEachOrdered(entry -> {
             String ID = entry.getEntityID();
@@ -64,7 +64,7 @@ public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
     @Override
     public Map<String, BlogCategory> createCategoryMap(final List<DefaultElement> pList) {
 
-        Map<String, BlogCategory> map = new HashMap<String, BlogCategory>();
+        Map<String, BlogCategory> map = new HashMap<>();
 
         pList.stream().map(BlogCategory::new).forEachOrdered(category -> {
             String ID = category.getEntityID();
@@ -83,7 +83,7 @@ public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
     @Override
     public Map<String, BlogComment> createCommentMap(List<DefaultElement> pList) {
 
-        Map<String, BlogComment> map = new HashMap<String, BlogComment>();
+        Map<String, BlogComment> map = new HashMap<>();
 
         pList.stream().map(BlogComment::new).forEachOrdered(comment -> {
             String ID = comment.getEntityID();

@@ -33,7 +33,7 @@ public interface IXMLHandler<T> {
      * @param element the element to add
      * @return true if added correctly
      */
-    public boolean add(T element);
+    boolean add(T element);
 
     /**
      * add a batch of elements in blog structure
@@ -41,7 +41,7 @@ public interface IXMLHandler<T> {
      * @param addBatch the batch of element to add
      * @return true if added correctly
      */
-    public boolean add(List<T> addBatch);
+    boolean add(List<T> addBatch);
 
     /**
      * remove a batch of elements in blog structure
@@ -49,7 +49,7 @@ public interface IXMLHandler<T> {
      * @param removeBatch the batch of element to remove
      * @return true if removed correctly
      */
-    public boolean remove(List<T> removeBatch);
+    boolean remove(List<T> removeBatch);
 
     /**
      * remove an element in blog structure
@@ -57,7 +57,7 @@ public interface IXMLHandler<T> {
      * @param element element to remove
      * @return true if removed correctly
      */
-    public boolean remove(T element);
+    boolean remove(T element);
 
     /**
      * remove an element with a parent node in blog structure
@@ -66,16 +66,15 @@ public interface IXMLHandler<T> {
      * @param parentID parent node unique ID
      * @return true if removed correctly
      */
-    public boolean remove(T child, String parentID);
+    boolean remove(T child, String parentID);
 
     /**
      * remove a batch of elements with a parent node in blog structure
      *
      * @param removeBatch the batch of element to remove
-     * @param parentID
      * @return true if removed correctly
      */
-    public boolean remove(List<T> removeBatch, String parentID);
+    boolean remove(List<T> removeBatch, String parentID);
 
     /**
      * add an element to a node in blog structure
@@ -84,7 +83,7 @@ public interface IXMLHandler<T> {
      * @param content the element to add
      * @return true if added correctly
      */
-    public boolean append(T root, T content);
+    boolean append(T root, T content);
 }
 
 

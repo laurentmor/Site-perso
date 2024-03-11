@@ -69,11 +69,6 @@ public abstract class AbstractBlogEntity implements Serializable {
     DefaultElement mAassociatedElement = null;
 
     /**
-     * unique entity ID
-     */
-    private String mEntityID = null;
-
-    /**
      * Complete Namespace infos
      */
     private final String[] mNamespaceParts = {"site", "http://xml.netbeans.org/schema/blog"};
@@ -113,8 +108,7 @@ public abstract class AbstractBlogEntity implements Serializable {
     }
 
     /**
-     * @return unique identifyer of elrment in XML
-     * @throws java.util.NoSuchElementException
+     * @return unique identifier of element in XML
      */
     String getEntityIDInXml() throws NoSuchElementException {
         {
@@ -131,7 +125,10 @@ public abstract class AbstractBlogEntity implements Serializable {
      *
      */
     public void setEntityID() {
-        mEntityID = getEntityIDInXml();
+        /**
+         * unique entity ID
+         */
+        String mEntityID = getEntityIDInXml();
     }
 
     /**

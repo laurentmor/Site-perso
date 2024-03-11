@@ -53,9 +53,6 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * @param t model object to add
      * @return true is added correctly
      * @throws ElementExistingException if given element is present
-     * @throws datasourceException
-     * @throws datasourceException
-     * @throws datasourceException if there is a problem with data source
      */
     boolean add(final T t) throws ElementExistingException, datasourceException, ConfigurationException;
 
@@ -65,9 +62,6 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * @param what the element to append
      * @param parentID the Id of parent element to append to
      * @return true if element appended correctly
-     * @throws NoMatchesFoundException
-     * @throws ElementExistingException if element to append already exist
-     * @throws datasourceException
      *
      */
     boolean append(final T what, final String parentID)
@@ -79,9 +73,6 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * @param what the element to append
      *
      * @return true if element appended correctly
-     * @throws NoMatchesFoundException
-     * @throws ElementExistingException if element to append already exist
-     * @throws datasourceException
      *
      */
     boolean append(final T what) throws NoMatchesFoundException, ElementExistingException, datasourceException;
@@ -91,8 +82,6 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      *
      * @param t the element to remove
      * @return true if element removed correctly
-     * @throws NoMatchesFoundException
-     * @throws datasourceException
      */
     boolean remove(final T t) throws NoMatchesFoundException, datasourceException;
 
@@ -102,9 +91,6 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * @param t the element to edit
      * @param t2 the new element
      * @return true if element edited correctly
-     * @throws NoMatchesFoundException
-     * @throws ElementExistingException if element to add exist
-     * @throws datasourceException
      */
     boolean edit(final T t, final T t2)
             throws NoMatchesFoundException, datasourceException, ElementExistingException, ConfigurationException;
@@ -116,7 +102,6 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * @param paramValue search for what criteria<br/>
      *
      * @return list of results<br/>
-     * @throws NoMatchesFoundException
      */
     List<ret> getElementsForCriteria(searchParamsType searchParam, String paramValue)
             throws NoMatchesFoundException;

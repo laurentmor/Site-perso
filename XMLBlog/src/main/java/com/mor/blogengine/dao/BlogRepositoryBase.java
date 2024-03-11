@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.mor.blogengine.dao;
 
 import com.mor.blogengine.xml.IXMLHandler;
@@ -28,23 +27,20 @@ import lombok.NonNull;
 import org.dom4j.Document;
 import org.dom4j.tree.DefaultElement;
 
-import javax.naming.ConfigurationException;
-
 /**
  *
  * @author laurent
  */
 public class BlogRepositoryBase extends PropertiesUserObject {
 
-    IXMLHandler<DefaultElement> handler;
-    IBlogSearchEngine<DefaultElement> searchEngine;
-    Document doc;
+    final IXMLHandler<DefaultElement> handler;
+    final IBlogSearchEngine<DefaultElement> searchEngine;
 
-    public BlogRepositoryBase(Document d, @NonNull Properties p) throws ConfigurationException {
+
+    public BlogRepositoryBase(Document d, @NonNull Properties p) {
         super(p);
-        doc = d;
-        handler = XMLHandlerImpl.getInstanceForDoc(mConfig, doc);
-        searchEngine=SearchEngine.getInstanceForDoc(mConfig, doc);
+        handler = XMLHandlerImpl.getInstanceForDoc(mConfig, d);
+        searchEngine=SearchEngine.getInstanceForDoc(mConfig, d);
     }
 
 }

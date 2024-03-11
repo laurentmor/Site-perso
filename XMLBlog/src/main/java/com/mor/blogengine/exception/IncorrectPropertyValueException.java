@@ -15,7 +15,6 @@
  */
 package com.mor.blogengine.exception;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
@@ -37,9 +36,6 @@ public class IncorrectPropertyValueException extends Exception {
      * <code>IncorrectPropertyValueException</code> with the specified detail
      * message.
      *
-     * @param propertyName
-     * @param currentValue
-     * @param choices
      */
     public IncorrectPropertyValueException(String propertyName,String currentValue,Enum<?>... choices ) {
          System.err.print(propertyName+"is set incorrectly to : "+currentValue+ " it should be one of these values: ");

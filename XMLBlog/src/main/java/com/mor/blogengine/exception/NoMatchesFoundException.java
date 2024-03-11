@@ -31,13 +31,11 @@ public class NoMatchesFoundException extends Exception {
 
     /**
      *
-     * @param pSearchedTerm
-     * @param doDebug
      */
     public NoMatchesFoundException(String pSearchedTerm, boolean doDebug) {
         super("No matches of " + pSearchedTerm
                 + " were found during search process - redefine your search");
-        if (doDebug == true) {
+        if (doDebug) {
             printStackTrace();
         }
 

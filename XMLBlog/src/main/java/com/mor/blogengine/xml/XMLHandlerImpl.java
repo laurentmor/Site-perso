@@ -46,11 +46,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     static  XMLHandlerImpl mInstance;
 
     /**
-     * parsed XML document
-     */
-    private Document mDoc = null;
-
-    /**
      * XML root
      */
     private DefaultElement mRootElement = null;
@@ -58,8 +53,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     /**
      * Get an insance of class using singleton pattern implementation
      *
-     * @param config
-     * @param domTree
      * @return an instance of class
      */
     public static XMLHandlerImpl getInstanceForDoc(Properties config, Document domTree) {
@@ -75,10 +68,12 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
 
     private XMLHandlerImpl(@NonNull Properties config, Document d) {
         super(config);
-        mDoc = d;
+        /**
+         * parsed XML document
+         */
 
-        if (mDoc != null) {
-            mRootElement = (DefaultElement) mDoc.getRootElement();
+        if (d != null) {
+            mRootElement = (DefaultElement) d.getRootElement();
         }
     }
 
@@ -94,9 +89,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
 
         list.add(element);
 
-        boolean added = add(list);
-
-        return added;
+        return add(list);
     }
 
     /**
@@ -118,7 +111,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
         }
         catch (Exception e) {
             try {
-                trace("" + e);
+                trace(String.valueOf(e));
             }
             catch (MissingPropertyException | IncorrectPropertyValueException ex) {
               trace(ex.getMessage());

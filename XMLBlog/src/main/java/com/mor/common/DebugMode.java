@@ -26,10 +26,8 @@ public enum DebugMode {
      *
      */
     Off("Off");
-    private  String  mDebugMode;
 
     DebugMode(String pDebugMode) {
-        this.mDebugMode = pDebugMode;
     }
 
 }

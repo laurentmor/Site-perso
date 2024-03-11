@@ -21,6 +21,7 @@ import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.test.XMLConsumingTestCase;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.tree.DefaultElement;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -37,16 +38,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayName("Search Engine Configurator Test")
 class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
 
-    //@beff
-    public SearchEngineConfiguratorTest() {
-        setupFullSettings();
+    @BeforeEach
+    public  void beforeEach() {
+        mConfig=setupFullSettings();
     }
 
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
      *
-     * @throws com.mor.blogengine.exception.NoMatchesFoundException
      */
    // @Test
     //@DisplayName("Test Configurer Correctement Avec Element Existant")
@@ -65,13 +65,12 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
      *
-     * @throws com.mor.blogengine.exception.NoMatchesFoundException
      */
-    //@Test
-    //@DisplayName("Test Configurer Correctement Avec Non Element Existant")
+    @Test
+    @DisplayName("Test Configurer Correctement Avec Non Element Existant")
     void testConfigurerCorrectementAvecNonElementExistant() {
         Exception e= assertThrows(NoMatchesFoundException.class, () -> {
-            SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(getProperties(), getDefautDocument());
+            SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(mConfig, getDefautDocument());
             try {
                 configurator.findContent("/notFound");
             } catch (InvalidXPathException | MissingPropertyException | IncorrectPropertyValueException ex) {

@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Blog/Blog.iml" filepath="$PROJECT_DIR$/Blog/Blog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Site-perso.iml" filepath="$PROJECT_DIR$/.idea/Site-perso.iml" />
-      <module fileurl="file://$PROJECT_DIR$/XMLBlog/XMLBlog.iml" filepath="$PROJECT_DIR$/XMLBlog/XMLBlog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/stePersonnelEar/stePersonnelEar.iml" filepath="$PROJECT_DIR$/stePersonnelEar/stePersonnelEar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Blog/POMSitePersonnel.Blog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Blog/POMSitePersonnel.Blog.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Blog/POMSitePersonnel.Blog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Blog/POMSitePersonnel.Blog.test.iml" />
     </modules>
   </component>
 </project>

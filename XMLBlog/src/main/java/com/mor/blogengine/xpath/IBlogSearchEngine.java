@@ -33,11 +33,7 @@ public interface IBlogSearchEngine<returnType> {
 
     /**
      *
-     * @param elementType
-     * @param criteria
-     * @param criteriaValue
      * @return list of found elements
-     * @throws com.mor.blogengine.exception.NoMatchesFoundException
      */
     List<returnType> getElementsForCriteria(String elementType, SearchCriteria criteria, String criteriaValue) throws NoMatchesFoundException;
 }

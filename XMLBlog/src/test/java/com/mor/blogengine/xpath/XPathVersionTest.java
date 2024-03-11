@@ -15,11 +15,9 @@
  */
 package com.mor.blogengine.xpath;
 
-import org.junit.Rule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.*;
-import org.junit.rules.TestName;
 
 /**
  * @author laurent

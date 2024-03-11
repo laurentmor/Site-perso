@@ -29,8 +29,6 @@ import static org.dom4j.DocumentHelper.createXPath;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.XPath;
 
-import javax.naming.ConfigurationException;
-
 /**
  * Content finder<br/>
  *
@@ -39,7 +37,7 @@ import javax.naming.ConfigurationException;
  */
 public class SearchEngineConfigurator<resultType extends List<?>> extends PropertiesUserObject {
 
-    private Document mDoc = null;
+    private final Document mDoc;
 
     SearchEngineConfigurator(@NonNull Properties config, Document searchDoc) {
        super(config);
@@ -50,8 +48,8 @@ public class SearchEngineConfigurator<resultType extends List<?>> extends Proper
 
         XPath xpathSelector = createXPath(pExpression);
 
-        @SuppressWarnings("unchecked")
-        resultType list = (resultType) ((xpathSelector.selectNodes(mDoc).size() > 0)
+
+        resultType list = (resultType) ((!xpathSelector.selectNodes(mDoc).isEmpty())
                 ? xpathSelector.selectNodes(mDoc)
                 : null);
         trace("Searched " + pExpression);

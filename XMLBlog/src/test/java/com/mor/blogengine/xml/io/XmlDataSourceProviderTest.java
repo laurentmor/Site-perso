@@ -18,13 +18,9 @@ package com.mor.blogengine.xml.io;
 // ~--- non-JDK imports --------------------------------------------------------
 import com.mor.blogengine.test.data.AbstractInMemoryXmlDataSourceTestCase;
 // ~--- JDK imports ------------------------------------------------------------
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.dom4j.CDATA;
-import org.dom4j.tree.DefaultCDATA;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,9 +32,7 @@ public class XmlDataSourceProviderTest extends AbstractInMemoryXmlDataSourceTest
     @Test
     @DisplayName("XmlDataSourceProviderTest.ProvideWithNoProperties")
     void testProvideWithNoProperties(){
-        Exception e=assertThrows(NullPointerException.class, ()->{
-            new XmlDataSourceProvider(null).provide();
-        });
+        Exception e=assertThrows(NullPointerException.class, ()-> new XmlDataSourceProvider(null).provide());
         assertEquals("Properties null or not loaded",e.getMessage());
 
 

@@ -47,7 +47,6 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
 
     /**
      *
-     * @param config
      */
     public CategoryController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException, ConfigurationException {
         super(config);

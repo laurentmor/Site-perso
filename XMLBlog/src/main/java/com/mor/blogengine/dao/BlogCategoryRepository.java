@@ -29,6 +29,7 @@ import org.dom4j.tree.DefaultElement;
 //~--- JDK imports ------------------------------------------------------------
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.dom4j.Document;
@@ -64,7 +65,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     @Override
     public boolean add(BlogCategory t) throws ElementExistingException, DocumentException, ConfigurationException {
 
-        List<DefaultElement> list = null;
+        List<DefaultElement> list;
         boolean added = false;
 
         try {
@@ -114,12 +115,11 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      *
      * @param t the category to remove
      * @return true if Category removed correctly
-     * @throws NoMatchesFoundException
      * @throws DocumentException if there is an issue with XML structure
      */
     @Override
     public boolean remove(BlogCategory t) throws NoMatchesFoundException, DocumentException {
-        boolean removed = false;
+        boolean removed;
 
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
@@ -145,14 +145,12 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @param t the category to edit
      * @param t2 the new category
      * @return true if Category edited correctly
-     * @throws NoMatchesFoundException
      * @throws ElementExistingException if element to add exist
      * @throws DocumentException if there is an issue with XML structure
      */
     @Override
     public boolean edit(BlogCategory t, BlogCategory t2)
             throws NoMatchesFoundException, DocumentException, ElementExistingException {
-        boolean edited = false;
 
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
@@ -166,18 +164,21 @@ public class BlogCategoryRepository extends BlogRepositoryBase
 
             throw new NoMatchesFoundException();
         } else {
+            AtomicBoolean edited = new AtomicBoolean(false);
+//            edited = false;
             try {
-                edited = remove(t) && add(t2);
+                if (remove(t) && add(t2)) edited.set(true);
             }
             catch (ElementExistingException | ConfigurationException ex) {
                 try {
                     throw ex;
                 } catch (ConfigurationException e) {
+                    //noinspection CallToPrintStackTrace
                     e.printStackTrace();
                 }
             }
 
-            return edited;
+            return edited.get();
         }
     }
 
@@ -188,15 +189,13 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @param paramValue search for what criteria<br/>
      *
      * @return list of results<br/>
-     * @throws NoMatchesFoundException
      */
     @Override
     public List<DefaultElement> getElementsForCriteria(SearchCriteria searchParam, String paramValue)
             throws NoMatchesFoundException {
-        List<DefaultElement> list = searchEngine.getElementsForCriteria("Category",
-                searchParam, paramValue);
 
-        return list;
+        return searchEngine.getElementsForCriteria("Category",
+                searchParam, paramValue);
     }
 
     /**
@@ -204,7 +203,6 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      *
      * @param what the category to append
      * @return true if Category appended correctly
-     * @throws NoMatchesFoundException
      * @throws ElementExistingException if element to append already exist
      * @throws DocumentException if there is an issue with XML structure
      *

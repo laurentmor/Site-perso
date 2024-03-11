@@ -24,8 +24,6 @@ public enum ApplicationMode {
     Test("test"), Production("production");
 
     ApplicationMode(String pMode) {
-        mMode = pMode;
     }
 
-    private String mMode;
 }
