@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2021 Laurent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,14 +44,17 @@ public class SearchEngineConfigurator<resultType extends List<?>> extends Proper
         mDoc = searchDoc;
     }
 
+
+    @SuppressWarnings("unchecked")
     resultType findContent(String pExpression) throws InvalidXPathException, NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
 
         XPath xpathSelector = createXPath(pExpression);
 
 
-        resultType list = (resultType) ((!xpathSelector.selectNodes(mDoc).isEmpty())
-                ? xpathSelector.selectNodes(mDoc)
-                : null);
+        resultType list;
+        if (!xpathSelector.selectNodes(mDoc).isEmpty())
+            list = (resultType) xpathSelector.selectNodes(mDoc);
+        else list =null;
         trace("Searched " + pExpression);
         if (list == null) {
 

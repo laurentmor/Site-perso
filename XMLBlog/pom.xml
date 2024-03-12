@@ -39,16 +39,15 @@ limitations under the License.
         <dom4j.version>2.1.3</dom4j.version>
         <jaxp.version>1.4.2</jaxp.version>
         <jaxen.version>1.1.4</jaxen.version>
-        <lombok.version>1.18.20</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-jupiter-version>5.9.2</junit-jupiter-version>
-        <maven.compiler.plugin.source>1.10</maven.compiler.plugin.source>
-        <maven.compiler.plugin.target>1.10</maven.compiler.plugin.target>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.source>21</maven.compiler.plugin.source>
+        <maven.compiler.plugin.target>21</maven.compiler.plugin.target>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.pmd.plugin.version>3.8.1</maven.pmd.plugin.version>
         <license.dir>${basedir}</license.dir>
         <project.version>${project.version}</project.version>
-
     </properties>
     <!-- //Site DESC-->
     <dependencies>
@@ -106,11 +105,11 @@ limitations under the License.
             <artifactId>jaxen</artifactId>
             <version>${jaxen.version}</version>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-
+            <scope>provided</scope>
         </dependency>
 
 
