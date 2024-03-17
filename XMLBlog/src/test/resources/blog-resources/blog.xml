@@ -16,7 +16,7 @@ limitations under the License.
 
 -->
 <Blog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="blog.xsd">
-    <Entry date="2004-09-09" ID="ID_152369776" categoryID="ID_1222333" allowComments="false" >
+    <Entry date="2004-09-09" ID="ID_152369776" categoryID="ID_1222333" allowComments="false">
 
         <Text>
             test entry !
@@ -24,7 +24,8 @@ limitations under the License.
         <Resume>
             feed
         </Resume>
-        <Comment ID="ID_1476476016" date="Mon Nov 23 00:00:00 EST 2009" entryID="ID_152369776" author="Mike" webPage="no page">
+        <Comment ID="ID_1476476016" date="Mon Nov 23 00:00:00 EST 2009" entryID="ID_152369776" author="Mike"
+                 webPage="no page">
             <CommentText>Hi HI</CommentText>
         </Comment>
     </Entry>

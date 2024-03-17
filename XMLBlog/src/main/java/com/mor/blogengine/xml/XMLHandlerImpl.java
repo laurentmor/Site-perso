@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,20 +16,21 @@
 package com.mor.blogengine.xml;
 
 //~--- non-JDK imports --------------------------------------------------------
+
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.common.PropertiesUserObject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.dom4j.Document;
 import org.dom4j.tree.DefaultElement;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe utilitaire pour la gestion du XML de blog
@@ -43,12 +44,23 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     /**
      * class instance
      */
-    static  XMLHandlerImpl mInstance;
+    static XMLHandlerImpl mInstance;
 
     /**
      * XML root
      */
     private DefaultElement mRootElement = null;
+
+    private XMLHandlerImpl(@NonNull Properties config, Document d) {
+        super(config);
+        /**
+         * parsed XML document
+         */
+
+        if (d != null) {
+            mRootElement = (DefaultElement) d.getRootElement();
+        }
+    }
 
     /**
      * Get an insance of class using singleton pattern implementation
@@ -61,20 +73,9 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
                 return mInstance;
             }
         }
-        mInstance=new XMLHandlerImpl(config, domTree);
+        mInstance = new XMLHandlerImpl(config, domTree);
 
         return mInstance;
-    }
-
-    private XMLHandlerImpl(@NonNull Properties config, Document d) {
-        super(config);
-        /**
-         * parsed XML document
-         */
-
-        if (d != null) {
-            mRootElement = (DefaultElement) d.getRootElement();
-        }
     }
 
     /**
@@ -108,13 +109,11 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
 
             list.add(element);
             removed = remove(list);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
                 trace(String.valueOf(e));
-            }
-            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-              trace(ex.getMessage());
+            } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                trace(ex.getMessage());
             }
         }
 
@@ -191,8 +190,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
         if (foundParent != null) {
             try {
                 trace("Parent found{0}");
-            }
-            catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+            } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
                 trace(ex.getMessage());
             }
 
@@ -201,8 +199,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
             if (foundChild != null) {
                 try {
                     trace("child  found");
-                }
-                catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+                } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
                     Logger.getLogger(XMLHandlerImpl.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 removed = foundParent.remove(foundChild);

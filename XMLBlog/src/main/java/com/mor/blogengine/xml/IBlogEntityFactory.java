@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 package com.mor.blogengine.xml;
 
 //~--- JDK imports ------------------------------------------------------------
+
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.model.BlogComment;
 import com.mor.blogengine.model.BlogEntry;
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author laurent
  *
  */
-public interface IBlogEntityFactory<dataStructure > {
+public interface IBlogEntityFactory<dataStructure> {
 
     /**
      * Create a map of entries
@@ -39,7 +40,7 @@ public interface IBlogEntityFactory<dataStructure > {
      * @param pList the list to create from
      * @return Created map
      */
-    default Map<String, BlogEntry> createEntryMap(List<org.dom4j.tree.DefaultElement> pList){
+    default Map<String, BlogEntry> createEntryMap(List<org.dom4j.tree.DefaultElement> pList) {
         return null;
     }
 

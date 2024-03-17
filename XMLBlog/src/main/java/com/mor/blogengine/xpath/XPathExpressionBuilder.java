@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,18 +16,18 @@
 package com.mor.blogengine.xpath;
 
 //~--- non-JDK imports --------------------------------------------------------
+
+import org.apache.commons.lang.math.NumberUtils;
 import org.dom4j.tree.DefaultAttribute;
 
-//~--- JDK imports ------------------------------------------------------------
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.math.NumberUtils;
 
 /**
  * Builder class that can supply either XPATH 1.0 and 2.0 if VERSION_SUPPORT is
  * set to 2.0f
  *
- * @author Laurent<br/>
+ * @author Laurent<br />
  */
 public final class XPathExpressionBuilder {
 
@@ -70,7 +70,7 @@ public final class XPathExpressionBuilder {
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pRootNode, List<String> pNodeList,
-            XPathVersion xpathVersion) {
+                                  XPathVersion xpathVersion) {
         this(null, pRootNode, pNodeList, null, false, xpathVersion);
     }
 
@@ -86,7 +86,7 @@ public final class XPathExpressionBuilder {
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pPrefix, String pRootNode, List<String> pNodeList,
-            XPathVersion xpathVersion, boolean consider) {
+                                  XPathVersion xpathVersion, boolean consider) {
         this(pPrefix, pRootNode, pNodeList, null, consider, xpathVersion);
     }
 
@@ -117,7 +117,7 @@ public final class XPathExpressionBuilder {
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pRootNode, List<String> pNodeList,
-            List<DefaultAttribute> pAttributesList, XPathVersion xpathVersion) {
+                                  List<DefaultAttribute> pAttributesList, XPathVersion xpathVersion) {
         this(null, pRootNode, pNodeList, pAttributesList, false, xpathVersion);
     }
 
@@ -146,7 +146,7 @@ public final class XPathExpressionBuilder {
      * @num=1 ]
      */
     public XPathExpressionBuilder(String pPrefix, String pRootNode, List<String> pNodeList,
-            List<DefaultAttribute> pAttributesList, boolean includePrefix, XPathVersion xpathVersion) {
+                                  List<DefaultAttribute> pAttributesList, boolean includePrefix, XPathVersion xpathVersion) {
         mConsiderPrefix = includePrefix;
 
         if (includePrefix) {
@@ -211,40 +211,41 @@ public final class XPathExpressionBuilder {
     /**
      *
      */
-   String addNodesToExpression(final boolean includePrefix) {
-    int lNodeCount = mSubNodeList.size();
-    StringBuilder sb = new StringBuilder(lNodeCount * (mPrefix!=null?(mPrefix.length()+3):3)); // pre-allocate StringBuilder size
+    String addNodesToExpression(final boolean includePrefix) {
+        int lNodeCount = mSubNodeList.size();
+        StringBuilder sb = new StringBuilder(lNodeCount * (mPrefix != null ? (mPrefix.length() + 3) : 3)); // pre-allocate StringBuilder size
 
-    String prefix = includePrefix ? mPrefix + ":" : "";
+        String prefix = includePrefix ? mPrefix + ":" : "";
 
-    for (int i = 0; i < lNodeCount; i++) {
+        for (int i = 0; i < lNodeCount; i++) {
 
-        sb.append("//").append(prefix).append(mSubNodeList.get(i));
+            sb.append("//").append(prefix).append(mSubNodeList.get(i));
+        }
+
+        return sb.toString();
     }
-
-    return sb.toString();
-}
 
 
     /**
      */
     String addAttributesToExpression() {
-    if (mAttributes == null || mAttributes.isEmpty()) {
-        return "";
-    }
-    List<String> l = convertAttributeListToStringList(mAttributes);
-    int lLength = l.size();
-    StringBuilder sb = new StringBuilder();
-    sb.append("[");
-    for (int i = 0; i < lLength; i++) {
-        if (i > 0) {
-            sb.append(" and ");
+        if (mAttributes == null || mAttributes.isEmpty()) {
+            return "";
         }
-        sb.append("@").append(l.get(i));
+        List<String> l = convertAttributeListToStringList(mAttributes);
+        int lLength = l.size();
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < lLength; i++) {
+            if (i > 0) {
+                sb.append(" and ");
+            }
+            sb.append("@").append(l.get(i));
+        }
+        sb.append("]");
+        return sb.toString();
     }
-    sb.append("]");
-    return sb.toString();
-}
+
     /**
      */
     String formatKeyAttributeValue(String pKey, String pValue) {

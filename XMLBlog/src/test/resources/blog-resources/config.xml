@@ -19,21 +19,21 @@ limitations under the License.
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
-<properties version="1.0">
-    <comment>this properies file is intended to store blog-engine
+<properties>
+    <comment>this properties file is intended to store blog-engine
         properties during test phase
     </comment>
     <!-- Test data source location -->
-    <entry key="datasource.xml">/blog-resources/blog.xml</entry>
+    <entry key="datasource.xml">blog.xml</entry>
 
     <!-- test data source  definition location -->
-    <entry key="datasource.xsd">/blog-resources/blog.xsd</entry>
+    <entry key="datasource.xsd">blog.xsd</entry>
 
     <!-- Test mode is toggled during tests execution process
          it is used to tell File Managent wheter it need to "persist" file
     -->
     <entry key="application.mode">test</entry>
-    <entry key="log.level" >INFO</entry>
+    <entry key="log.level">INFO</entry>
     <entry key="file.encoding">UTF-8</entry>
 
     <!-- Used to enable full-logging -->
@@ -42,8 +42,6 @@ limitations under the License.
     <entry key="xpath.version">1.0</entry>
 
     <!-- Test data definition ==================== -->
-
-
 
 
     <!-- Model data definition DATA START -->
@@ -62,7 +60,6 @@ limitations under the License.
     <entry key="category.without.discription.name.no.spec.char">recettes</entry>
     <entry key="category.without.discription.name.spec.char">recetté</entry>
     <entry key="category.without.discription.name.spec.char.expected">recett</entry>
-
 
 
     <!--Entry without resume and comments permitted-->
@@ -87,7 +84,6 @@ limitations under the License.
     <entry key="entry.with.resume.text">EntryText</entry>
     <entry key="entry.with.resume.allowComment">true</entry>
     <entry key="entry.with.resume.resume">Resume</entry>
-
 
 
     <!--Entry with resume and comments  not permitted-->
@@ -117,7 +113,6 @@ limitations under the License.
     <entry key="comment.with.knownID.text">Hi Hi</entry>
 
 
-
     <!-- Model data definition DATA END -->
 
     <!-- Search engine test data  -->
@@ -129,7 +124,7 @@ limitations under the License.
     <!-- === Data for controllers test Start 2004-09-09 === -->
 
     <entry key="controllers.entrycontroller.entry.date">2004-09-09</entry>
-    <entry key="controllers.entrycontroller.entry.text"> test entry !</entry>
+    <entry key="controllers.entrycontroller.entry.text">test entry !</entry>
     <entry key="controllers.entrycontroller.entry.catID">ID_1222333</entry>
     <entry key="controllers.entrycontroller.entry.resume">feed</entry>
     <entry key="controllers.entrycontroller.entry.allowComment">false</entry>

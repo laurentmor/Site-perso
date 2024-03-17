@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 package com.mor.blogengine.controllers;
 
 //~--- non-JDK imports --------------------------------------------------------
+
 import com.mor.blogengine.dao.BlogCategoryRepository;
 import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
@@ -24,15 +25,15 @@ import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
+import org.dom4j.DocumentException;
+import org.dom4j.tree.DefaultElement;
+
+import javax.naming.ConfigurationException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.dom4j.DocumentException;
-import org.dom4j.tree.DefaultElement;
-
-import javax.naming.ConfigurationException;
 
 /**
  *
@@ -64,17 +65,14 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
             } else {
                 trace("test");
             }
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             try {
                 trace(ex.getMessage());
-            }
-            catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
+            } catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
                 Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex1);
             }
             return null;
-        }
-        catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+        } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -85,8 +83,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     public boolean addNewElement(BlogCategory e) throws DocumentException, ConfigurationException {
         try {
             return repo.add(e);
-        }
-        catch (ElementExistingException ex) {
+        } catch (ElementExistingException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
 
             return false;
@@ -97,8 +94,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     public boolean deleteElement(BlogCategory e) throws DocumentException {
         try {
             return repo.remove(e);
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -109,11 +105,9 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     public boolean editElement(BlogCategory what, BlogCategory with) throws DocumentException, ConfigurationException {
         try {
             return repo.edit(what, with);
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             return false;
-        }
-        catch (ElementExistingException ex) {
+        } catch (ElementExistingException ex) {
             return false;
         }
     }

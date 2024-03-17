@@ -16,7 +16,7 @@ limitations under the License.
 
 -->
 <Blog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="blog.xsd">
-   <Entry ></Entry>
+    <Entry></Entry>
 
 
 </Blog>

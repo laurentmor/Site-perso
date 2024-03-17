@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 package com.mor.blogengine.controllers;
 
 //~--- non-JDK imports --------------------------------------------------------
+
 import com.mor.blogengine.dao.BlogCommentRepository;
 import com.mor.blogengine.dao.IRepository;
 import com.mor.blogengine.exception.ElementExistingException;
@@ -24,11 +25,9 @@ import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogComment;
 import com.mor.blogengine.xpath.SearchCriteria;
-
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
-//~--- JDK imports ------------------------------------------------------------
 import javax.naming.ConfigurationException;
 import java.util.List;
 import java.util.Map;
@@ -65,11 +64,9 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     public boolean addNewElement(BlogComment e) throws DocumentException, ConfigurationException {
         try {
             return repo.append(e, e.getEntryID());
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (ElementExistingException x) {
+        } catch (ElementExistingException x) {
             Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, x);
         }
 
@@ -80,8 +77,7 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     public boolean deleteElement(BlogComment e) throws DocumentException {
         try {
             return repo.remove(e);
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -92,11 +88,9 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     public boolean editElement(BlogComment what, BlogComment with) throws DocumentException, ConfigurationException {
         try {
             return repo.edit(what, with);
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             return false;
-        }
-        catch (ElementExistingException ex) {
+        } catch (ElementExistingException ex) {
             return false;
         }
     }
@@ -113,8 +107,7 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
 
             return getFactory().createCommentMap(list);
 
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             return null;
         }
 

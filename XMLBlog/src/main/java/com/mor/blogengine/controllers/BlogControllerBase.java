@@ -21,32 +21,37 @@ import com.mor.blogengine.xml.BlogEntityFactory;
 import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xml.io.XmlDataSourceProvider;
 import com.mor.common.PropertiesUserObject;
-import java.io.IOException;
-import java.util.Properties;
-import javax.xml.parsers.ParserConfigurationException;
-
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.Properties;
+
 /**
- *
  * @author laurent
  */
+@Getter
 public abstract class BlogControllerBase extends PropertiesUserObject {
 
+    private final XmlDataSourceProvider provider;
     /**
      *
      */
+    @Setter
     private Document document = null;
-    private final XmlDataSourceProvider provider ;
+    @Setter
     private IBlogEntityFactory<DefaultElement> factory = null;
 
     /**
      * Base class for controllers configuration
      * As we use same configuration in each context we can generalise it
+     *
      * @param p Configuration settings
      */
     public BlogControllerBase(@NonNull Properties p) throws MissingPropertyException, IncorrectPropertyValueException {
@@ -56,39 +61,16 @@ public abstract class BlogControllerBase extends PropertiesUserObject {
         try {
             document = provider.provide();
             factory = new BlogEntityFactory();
-        }
-        catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException ex) {
             trace("Parser configuration error" + ex.getMessage());
-        }
-        catch (DocumentException ex) {            trace("Document error " + ex.getMessage());
-        }
-        catch (IOException ex) {
+        } catch (DocumentException ex) {
+            trace("Document error " + ex.getMessage());
+        } catch (IOException ex) {
             trace("I/O error " + ex.getMessage());
-        }
-        catch (SAXException ex) {
+        } catch (SAXException ex) {
             trace(ex.getMessage() + "SaxError error");
         }
 
     }
 
-    /**
-     * @return the document
-     */
-    public final Document getDocument() {
-        return document;
-    }
-
-    /**
-     * @return the provider
-     */
-    public final XmlDataSourceProvider getProvider() {
-        return provider;
-    }
-
-    /**
-     * @return the factory
-     */
-    public final IBlogEntityFactory<DefaultElement> getFactory() {
-        return factory;
-    }
 }

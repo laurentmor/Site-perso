@@ -47,7 +47,8 @@ limitations under the License.
                             <xsd:element name="Comment">
                                 <xsd:annotation>
                                     <xsd:documentation>
-                                        L'élément comment représente un commentaire d'un lecteur à propos d'un billet donné
+                                        L'élément comment représente un commentaire d'un lecteur à propos d'un billet
+                                        donné
                                     </xsd:documentation>
                                 </xsd:annotation>
                                 <!-- DOC-->
@@ -57,9 +58,9 @@ limitations under the License.
                                     </xsd:sequence>
                                     <xsd:attribute name="ID" use="required"/>
                                     <xsd:attribute name="entryID" use="required"/>
-                                    <xsd:attribute name="date"  use="required"/>
-                                    <xsd:attribute name="author" />
-                                    <xsd:attribute name="webPage" />
+                                    <xsd:attribute name="date" use="required"/>
+                                    <xsd:attribute name="author"/>
+                                    <xsd:attribute name="webPage"/>
                                     <!-- Début de séquence définissant les sous éléments de Comment -->
                                     <!-- attributs de l'élément Comment-->
                                     <!--  Fin des attributs de l'élément comment-->
@@ -67,11 +68,11 @@ limitations under the License.
                             </xsd:element>
                             <!-- Fin de séquence définissant les sous éléments de Comment -->
                         </xsd:sequence>
-                        <xsd:attribute name="date"  use="required"/>
-                        <xsd:attribute name="categoryID" />
-                        <xsd:attribute name="allowComments" default="false" />
+                        <xsd:attribute name="date" use="required"/>
+                        <xsd:attribute name="categoryID"/>
+                        <xsd:attribute name="allowComments" default="false"/>
                         <xsd:attribute name="ID"/>
-                        <xsd:attribute name="commentsCounts" />
+                        <xsd:attribute name="commentsCounts"/>
                         <!-- Début de séquence définissant les sous éléments de Entry -->
                         <!-- Fin de séquence définissant les sous éléments de Entry -->
                         <!-- attributs de l'élément Entry-->
@@ -90,7 +91,7 @@ limitations under the License.
                     <xsd:complexType>
                         <xsd:attribute name="ID" use="required"/>
                         <xsd:attribute name="name" use="required"/>
-                        <xsd:attribute name="description" />
+                        <xsd:attribute name="description"/>
                     </xsd:complexType>
                 </xsd:element>
             </xsd:sequence>

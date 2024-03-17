@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,6 +25,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,9 +40,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayName("Search Engine Configurator Test")
 class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
 
+    public SearchEngineConfiguratorTest() throws IOException {
+    super();
+    }
+
     @BeforeEach
-    public  void beforeEach() {
-        mConfig=setupFullSettings();
+    public void beforeEach() {
+
+        try {
+            mConfig = getProperties();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -48,7 +59,7 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
      * lui donne les bons paramètres.
      *
      */
-   // @Test
+    // @Test
     //@DisplayName("Test Configurer Correctement Avec Element Existant")
     void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
         try {
@@ -69,7 +80,7 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     @Test
     @DisplayName("Test Configurer Correctement Avec Non Element Existant")
     void testConfigurerCorrectementAvecNonElementExistant() {
-        Exception e= assertThrows(NoMatchesFoundException.class, () -> {
+        Exception e = assertThrows(NoMatchesFoundException.class, () -> {
             SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(mConfig, getDefautDocument());
             try {
                 configurator.findContent("/notFound");
@@ -77,7 +88,7 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
                 Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        assertEquals("No matches of /notFound were found during search process - redefine your search",e.getMessage());
+        assertEquals("No matches of /notFound were found during search process - redefine your search", e.getMessage());
 
     }
 }

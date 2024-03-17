@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,25 +16,23 @@
 package com.mor.blogengine.dao;
 
 //~--- non-JDK imports --------------------------------------------------------
+
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
-
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
-//~--- JDK imports ------------------------------------------------------------
+import javax.naming.ConfigurationException;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.dom4j.Document;
-
-import javax.naming.ConfigurationException;
 
 /**
  *
@@ -78,19 +76,16 @@ public class BlogCategoryRepository extends BlogRepositoryBase
 
                 throw new ElementExistingException();
             }
-        }
-        catch (NoMatchesFoundException ex) {
+        } catch (NoMatchesFoundException ex) {
             try {
                 trace("No match of element found proceeding to add operation");
-            }
-            catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
+            } catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
                 Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
             added = handler.add(t.toElement());
 
-        }
-        catch (MissingPropertyException | IncorrectPropertyValueException ex) {
+        } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
             Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -126,8 +121,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
         if (foundMatches == null) {
             try {
                 trace("No match of element found remove failed");
-            }
-            catch (MissingPropertyException | IncorrectPropertyValueException  ex) {
+            } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
                 Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -157,8 +151,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
         if ((foundMatches == null)) {
             try {
                 trace("No match of element found edit failed");
-            }
-            catch (MissingPropertyException | IncorrectPropertyValueException  ex) {
+            } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
                 Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -168,8 +161,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
 //            edited = false;
             try {
                 if (remove(t) && add(t2)) edited.set(true);
-            }
-            catch (ElementExistingException | ConfigurationException ex) {
+            } catch (ElementExistingException | ConfigurationException ex) {
                 try {
                     throw ex;
                 } catch (ConfigurationException e) {

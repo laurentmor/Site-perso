@@ -1,12 +1,12 @@
 /**
  * Copyright 2021 Laurent
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,12 +16,11 @@
 package com.mor.blogengine.model;
 
 //~--- non-JDK imports --------------------------------------------------------
+
 import org.dom4j.Namespace;
 import org.dom4j.tree.DefaultElement;
 
-//~--- JDK imports ------------------------------------------------------------
 import java.io.Serializable;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -62,23 +61,18 @@ public abstract class AbstractBlogEntity implements Serializable {
      * Namespace URI part index in NS definition
      */
     private static final int URI_PART = 1;
-
-    /**
-     * Xml representation of this Entry
-     */
-    DefaultElement mAassociatedElement = null;
-
     /**
      * Complete Namespace infos
      */
     private final String[] mNamespaceParts = {"site", "http://xml.netbeans.org/schema/blog"};
-
     /**
      * Concrete Namespace declaration
      */
     protected final Namespace mNamespace = new Namespace(mNamespaceParts[PREFIX_PART], mNamespaceParts[URI_PART]);
-
-
+    /**
+     * Xml representation of this Entry
+     */
+    DefaultElement mAassociatedElement = null;
 
     @Override
     public boolean equals(Object obj) {
