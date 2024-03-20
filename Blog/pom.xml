@@ -17,7 +17,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <deps.spring.version>6.1.3</deps.spring.version>
+        <deps.spring.version>6.1.5</deps.spring.version>
     </properties>
 
     <dependencies>
@@ -96,7 +96,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>6.1.4</version>
+            <version>${deps.spring.version}</version>
         </dependency>
 
         <dependency>
