@@ -18,7 +18,6 @@ package com.mor.blogengine.xpath;
 import lombok.Getter;
 
 /**
- *
  * @author laurent
  */
 @Getter

@@ -14,6 +14,8 @@
  * limitations under the License.
  * <p>
  * Package containing all classes of exception nature
+ * <p>
+ * Package containing all classes of exception nature
  */
 /**
  * Package containing all classes of exception nature

@@ -16,14 +16,13 @@
 package com.mor.common;
 
 /**
- *
  * @author laurent
  */
 public enum ApplicationMode {
 
-    Test("test"), Production("production");
+    Test(), Production();
 
-    ApplicationMode(String pMode) {
+    ApplicationMode() {
     }
 
 }

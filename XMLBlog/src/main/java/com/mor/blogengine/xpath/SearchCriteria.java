@@ -16,11 +16,9 @@
 package com.mor.blogengine.xpath;
 
 /**
- *
- * Enum for parametrized searching i.e search post of certain date or category
+ * Enum for parametrized searching i.e. search post of certain date or category
  *
  * @author laurent
- *
  */
 public enum SearchCriteria {
 

@@ -126,7 +126,7 @@ class XPathExpressionBuilderTest {
         expected.add("A1='V1'");
         expected.add("A2='V2'");
         expected.add("A3='V3'");
-        assertEquals(expected.get(0), result.get(0));
+        assertEquals(expected.getFirst(), result.getFirst());
     }
 
     @Test

@@ -27,11 +27,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Factory class to create concreate blog model element
+ * Factory class to create concrete blog model element
  *
  * @author Laurent
- *
  */
+
 
 public class BlogEntityFactory implements IBlogEntityFactory<DefaultElement> {
 

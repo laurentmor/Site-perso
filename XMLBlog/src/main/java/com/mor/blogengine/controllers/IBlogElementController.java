@@ -17,38 +17,33 @@ package com.mor.blogengine.controllers;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import javax.naming.ConfigurationException;
 import java.util.Map;
 
 /**
- *
- * @param <Type> The type of entity managed by the controller
+ * @param <Type>                The type of entity managed by the controller
  * @param <dataSourceException>
  * @author laurent
  */
 public interface IBlogElementController<Type, dataSourceException extends Throwable> {
 
     /**
-     *
      * @return All elements of concrete type
      */
-    Map<String, Type> getAllElements() throws dataSourceException, ConfigurationException;
+    Map<String, Type> getAllElements() throws dataSourceException;
 
     /**
-     *
      * @param parentID the parent node ID to check for
      * @return All elements of concrete type
-     *
      */
-    Map<String, Type> getAllElements(String parentID) throws dataSourceException, ConfigurationException;
+    Map<String, Type> getAllElements(String parentID) throws dataSourceException;
 
     /**
      * Add an element of given type to data structure
      *
      * @param e The element to add
-     * @return true if element element was added correctly
+     * @return true if element was added correctly
      */
-    boolean addNewElement(Type e) throws dataSourceException, ConfigurationException;
+    boolean addNewElement(Type e) throws dataSourceException;
 
     /**
      * Delete (remove) a given element from data Structure
@@ -61,11 +56,11 @@ public interface IBlogElementController<Type, dataSourceException extends Throwa
     /**
      * edit an element
      *
-     * @return true if edited correctly
      * @param editWhat the element to edit
      * @param withWhat what to replace it with
+     * @return true if edited correctly
      */
-    boolean editElement(Type editWhat, Type withWhat) throws dataSourceException, ConfigurationException;
+    boolean editElement(Type editWhat, Type withWhat) throws dataSourceException;
 
     /**
      * get an element for date

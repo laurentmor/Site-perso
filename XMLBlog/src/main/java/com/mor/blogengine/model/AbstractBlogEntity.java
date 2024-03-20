@@ -20,41 +20,40 @@ package com.mor.blogengine.model;
 import org.dom4j.Namespace;
 import org.dom4j.tree.DefaultElement;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 /**
- *
- *
- *
  * Changelog:<br/>
  * 0.1 Initial version of code based on specs stated as in SRS_blog.pdf<br/>
- * 0.3 Converted from JDom to dom4j API to support XPath procesing<br/>
+ * 0.3 Converted from JDom to dom4j API to support XPath processing<br/>
  * 0.4 Added Namespace declaration<br/>
  * 0.5 Defined hashCode and equals methods<br/>
  * 0.6 Changed definition of toElement method signature to match needs of
  * org.dom4j.tree.DefaultElement<br/>
  * 1.0 Refactored visibility of setters<br/>
  * 1.1 Refactored Class name to AbstractBlogElement<br/>
- * 1.3 Removed references to hash attribute as unique ID unique ID is now
+ * 1.3 Removed references to hash attribute as unique ID is now
  * entityID<br/>
  * 1.4 Changed XML API to XOM in order to provide lightweight data
  * processing<br/>
  * 1.5 Rolled back from XOM to DOM4J as search functionality was not working
  * properly and switched to XPATH 1.0 which is non typed<br/>
- *
+ * <p>
  * Abstract entity class to build a domain blog class entity supported by dom4j
  * API
  *
  * @author Laurent
- *
  */
+@SuppressWarnings("unused")
 public abstract class AbstractBlogEntity implements Serializable {
 
     /**
      * Tags prefix part index in NS definition
      */
     private final static int PREFIX_PART = 0;
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -64,7 +63,7 @@ public abstract class AbstractBlogEntity implements Serializable {
     /**
      * Complete Namespace infos
      */
-    private final String[] mNamespaceParts = {"site", "http://xml.netbeans.org/schema/blog"};
+    private final String[] mNamespaceParts = {"site", "https://xml.netbeans.org/schema/blog"};
     /**
      * Concrete Namespace declaration
      */
@@ -72,7 +71,7 @@ public abstract class AbstractBlogEntity implements Serializable {
     /**
      * Xml representation of this Entry
      */
-    DefaultElement mAassociatedElement = null;
+    DefaultElement mAssociatedElement = null;
 
     @Override
     public boolean equals(Object obj) {
@@ -90,11 +89,10 @@ public abstract class AbstractBlogEntity implements Serializable {
     }
 
     /**
-     *
-     * @return unique identifyer of elrment
+     * @return unique identifier of element
      */
     public String getEntityID() {
-        if (mAassociatedElement != null) {
+        if (mAssociatedElement != null) {
             return getEntityIDInXml();
         }
 
@@ -106,23 +104,12 @@ public abstract class AbstractBlogEntity implements Serializable {
      */
     String getEntityIDInXml() throws NoSuchElementException {
         {
-            if (mAassociatedElement.attribute("ID") == null) {
-                throw new NoSuchElementException("Pas d'attribut id pour l'element courrant consulter le XSD");
+            if (mAssociatedElement.attribute("ID") == null) {
+                throw new NoSuchElementException("No ID attribute found, check XSD");
             }
 
-            return (mAassociatedElement.valueOf("@ID"));
+            return (mAssociatedElement.valueOf("@ID"));
         }
-    }
-
-    /**
-     * Set unique ID for entity
-     *
-     */
-    public void setEntityID() {
-        /**
-         * unique entity ID
-         */
-        String mEntityID = getEntityIDInXml();
     }
 
     /**
@@ -133,7 +120,6 @@ public abstract class AbstractBlogEntity implements Serializable {
     public abstract DefaultElement toElement();
 
     /**
-     *
      * Format entity for correct HTML display
      */
     abstract void formatAttributesValuesAsHTML();

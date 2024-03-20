@@ -30,7 +30,6 @@ import org.dom4j.tree.DefaultElement;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -65,8 +64,6 @@ public abstract class BlogControllerBase extends PropertiesUserObject {
             trace("Parser configuration error" + ex.getMessage());
         } catch (DocumentException ex) {
             trace("Document error " + ex.getMessage());
-        } catch (IOException ex) {
-            trace("I/O error " + ex.getMessage());
         } catch (SAXException ex) {
             trace(ex.getMessage() + "SaxError error");
         }

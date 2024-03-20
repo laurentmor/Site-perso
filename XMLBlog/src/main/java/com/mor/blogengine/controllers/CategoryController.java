@@ -28,7 +28,6 @@ import com.mor.blogengine.xpath.SearchCriteria;
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
-import javax.naming.ConfigurationException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -36,27 +35,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author laurent
  */
 public class CategoryController extends BlogControllerBase implements IBlogElementController<BlogCategory, DocumentException> {
 
     /**
-     * reppository to interface with data source
+     * repository to interface with data source
      */
-    private IRepository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> repo = null;
+    private final IRepository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> repo;
 
     /**
      *
      */
-    public CategoryController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException, ConfigurationException {
+    public CategoryController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException {
         super(config);
         repo = new BlogCategoryRepository(mConfig, getDocument());
 
     }
 
     @Override
-    public Map<String, BlogCategory> getAllElements() throws ConfigurationException {
+    public Map<String, BlogCategory> getAllElements() {
         try {
             List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, null);
 
@@ -80,7 +78,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     }
 
     @Override
-    public boolean addNewElement(BlogCategory e) throws DocumentException, ConfigurationException {
+    public boolean addNewElement(BlogCategory e) throws DocumentException {
         try {
             return repo.add(e);
         } catch (ElementExistingException ex) {
@@ -102,12 +100,10 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     }
 
     @Override
-    public boolean editElement(BlogCategory what, BlogCategory with) throws DocumentException, ConfigurationException {
+    public boolean editElement(BlogCategory what, BlogCategory with) throws DocumentException {
         try {
             return repo.edit(what, with);
-        } catch (NoMatchesFoundException ex) {
-            return false;
-        } catch (ElementExistingException ex) {
+        } catch (NoMatchesFoundException | ElementExistingException ex) {
             return false;
         }
     }
@@ -118,7 +114,7 @@ public class CategoryController extends BlogControllerBase implements IBlogEleme
     }
 
     @Override
-    public Map<String, BlogCategory> getAllElements(String parentID) throws DocumentException {
+    public Map<String, BlogCategory> getAllElements(String parentID) {
         throw new UnsupportedOperationException("Use non-parametrised version");
     }
 }

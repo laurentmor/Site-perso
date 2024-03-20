@@ -19,7 +19,6 @@ package com.mor.blogengine.dao;
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 
-import javax.naming.ConfigurationException;
 import java.util.List;
 
 /**
@@ -53,28 +52,25 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
      * @return true is added correctly
      * @throws ElementExistingException if given element is present
      */
-    boolean add(final T t) throws ElementExistingException, datasourceException, ConfigurationException;
+    boolean add(final T t) throws ElementExistingException, datasourceException;
 
     /**
-     * append a element to a parent one to a blog
+     * append an element to a parent one to a blog
      *
-     * @param what the element to append
-     * @param parentID the Id of parent element to append to
+     * @param what     the element to append
+     * @param parentID the ID of parent element to append to
      * @return true if element appended correctly
-     *
      */
     boolean append(final T what, final String parentID)
-            throws NoMatchesFoundException, ElementExistingException, datasourceException, ConfigurationException;
+            throws NoMatchesFoundException, datasourceException;
 
     /**
-     * append a element to a parernt one to a blog
+     * append an element to a parent one to a blog
      *
      * @param what the element to append
-     *
      * @return true if element appended correctly
-     *
      */
-    boolean append(final T what) throws NoMatchesFoundException, ElementExistingException, datasourceException;
+    boolean append(final T what) throws datasourceException;
 
     /**
      * remove a category to blog
@@ -87,19 +83,18 @@ public interface IRepository<T, ret, searchParamsType, datasourceException exten
     /**
      * edit a element in a blog
      *
-     * @param t the element to edit
+     * @param t  the element to edit
      * @param t2 the new element
      * @return true if element edited correctly
      */
     boolean edit(final T t, final T t2)
-            throws NoMatchesFoundException, datasourceException, ElementExistingException, ConfigurationException;
+            throws NoMatchesFoundException, datasourceException, ElementExistingException;
 
     /**
      * Enable the search for certain category and criteria in XML <br/>
      *
      * @param searchParam what to search<br/>
-     * @param paramValue search for what criteria<br/>
-     *
+     * @param paramValue  search for what criteria<br/>
      * @return list of results<br/>
      */
     List<ret> getElementsForCriteria(searchParamsType searchParam, String paramValue)

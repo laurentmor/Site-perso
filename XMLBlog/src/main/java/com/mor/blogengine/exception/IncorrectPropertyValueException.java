@@ -15,13 +15,14 @@
  */
 package com.mor.blogengine.exception;
 
+import java.io.Serial;
 import java.util.stream.IntStream;
 
 /**
- *
  * @author laurent
  */
 public class IncorrectPropertyValueException extends Exception {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -35,7 +36,6 @@ public class IncorrectPropertyValueException extends Exception {
      * Constructs an instance of
      * <code>IncorrectPropertyValueException</code> with the specified detail
      * message.
-     *
      */
     public IncorrectPropertyValueException(String propertyName, String currentValue, Enum<?>... choices) {
         System.err.print(propertyName + "is set incorrectly to : " + currentValue + " it should be one of these values: ");

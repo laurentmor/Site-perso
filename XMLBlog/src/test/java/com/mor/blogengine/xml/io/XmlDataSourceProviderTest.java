@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class XmlDataSourceProviderTest extends PropertiesConsumingTestCase {
 
 
-
     @Test
     @DisplayName("XmlDataSourceProviderTest.ProvideWithNoProperties")
     void testProvideWithNoProperties() {
@@ -40,11 +39,13 @@ public class XmlDataSourceProviderTest extends PropertiesConsumingTestCase {
 
 
     }
-    @SneakyThrows
-    @Test @DisplayName("XmlDataSourceProviderTest.ProvideWithProperties")
-    void testProvideWithProperties(){
 
-        XmlDataSourceProvider xmlDataSourceProvider =new XmlDataSourceProvider(mConfig);
+    @SneakyThrows
+    @Test
+    @DisplayName("XmlDataSourceProviderTest.ProvideWithProperties")
+    void testProvideWithProperties() {
+
+        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
         assertNotNull(xmlDataSourceProvider.provide());
     }
 

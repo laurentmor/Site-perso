@@ -63,7 +63,7 @@ public interface IXMLHandler<T> {
     /**
      * remove an element with a parent node in blog structure
      *
-     * @param child the child element to remove
+     * @param child    the child element to remove
      * @param parentID parent node unique ID
      * @return true if removed correctly
      */
@@ -80,7 +80,7 @@ public interface IXMLHandler<T> {
     /**
      * add an element to a node in blog structure
      *
-     * @param root the node to add to
+     * @param root    the node to add to
      * @param content the element to add
      * @return true if added correctly
      */

@@ -25,8 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,24 +38,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DisplayName("Search Engine Configurator Test")
 class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
 
-    public SearchEngineConfiguratorTest() throws IOException {
-    super();
+    public SearchEngineConfiguratorTest() {
+        super();
     }
 
     @BeforeEach
     public void beforeEach() {
 
-        try {
-            mConfig = getProperties();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        mConfig = getProperties();
     }
 
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
-     *
      */
     // @Test
     //@DisplayName("Test Configurer Correctement Avec Element Existant")
@@ -66,7 +59,7 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
             //mConfig.remove("application.mode");
             SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(mConfig, getDefautDocument());
             List<DefaultElement> fnd = configurator.findContent("/root");
-            assertEquals(fnd.get(0).getName(), "root");
+            assertEquals(fnd.getFirst().getName(), "root");
         } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
             Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,7 +68,6 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
-     *
      */
     @Test
     @DisplayName("Test Configurer Correctement Avec Non Element Existant")

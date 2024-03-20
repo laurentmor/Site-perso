@@ -15,15 +15,20 @@
  */
 package com.mor.blogengine.exception;
 
+import lombok.extern.java.Log;
+
+import java.io.Serial;
+
 /**
- * Exception pour d�montrer l'existence d'un �l�ment dans le tree DOM
+ * Exception to prevent duplicate XML element
  *
  * @author Laurent
  * @version 1.1
  * @since 1.2
- *
  */
+@Log
 public class ElementExistingException extends Exception {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -41,9 +46,8 @@ public class ElementExistingException extends Exception {
      * @param msg the detail message.
      */
     public ElementExistingException(String msg) {
-        super("Un élément identique existe déjà pour ce blog - " + msg);
-        System.out.println("Un élément identique existe déjà pour ce blog - " + msg);
-    }
+        super("A Blog element with same attributes exists" + msg);
+        log.info("A Blog element with same attributes exists" + msg);    }
 }
 
 

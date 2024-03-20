@@ -17,6 +17,11 @@
  * <ul>
  * <li> inner class Properties managent super class </li>
  * </ul>
+ * <p>
+ * Package containing all classes of common use to all layers<br/>
+ * <ul>
+ * <li> inner class Properties managent super class </li>
+ * </ul>
  */
 /**
  * Package containing all classes of common use to all layers<br/>

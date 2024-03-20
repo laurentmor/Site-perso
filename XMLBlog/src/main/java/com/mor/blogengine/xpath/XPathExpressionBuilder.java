@@ -42,7 +42,7 @@ public final class XPathExpressionBuilder {
     /**
      * Searched nodes attributes
      */
-    private List<DefaultAttribute> mAttributes = null;
+    private final List<DefaultAttribute> mAttributes;
     /**
      * Namespace prefix as i.e 'site'
      */
@@ -50,11 +50,11 @@ public final class XPathExpressionBuilder {
     /**
      * Root node
      */
-    private String mRootNode = null;
+    private final String mRootNode;
     /**
      * list of child nodes requiered until reaching searched
      */
-    private List<String> mSubNodeList = null;
+    private final List<String> mSubNodeList;
 
     /**
      * <pre>
@@ -67,6 +67,7 @@ public final class XPathExpressionBuilder {
      * @number="1"]
      * </code>
      * </pre><br/>
+     *
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pRootNode, List<String> pNodeList,
@@ -83,6 +84,7 @@ public final class XPathExpressionBuilder {
      * @number="1"]
      *
      * </pre><br/>
+     *
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pPrefix, String pRootNode, List<String> pNodeList,
@@ -114,6 +116,7 @@ public final class XPathExpressionBuilder {
      * @nuber="1"]
      * </code>
      * </pre><br/>
+     *
      * @param xpathVersion <br/>
      */
     public XPathExpressionBuilder(String pRootNode, List<String> pNodeList,
@@ -162,25 +165,22 @@ public final class XPathExpressionBuilder {
     /**
      * Provide needed expression to do the search
      *
-     * @return well formed xpath expression
+     * @return well-formed xpath expression
      */
     public String compileExpression() {
         StringBuilder sb = new StringBuilder();
 
         if (mConsiderPrefix) {
-            sb = sb.append("/").append(mPrefix).append(":").append(mRootNode);
+            sb.append("/").append(mPrefix).append(":").append(mRootNode);
         } else {
-            sb = sb.append("/").append(mRootNode);
+            sb.append("/").append(mRootNode);
         }
 
-        sb = sb.append(addNodesToExpression(mConsiderPrefix));
-        sb = sb.append(addAttributesToExpression());
-        /**
-         * resulting expression of the builder
-         */
-        String mExpression = sb.toString();
+        sb.append(addNodesToExpression(mConsiderPrefix));
+        sb.append(addAttributesToExpression());
 
-        return mExpression;
+
+        return sb.toString();
     }
 
     /**
@@ -188,7 +188,7 @@ public final class XPathExpressionBuilder {
      */
     List<String> convertAttributeListToStringList(List<DefaultAttribute> pList) {
 
-        List<String> lList = new ArrayList<String>();
+        List<String> lList = new ArrayList<>();
         if (pList != null) {
             for (DefaultAttribute attribute : pList) {
 
@@ -217,9 +217,9 @@ public final class XPathExpressionBuilder {
 
         String prefix = includePrefix ? mPrefix + ":" : "";
 
-        for (int i = 0; i < lNodeCount; i++) {
+        for (String s : mSubNodeList) {
 
-            sb.append("//").append(prefix).append(mSubNodeList.get(i));
+            sb.append("//").append(prefix).append(s);
         }
 
         return sb.toString();
@@ -227,6 +227,7 @@ public final class XPathExpressionBuilder {
 
 
     /**
+     *
      */
     String addAttributesToExpression() {
         if (mAttributes == null || mAttributes.isEmpty()) {
@@ -247,6 +248,7 @@ public final class XPathExpressionBuilder {
     }
 
     /**
+     *
      */
     String formatKeyAttributeValue(String pKey, String pValue) {
         String lKeyValueString = "";

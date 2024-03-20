@@ -28,7 +28,6 @@ import com.mor.blogengine.xpath.SearchCriteria;
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
-import javax.naming.ConfigurationException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -36,19 +35,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author laurent
  */
 
 
 public class CommentController extends BlogControllerBase implements IBlogElementController<BlogComment, DocumentException> {
 
-    private IRepository<BlogComment, DefaultElement, SearchCriteria, DocumentException> repo = null;
+    private final IRepository<BlogComment, DefaultElement, SearchCriteria, DocumentException> repo;
 
     /**
      *
      */
-    public CommentController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException, ConfigurationException {
+    public CommentController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException {
         super(config);
 
         repo = new BlogCommentRepository(mConfig, getDocument());
@@ -61,13 +59,11 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     }
 
     @Override
-    public boolean addNewElement(BlogComment e) throws DocumentException, ConfigurationException {
+    public boolean addNewElement(BlogComment e) throws DocumentException {
         try {
             return repo.append(e, e.getEntryID());
         } catch (NoMatchesFoundException ex) {
             Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ElementExistingException x) {
-            Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, x);
         }
 
         return false;
@@ -85,12 +81,10 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     }
 
     @Override
-    public boolean editElement(BlogComment what, BlogComment with) throws DocumentException, ConfigurationException {
+    public boolean editElement(BlogComment what, BlogComment with) throws DocumentException {
         try {
             return repo.edit(what, with);
-        } catch (NoMatchesFoundException ex) {
-            return false;
-        } catch (ElementExistingException ex) {
+        } catch (NoMatchesFoundException | ElementExistingException ex) {
             return false;
         }
     }
@@ -101,7 +95,7 @@ public class CommentController extends BlogControllerBase implements IBlogElemen
     }
 
     @Override
-    public Map<String, BlogComment> getAllElements(String parentID) throws DocumentException {
+    public Map<String, BlogComment> getAllElements(String parentID) {
         try {
             List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, parentID);
 

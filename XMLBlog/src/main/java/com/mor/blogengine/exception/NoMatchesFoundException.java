@@ -21,7 +21,6 @@ import java.io.Serial;
 import java.util.logging.Level;
 
 /**
- *
  * @author Laurent
  */
 @Log
@@ -29,7 +28,7 @@ public class NoMatchesFoundException extends Exception {
 
     //private @Log4j l;
     @Serial
-    private static final long serialVersionUID=1L ;
+    private static final long serialVersionUID = 1L;
 
     /**
      *
@@ -44,10 +43,9 @@ public class NoMatchesFoundException extends Exception {
         super("No matches of " + pSearchedTerm
                 + " were found during search process - redefine your search");
         if (doDebug) {
-            log.log(Level.INFO,"No matches of " + pSearchedTerm
-                    + " were found during search process - redefine your search",getStackTrace());
+            log.log(Level.INFO, "No matches of " + pSearchedTerm
+                    + " were found during search process - redefine your search", getStackTrace());
         }
-
 
 
     }

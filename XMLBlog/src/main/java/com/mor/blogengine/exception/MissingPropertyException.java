@@ -21,7 +21,6 @@ import java.io.Serial;
 import java.util.logging.Level;
 
 /**
- *
  * @author laurent
  */
 @Log
@@ -41,7 +40,7 @@ public class MissingPropertyException extends Exception {
      */
     public MissingPropertyException(String property) {
 
-        log.log(Level.INFO,"Property missing : " + property,getStackTrace());
+        log.log(Level.INFO, "Property missing : " + property, getStackTrace());
     }
 
 

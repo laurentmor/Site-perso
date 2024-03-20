@@ -28,7 +28,6 @@ import org.dom4j.tree.DefaultElement;
 import java.util.Properties;
 
 /**
- *
  * @author laurent
  */
 public class BlogRepositoryBase extends PropertiesUserObject {

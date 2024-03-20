@@ -30,7 +30,7 @@ limitations under the License.
     <entry key="datasource.xsd">blog.xsd</entry>
 
     <!-- Test mode is toggled during tests execution process
-         it is used to tell File Managent wheter it need to "persist" file
+         it is used to tell File Management whether it need to "persist" file
     -->
     <entry key="application.mode">test</entry>
     <entry key="log.level">INFO</entry>

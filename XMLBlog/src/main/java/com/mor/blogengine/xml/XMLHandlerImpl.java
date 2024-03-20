@@ -37,7 +37,6 @@ import java.util.logging.Logger;
  *
  * @author Laurent
  * @version $version
- *
  */
 public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHandler<DefaultElement> {
 
@@ -53,9 +52,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
 
     private XMLHandlerImpl(@NonNull Properties config, Document d) {
         super(config);
-        /**
-         * parsed XML document
-         */
 
         if (d != null) {
             mRootElement = (DefaultElement) d.getRootElement();
@@ -73,7 +69,9 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
                 return mInstance;
             }
         }
-        mInstance = new XMLHandlerImpl(config, domTree);
+        if (config != null) {
+            mInstance = new XMLHandlerImpl(config, domTree);
+        }
 
         return mInstance;
     }
@@ -86,7 +84,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
      */
     @Override
     public boolean add(DefaultElement element) {
-        ArrayList<DefaultElement> list = new ArrayList<DefaultElement>();
+        ArrayList<DefaultElement> list = new ArrayList<>();
 
         list.add(element);
 
@@ -123,7 +121,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     /**
      * Append a node to parent node
      *
-     * @param root The node to add under
+     * @param root    The node to add under
      * @param content what to add to root node
      * @return appended or not
      */
@@ -143,8 +141,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     }
 
     /**
-     *
-     *
      * Add given Nodes to blog structure
      *
      * @param addBatch the elements to add
@@ -184,7 +180,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     @SneakyThrows
     @Override
     public boolean remove(DefaultElement child, String parentID) {
-        boolean removed = false;
+        boolean removed;
         DefaultElement foundParent = (DefaultElement) mRootElement.elementByID(parentID);
 
         if (foundParent != null) {

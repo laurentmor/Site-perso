@@ -27,7 +27,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
-import javax.naming.ConfigurationException;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -35,19 +34,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author laurent
  */
+@SuppressWarnings("unused")
 public class BlogCategoryRepository extends BlogRepositoryBase
         implements IRepository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> {
 
     /**
      * Default constructor
      *
-     * @param d document instance that holds blog data
+     * @param d      document instance that holds blog data
      * @param config global configuration file for application
      */
-    public BlogCategoryRepository(final Properties config, final Document d) throws ConfigurationException {
+    public BlogCategoryRepository(final Properties config, final Document d) {
         super(d, config);
 
     }
@@ -58,10 +57,9 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * @param t the category to add
      * @return true if Category added correctly
      * @throws ElementExistingException if element to add exist
-     * @throws DocumentException if there is an issue with XML structure
      */
     @Override
-    public boolean add(BlogCategory t) throws ElementExistingException, DocumentException, ConfigurationException {
+    public boolean add(BlogCategory t) throws ElementExistingException {
 
         List<DefaultElement> list;
         boolean added = false;
@@ -93,12 +91,12 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     }
 
     /**
-     * append a category to a parernt one to a blog
+     * append a category to a parent one to a blog
      *
-     * @param what the category to append
-     * @param parentID the Id of parent category to append to
+     * @param what     the category to append
+     * @param parentID the ID of parent category to append to
      * @return true if Category appended correctly
-     *  do not use subcategory concept not considered
+     * do not use subcategory concept not considered
      */
     @Override
     public boolean append(BlogCategory what, String parentID) {
@@ -110,10 +108,9 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      *
      * @param t the category to remove
      * @return true if Category removed correctly
-     * @throws DocumentException if there is an issue with XML structure
      */
     @Override
-    public boolean remove(BlogCategory t) throws NoMatchesFoundException, DocumentException {
+    public boolean remove(BlogCategory t) throws NoMatchesFoundException {
         boolean removed;
 
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
@@ -136,15 +133,13 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     /**
      * edit a category in a blog
      *
-     * @param t the category to edit
+     * @param t  the category to edit
      * @param t2 the new category
      * @return true if Category edited correctly
-     * @throws ElementExistingException if element to add exist
-     * @throws DocumentException if there is an issue with XML structure
      */
     @Override
     public boolean edit(BlogCategory t, BlogCategory t2)
-            throws NoMatchesFoundException, DocumentException, ElementExistingException {
+            throws NoMatchesFoundException {
 
         List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());
 
@@ -161,13 +156,8 @@ public class BlogCategoryRepository extends BlogRepositoryBase
 //            edited = false;
             try {
                 if (remove(t) && add(t2)) edited.set(true);
-            } catch (ElementExistingException | ConfigurationException ex) {
-                try {
-                    throw ex;
-                } catch (ConfigurationException e) {
-                    //noinspection CallToPrintStackTrace
-                    e.printStackTrace();
-                }
+            } catch (ElementExistingException ex) {
+             //trace();
             }
 
             return edited.get();
@@ -178,8 +168,7 @@ public class BlogCategoryRepository extends BlogRepositoryBase
      * Enable the search for certain category and criteria in XML <br/>
      *
      * @param searchParam what to search<br/>
-     * @param paramValue search for what criteria<br/>
-     *
+     * @param paramValue  search for what criteria<br/>
      * @return list of results<br/>
      */
     @Override
@@ -191,17 +180,13 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     }
 
     /**
-     * append a category to a parernt one to a blog
+     * append a category to a parent one to a blog
      *
      * @param what the category to append
      * @return true if Category appended correctly
-     * @throws ElementExistingException if element to append already exist
-     * @throws DocumentException if there is an issue with XML structure
-     *
      */
     @Override
-    public boolean append(BlogCategory what)
-            throws NoMatchesFoundException, ElementExistingException, DocumentException {
+    public boolean append(BlogCategory what) {
         return append(what, null);
     }
 }

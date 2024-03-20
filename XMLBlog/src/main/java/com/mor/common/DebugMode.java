@@ -16,7 +16,6 @@
 package com.mor.common;
 
 /**
- *
  * @author laurent
  */
 public enum DebugMode {

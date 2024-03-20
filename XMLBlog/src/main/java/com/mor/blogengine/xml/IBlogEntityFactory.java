@@ -28,9 +28,7 @@ import java.util.Map;
  * Factory object to create concreate model objects from XML content<br/>
  *
  * @param <dataStructure>
- *
  * @author laurent
- *
  */
 public interface IBlogEntityFactory<dataStructure> {
 

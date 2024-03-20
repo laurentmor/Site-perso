@@ -14,6 +14,8 @@
  * limitations under the License.
  * <p>
  * Package containing all classes of model definition
+ * <p>
+ * Package containing all classes of model definition
  */
 /**
  * Package containing all classes of model definition

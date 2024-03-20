@@ -14,6 +14,8 @@
  * limitations under the License.
  * <p>
  * Package containing all classes of raw text management
+ * <p>
+ * Package containing all classes of raw text management
  */
 /**
  * Package containing all classes of raw text management
