@@ -21,7 +21,6 @@ import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.test.XMLConsumingTestCase;
 import org.dom4j.InvalidXPathException;
 import org.dom4j.tree.DefaultElement;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -42,21 +41,17 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
         super();
     }
 
-    @BeforeEach
-    public void beforeEach() {
 
-        mConfig = getProperties();
-    }
 
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
      */
-    // @Test
-    //@DisplayName("Test Configurer Correctement Avec Element Existant")
+    @Test
+   @DisplayName("Test Configurer Correctement Avec Element Existant")
     void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
         try {
-            //mConfig.remove("application.mode");
+            mConfig.remove("application.mode");
             SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(mConfig, getDefautDocument());
             List<DefaultElement> fnd = configurator.findContent("/root");
             assertEquals(fnd.getFirst().getName(), "root");

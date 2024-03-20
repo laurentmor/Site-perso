@@ -35,7 +35,7 @@ limitations under the License.
     <properties>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.io.version>2.11.0</commons.io.version>
-        <dom4j.version>2.1.3</dom4j.version>
+        <dom4j.version>2.1.4</dom4j.version>
         <jaxp.version>1.4.2</jaxp.version>
         <jaxen.version>1.1.4</jaxen.version>
         <lombok.version>1.18.30</lombok.version>
@@ -260,21 +260,33 @@ limitations under the License.
             <plugin>
                 <groupId>de.sormuras.junit</groupId>
                 <artifactId>junit-platform-maven-plugin</artifactId>
-                <version>1.1.2</version>
+                <version>1.1.7</version>
                 <extensions>true</extensions>
-                <configuration>
-                    <isolation>NONE</isolation>
-                    <executor>JAVA</executor>
-                    <javaOptions>
-                        <inheritIO>true</inheritIO>
-                        <additionalLauncherOptions>
-                            <additionalLauncherOption>--disable-banner</additionalLauncherOption>
-                        </additionalLauncherOptions>
-                    </javaOptions>
-                    <tweaks>
-                        <failIfNoTests>false</failIfNoTests>
-                    </tweaks>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>Launch JUnit Platform</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>launch</goal>
+                        </goals>
+                        <configuration>
+
+                                <isolation>NONE</isolation>
+                                <executor>JAVA</executor>
+                                <javaOptions>
+                                    <inheritIO>true</inheritIO>
+                                    <additionalLauncherOptions>
+                                        <additionalLauncherOption>--disable-banner</additionalLauncherOption>
+                                    </additionalLauncherOptions>
+                                </javaOptions>
+                                <tweaks>
+                                    <failIfNoTests>false</failIfNoTests>
+                                </tweaks>
+
+                        </configuration>
+                    </execution>
+                </executions>
+
             </plugin>
 
             <plugin>
