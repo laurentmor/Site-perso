@@ -56,6 +56,13 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
         if (d != null) {
             mRootElement = (DefaultElement) d.getRootElement();
         }
+        try {
+            trace("Acquiring");
+        } catch (MissingPropertyException e) {
+            throw new RuntimeException(e);
+        } catch (IncorrectPropertyValueException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -66,6 +73,8 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
     public static XMLHandlerImpl getInstanceForDoc(Properties config, Document domTree) {
         if ((config != null)) {
             if (mInstance != null) {
+                System.out.println("Returning instance");
+
                 return mInstance;
             }
         }

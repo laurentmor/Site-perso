@@ -42,16 +42,15 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     }
 
 
-
     /**
      * Test pour assurer que la classe fournit le service correctement lorsqu'on
      * lui donne les bons paramètres.
      */
     @Test
-   @DisplayName("Test Configurer Correctement Avec Element Existant")
+    @DisplayName("Test Configurer Correctement Avec Element Existant")
     void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
         try {
-            mConfig.remove("application.mode");
+            //mConfig.remove("application.mode");
             SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(mConfig, getDefautDocument());
             List<DefaultElement> fnd = configurator.findContent("/root");
             assertEquals(fnd.getFirst().getName(), "root");
