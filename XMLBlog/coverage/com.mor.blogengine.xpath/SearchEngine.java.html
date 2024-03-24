@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.xpath</a> &gt; <span class="el_source">SearchEngine.java</span></div><h1>SearchEngine.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+ * Copyright 2021 Laurent
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.mor.blogengine.xpath;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+/*
+ see License.txt
+ */
+
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.blogengine.exception.NoMatchesFoundException;
+import com.mor.common.PropertiesUserObject;
+import lombok.Singular;
+import org.dom4j.Document;
+import org.dom4j.InvalidXPathException;
+import org.dom4j.tree.DefaultAttribute;
+import org.dom4j.tree.DefaultElement;
+
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.mor.blogengine.xpath.SearchCriteria.*;
+
+/**
+ * Search for content in XML data Structure&lt;br/&gt;
+ *
+ * @author Laurent
+ */
+//@Slf4j
+public final class SearchEngine extends PropertiesUserObject implements IBlogSearchEngine&lt;DefaultElement&gt; {
+
+    @Singular
+    private static SearchEngine mInstance;
+
+<span class="fc" id="L71">    private SearchEngineConfigurator&lt;List&lt;DefaultElement&gt;&gt; configurator = null;</span>
+    private XPathVersion mXpathVersion;
+
+    /**
+     *
+     */
+    private SearchEngine(Properties config, Document d) {
+<span class="fc" id="L78">        super(config);</span>
+
+<span class="fc" id="L80">        init(config, d);</span>
+<span class="fc" id="L81">    }</span>
+
+    public static synchronized SearchEngine getInstanceForDoc(Properties config, Document domTree) {
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if ((config != null)) {</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (mInstance != null) {</span>
+<span class="fc" id="L86">                return mInstance;</span>
+            }
+        }
+<span class="fc" id="L89">        mInstance = new SearchEngine(config, domTree);</span>
+
+
+<span class="fc" id="L92">        return mInstance;</span>
+    }
+
+    void init(Properties config, Document d) throws IllegalArgumentException {
+
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (d == null) {</span>
+<span class="fc" id="L98">            throw new IllegalArgumentException(&quot;Config properties must be set&quot;);</span>
+        }
+<span class="fc" id="L100">        mConfig = config;</span>
+<span class="fc" id="L101">        configurator = new SearchEngineConfigurator&lt;&gt;(mConfig, d);</span>
+<span class="fc" id="L102">        mXpathVersion = getSupportedXpathVersion();</span>
+<span class="fc" id="L103">    }</span>
+
+    // -----------------------Search Methods definitions ----------------------//
+
+    /**
+     *
+     */
+    @NotNull List&lt;DefaultElement&gt; getCategories() throws InvalidXPathException, NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L111">        trace(&quot;Building XPath search Query to get all categories&quot;);</span>
+
+<span class="nc" id="L113">        List&lt;String&gt; lNodes = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L115">        lNodes.add(&quot;Category&quot;);</span>
+
+<span class="nc" id="L117">        String exp = new XPathExpressionBuilder(&quot;Blog&quot;, lNodes, null, mXpathVersion).compileExpression();</span>
+
+<span class="nc" id="L119">        return Collections.unmodifiableList(configurator.findContent(exp));</span>
+
+    }
+
+    List&lt;DefaultElement&gt; getEntriesForCategory(String pCatID) throws NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L124">        trace(&quot;Building XPath search Query to get entries for a category&quot;);</span>
+
+<span class="nc" id="L126">        List&lt;String&gt; lNodes = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L128">        lNodes.add(&quot;Entry&quot;);</span>
+
+<span class="nc" id="L130">        DefaultAttribute lAttribute = new DefaultAttribute(&quot;categoryID&quot;, pCatID);</span>
+<span class="nc" id="L131">        List&lt;DefaultAttribute&gt; lAttList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L133">        lAttList.add(lAttribute);</span>
+
+<span class="nc" id="L135">        String exp = new XPathExpressionBuilder(&quot;Blog&quot;, lNodes, lAttList, mXpathVersion).compileExpression();</span>
+
+<span class="nc" id="L137">        return Collections.unmodifiableList(configurator.findContent(exp));</span>
+    }
+
+    List&lt;DefaultElement&gt; getEntriesForDate(String pDate) throws NoMatchesFoundException, InvalidXPathException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L141">        trace(&quot;Building XPath search Query to get entries for a date&quot;);</span>
+
+<span class="nc" id="L143">        List&lt;String&gt; lNodesList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L144">        List&lt;DefaultAttribute&gt; lAttList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L146">        lNodesList.add(&quot;Entry&quot;);</span>
+<span class="nc" id="L147">        lAttList.add(new DefaultAttribute(&quot;date&quot;, pDate));</span>
+
+<span class="nc" id="L149">        String exp = new XPathExpressionBuilder(&quot;Blog&quot;, lNodesList, lAttList, mXpathVersion).compileExpression();</span>
+
+<span class="nc" id="L151">        return Collections.unmodifiableList(configurator.findContent(exp));</span>
+    }
+
+    /**
+     *
+     */
+    List&lt;DefaultElement&gt; getSingleElement(String pSearchedElementName, String id) throws NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="fc" id="L158">        trace(&quot;Building XPath search Query to get  a single element&quot;);</span>
+
+<span class="fc" id="L160">        List&lt;String&gt; lNodes = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L162">        lNodes.add(pSearchedElementName);</span>
+
+<span class="fc" id="L164">        DefaultAttribute lAttribute = new DefaultAttribute(&quot;ID&quot;, id);</span>
+<span class="fc" id="L165">        List&lt;DefaultAttribute&gt; lAttList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L167">        lAttList.add(lAttribute);</span>
+
+<span class="fc" id="L169">        String exp = new XPathExpressionBuilder(&quot;Blog&quot;, lNodes, lAttList, mXpathVersion).compileExpression();</span>
+
+<span class="nc" id="L171">        return Collections.unmodifiableList(configurator.findContent(exp));</span>
+    }
+
+    List&lt;DefaultElement&gt; getCommentsForEntry(String ID) throws NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L175">        trace(&quot;Building XPath search Query to get comment for an entry&quot;);</span>
+
+<span class="nc" id="L177">        List&lt;String&gt; lNodes = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L179">        lNodes.add(&quot;Entry&quot;);</span>
+<span class="nc" id="L180">        lNodes.add(&quot;Comment&quot;);</span>
+
+<span class="nc" id="L182">        DefaultAttribute lAttribute = new DefaultAttribute(&quot;entryID&quot;, ID);</span>
+<span class="nc" id="L183">        List&lt;DefaultAttribute&gt; lAttList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L185">        lAttList.add(lAttribute);</span>
+
+<span class="nc" id="L187">        String exp = new XPathExpressionBuilder(&quot;Blog&quot;, lNodes, lAttList, mXpathVersion).compileExpression();</span>
+
+<span class="nc" id="L189">        trace(exp);</span>
+
+<span class="nc" id="L191">        return Collections.unmodifiableList(configurator.findContent(exp));</span>
+    }
+
+    List&lt;DefaultElement&gt; getEntries() throws NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L195">        trace(&quot;Building XPath search Query to get all entries&quot;);</span>
+
+<span class="nc" id="L197">        List&lt;String&gt; lNodes = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L199">        lNodes.add(&quot;Entry&quot;);</span>
+<span class="nc" id="L200">        return Collections.unmodifiableList(configurator.findContent(new XPathExpressionBuilder(&quot;Blog&quot;, lNodes, null,</span>
+<span class="nc" id="L201">                mXpathVersion).compileExpression()));</span>
+
+
+    }
+
+    /**
+     * Enable the search for certain criteria in XML &lt;br/&gt;
+     *
+     * @param elementType   what to search&lt;br/&gt;
+     * @param criteria      search for what criteria&lt;br/&gt;
+     * @param criteriaValue criteria value&lt;br/&gt;
+     * @return list of results&lt;br/&gt;
+     * @see SearchCriteria
+     */
+    @Override
+    public List&lt;DefaultElement&gt; getElementsForCriteria(String elementType, SearchCriteria criteria,
+                                                       String criteriaValue) throws NoMatchesFoundException {
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        if (elementType != null) {</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">            if (elementType.equalsIgnoreCase(&quot;Entry&quot;)) {</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">                if (criteria == ALL) {</span>
+                    try {
+<span class="nc" id="L222">                        return getEntries();</span>
+<span class="nc" id="L223">                    } catch (MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L224">                        Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+                    }
+                }
+
+<span class="nc bnc" id="L228" title="All 2 branches missed.">                if (criteria == DATE) {</span>
+                    try {
+<span class="nc" id="L230">                        return getEntriesForDate(criteriaValue);</span>
+<span class="nc" id="L231">                    } catch (InvalidXPathException | MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L232">                        Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+                    }
+                }
+
+<span class="nc bnc" id="L236" title="All 2 branches missed.">                if (criteria == CATEGORY) {</span>
+                    try {
+<span class="nc" id="L238">                        return getEntriesForCategory(criteriaValue);</span>
+<span class="nc" id="L239">                    } catch (MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L240">                        Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+                    }
+                }
+            }
+
+<span class="pc bpc" id="L245" title="3 of 4 branches missed.">            if (elementType.equalsIgnoreCase(&quot;Comment&quot;) &amp;&amp; (criteria == BY_ENTRY_ID)) {</span>
+                try {
+<span class="nc" id="L247">                    return getCommentsForEntry(criteriaValue);</span>
+<span class="nc" id="L248">                } catch (MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L249">                    Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+                }
+            }
+
+<span class="pc bpc" id="L253" title="2 of 4 branches missed.">            if (elementType.equalsIgnoreCase(&quot;Category&quot;) &amp;&amp; (criteria == ALL)) {</span>
+                try {
+<span class="nc" id="L255">                    return getCategories();</span>
+<span class="nc" id="L256">                } catch (InvalidXPathException | MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L257">                    Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+                }
+            }
+
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">            if (criteria == SINGLE_WITH_PARENT) {</span>
+<span class="nc" id="L262">                return null;</span>
+            }
+
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">            if (criteria == SINGLE) {</span>
+                try {
+<span class="nc" id="L267">                    return getSingleElement(elementType, criteriaValue);</span>
+<span class="nc" id="L268">                } catch (MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L269">                    Logger.getLogger(SearchEngine.class.getName()).log(Level.SEVERE, null, ex);</span>
+                }
+            }
+        }
+
+<span class="nc" id="L274">        return null;</span>
+    }
+
+
+}
+
+//~ Formatted by Jindent --- http://www.jindent.com
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

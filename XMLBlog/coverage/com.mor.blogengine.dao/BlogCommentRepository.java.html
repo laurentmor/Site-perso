@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogCommentRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.dao</a> &gt; <span class="el_source">BlogCommentRepository.java</span></div><h1>BlogCommentRepository.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.mor.blogengine.dao;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.blogengine.exception.NoMatchesFoundException;
+import com.mor.blogengine.model.BlogComment;
+import com.mor.blogengine.xpath.SearchCriteria;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.tree.DefaultElement;
+
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author laurent
+ */
+public class BlogCommentRepository extends BlogRepositoryBase
+        implements IRepository&lt;BlogComment, DefaultElement, SearchCriteria, DocumentException&gt; {
+
+    /**
+     * Default constructor
+     *
+     * @param document document instance that holds blog data
+     * @param config global configuration file for application
+     */
+    public BlogCommentRepository(final Properties config, final Document document) {
+<span class="nc" id="L77">        super(document, config);</span>
+
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * add a comment to blog
+     *
+     * @param t the comment to add
+     * @return true if comment added correctly
+     */
+    @Override
+    public boolean add(BlogComment t) {
+<span class="nc" id="L89">        return false;</span>
+    }
+
+    /**
+     * append a comment to a parent entry to a blog
+     *
+     * @param what the comment to append
+     * @param parentID the ID of parent entry to append to
+     * @return true if Category appended correctly
+     *
+     */
+    @Override
+    public boolean append(BlogComment what, String parentID) throws NoMatchesFoundException {
+        try {
+<span class="nc" id="L103">            trace(&quot;Appending element... &quot; + what.getCommentText());</span>
+<span class="nc" id="L104">        } catch (MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L105">            Logger.getLogger(BlogCommentRepository.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L106">        }</span>
+
+<span class="nc" id="L108">        List&lt;DefaultElement&gt; foundList = searchEngine.getElementsForCriteria(&quot;Entry&quot;,</span>
+                SearchCriteria.SINGLE, parentID);
+
+        try {
+<span class="nc" id="L112">            DefaultElement relatedEntry = foundList.getFirst();</span>
+
+<span class="nc" id="L114">            return handler.append(relatedEntry, what.toElement());</span>
+<span class="nc" id="L115">        } catch (Exception ex) {</span>
+            try {
+<span class="nc" id="L117">                trace(ex.getMessage());</span>
+<span class="nc" id="L118">            } catch (MissingPropertyException | IncorrectPropertyValueException ex1) {</span>
+<span class="nc" id="L119">                Logger.getLogger(BlogCommentRepository.class.getName()).log(Level.SEVERE, null, ex1);</span>
+<span class="nc" id="L120">            }</span>
+        }
+
+<span class="nc" id="L123">        throw new NoMatchesFoundException();</span>
+    }
+
+    /**
+     * remove a comment to blog
+     *
+     * @param t the comment to remove
+     * @return true if Comment removed correctly
+     *
+     */
+    @Override
+    public boolean remove(BlogComment t) throws NoMatchesFoundException {
+<span class="nc" id="L135">        List&lt;DefaultElement&gt; list = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityID());</span>
+
+<span class="nc" id="L137">        return handler.remove(list.getFirst(), t.getEntryID());</span>
+
+    }
+
+    /**
+     * edit a comment in a blog
+     *
+     * @param t the comment to edit
+     * @param t2 the new comment
+     * @return true if Comment edited correctly
+     */
+    @Override
+    public boolean edit(BlogComment t, BlogComment t2) throws NoMatchesFoundException {
+<span class="nc" id="L150">        boolean removed = remove(t);</span>
+<span class="nc" id="L151">        boolean appended = append(t2, t2.getEntryID());</span>
+
+<span class="nc bnc" id="L153" title="All 4 branches missed.">        return removed &amp;&amp; appended;</span>
+    }
+
+    /**
+     * Enable the search for comment and criteria in XML &lt;br/&gt;
+     *
+     * @param searchParam what to search&lt;br/&gt;
+     * @param paramValue search for what criteria&lt;br/&gt;
+     *
+     * @return list of results&lt;br/&gt;
+     */
+    @Override
+    public List&lt;DefaultElement&gt; getElementsForCriteria(SearchCriteria searchParam, String paramValue)
+            throws NoMatchesFoundException {
+<span class="nc" id="L167">        List&lt;DefaultElement&gt; list = searchEngine.getElementsForCriteria(&quot;Comment&quot;,</span>
+                searchParam, paramValue);
+
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        if (list == null) {</span>
+<span class="nc" id="L171">            throw new NoMatchesFoundException();</span>
+        }
+
+<span class="nc" id="L174">        return list;</span>
+    }
+
+    @Override
+    public boolean append(BlogComment what) {
+<span class="nc" id="L179">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+    }
+}
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

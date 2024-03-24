@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlDataSourceProvider.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.xml.io</a> &gt; <span class="el_source">XmlDataSourceProvider.java</span></div><h1>XmlDataSourceProvider.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.mor.blogengine.xml.io;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.common.PropertiesUserObject;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.io.FileUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
+
+import javax.validation.constraints.NotNull;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
+
+/**
+ *
+ * @author laurent
+ */
+public class XmlDataSourceProvider extends PropertiesUserObject {
+
+    public static final String JAXP_SCHEMA_LANGUAGE
+            = &quot;http://java.sun.com/xml/jaxp/properties/schemaLanguage&quot;;
+    public static final String JAXP_SCHEMA_SOURCE
+            = &quot;http://java.sun.com/xml/jaxp/properties/schemaSource&quot;;
+<span class="pc" id="L78">    @Setter</span>
+<span class="nc" id="L79">    @Getter</span>
+    private Document mProvidedDoc = null;
+
+
+    public XmlDataSourceProvider(@NotNull(message = &quot;Can`t create XmlDataSourceProvider because config is NULL&quot;) Properties p) {
+<span class="fc" id="L84">        super(p);</span>
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * &lt;pre&gt;
+     * Provide a Dom4J document from various source type
+     *
+     *
+     * @return built document
+     * &lt;/pre&gt;
+     *
+     */
+    public Document provide()
+            throws SAXException, ParserConfigurationException, DocumentException, MissingPropertyException, IncorrectPropertyValueException {
+
+<span class="fc" id="L99">        File xml = getXml();</span>
+<span class="fc" id="L100">        File schema = getSchema();</span>
+
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if (schema != null) {</span>
+
+<span class="fc" id="L104">            mProvidedDoc = createReaderAgainstSchema().read(xml);</span>
+
+        }
+
+<span class="fc" id="L108">        return mProvidedDoc;</span>
+    }
+
+    /**
+     * Setup validation features for given reader
+     *
+     *
+     */
+    private SAXReader createReaderAgainstSchema()
+            throws SAXException, MissingPropertyException, IncorrectPropertyValueException {
+
+<span class="fc" id="L119">        trace(&quot;Parser created OK&quot;);</span>
+<span class="fc" id="L120">        SAXReader reader = new SAXReader();</span>
+<span class="fc" id="L121">        trace(&quot;reader created OK&quot;);</span>
+<span class="fc" id="L122">        trace(&quot;set reader properties&quot;);</span>
+        // set the validation feature to true to report validation errors
+<span class="fc" id="L124">        reader.setFeature(&quot;http://xml.org/sax/features/validation&quot;, true);</span>
+        // set the validation/schema feature to true to report validation errors against a schema
+<span class="fc" id="L126">        reader.setFeature(&quot;http://apache.org/xml/features/validation/schema&quot;, true);</span>
+        //set the validation/schema-full-checking feature to true to enable full schema, grammar-constraint checking
+<span class="fc" id="L128">        reader.setFeature(&quot;http://apache.org/xml/features/validation/schema-full-checking&quot;, true);</span>
+<span class="fc" id="L129">        trace(&quot;returning reader...&quot;);</span>
+<span class="fc" id="L130">        return reader;</span>
+
+    }
+
+    /**
+     * writes in a file
+     *
+     */
+    boolean write(Document pDocument) throws MissingPropertyException, IncorrectPropertyValueException, IOException {
+
+        try {
+<span class="fc" id="L141">            OutputFormat format = new OutputFormat();</span>
+<span class="fc" id="L142">            format.setEncoding(getFileEncoding());</span>
+<span class="fc" id="L143">            XMLWriter writer = new XMLWriter(FileUtils.openOutputStream(FileUtils.getFile(getXml())), format);</span>
+
+<span class="fc" id="L145">            writer.write(pDocument);</span>
+<span class="fc" id="L146">            writer.close();</span>
+<span class="fc" id="L147">           return true;</span>
+
+<span class="fc" id="L149">        } catch (IOException ex) {</span>
+<span class="fc" id="L150">            trace(&quot;Error saving file...&quot; + ex);</span>
+
+<span class="fc" id="L152">            throw ex;</span>
+
+        }
+
+
+    }
+
+    /**
+     * Saves changes in dom structure
+     *
+     * @return true if saved correctly
+     */
+    public boolean saveChanges() throws MissingPropertyException, IncorrectPropertyValueException, IOException {
+<span class="fc" id="L165">        boolean saved=false;</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        if (isPersistingNecessary()) {</span>
+
+<span class="nc" id="L168">            trace(&quot;saving...&quot;);</span>
+<span class="nc" id="L169">            saved = write(mProvidedDoc);</span>
+        } else {
+<span class="fc" id="L171">            trace(&quot;if persisting was set to on changes would be saved to file&quot;);</span>
+
+
+        }
+<span class="fc" id="L175">        return saved;</span>
+
+    }
+}
+//~ Formatted by Jindent --- http://www.jindent.com
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

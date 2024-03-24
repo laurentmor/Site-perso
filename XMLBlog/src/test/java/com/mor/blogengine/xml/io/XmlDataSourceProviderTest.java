@@ -22,14 +22,12 @@ import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.test.XMLConsumingTestCase;
 import lombok.SneakyThrows;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,10 +57,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
     }
 
 
-    @Test
-    void provide() {
 
-    }
 
     @Test
     @DisplayName("Test write() method with correct settings")
@@ -103,19 +98,39 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
     void writeCausingIOException(){
 
        assertThrows(IOException.class, () -> {
-           File file=FileUtils.getFile(mConfig.getProperty("datasource.xml"));
-           //locking file before write causes the needed IOExceptiom
-           try (RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw")) {
-               randomAccessFile.getChannel().lock();
-           }
+
+         lockFile();
            XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
             xmlDataSourceProvider.write(getBlogDocument());
 
         });
+
     }
 
+    @DisplayName(" Test saveChanges() in test mode with correct I/o")
     @Test
-    void saveChanges() {
+    void saveChangesWithCorrectIOInTestMode() {
+        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
+        try {
+            assertFalse(xmlDataSourceProvider.saveChanges());
+        } catch (MissingPropertyException e) {
+            throw new RuntimeException(e);
+        } catch (IncorrectPropertyValueException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //@Test
+    @DisplayName("Test save() method in Production Mode")
+    void saveInProductionMode() throws IOException, MissingPropertyException, IncorrectPropertyValueException {
+       mConfig.setProperty("application.mode","Production");
+        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
+        xmlDataSourceProvider.setMProvidedDoc(getBlogDocument());
+        assertTrue(xmlDataSourceProvider.saveChanges());
+
+
     }
 }
+
 // ~ Formatted by Jindent --- http://www.jindent.com

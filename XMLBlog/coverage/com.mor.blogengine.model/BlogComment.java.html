@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogComment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.model</a> &gt; <span class="el_source">BlogComment.java</span></div><h1>BlogComment.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package com.mor.blogengine.model;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.dom4j.tree.DefaultAttribute;
+import org.dom4j.tree.DefaultElement;
+
+import java.io.Serial;
+import java.util.Objects;
+
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
+/**
+ * Object representing a blog comment
+ *
+ * @author Laurent Morissette
+ *
+ */
+@SuppressWarnings(&quot;unused&quot;)
+<span class="nc" id="L68">@Setter</span>
+@Getter
+public final class BlogComment extends AbstractBlogEntity {
+
+    @Serial
+    private static final long serialVersionUID = -3684562856217228760L;
+<span class="nc" id="L74"> private String mAuthor = null;</span>
+<span class="nc" id="L75">    private String mCommentText = null;</span>
+<span class="nc" id="L76">    private String mDate = null;</span>
+<span class="nc" id="L77">    private String mEntryID = null;</span>
+<span class="nc" id="L78">    private String mWebPage = null;</span>
+
+    /**
+     *
+     * @param element XML node to create a comment from
+     */
+<span class="nc" id="L84">    public BlogComment(DefaultElement element) {</span>
+<span class="nc" id="L85">        mAssociatedElement = element;</span>
+<span class="nc" id="L86">        setDate(element.valueOf(&quot;@date&quot;));</span>
+<span class="nc" id="L87">        setAuthor(element.valueOf(&quot;@author&quot;));</span>
+<span class="nc" id="L88">        setWebPage(element.valueOf(&quot;@webPage&quot;));</span>
+<span class="nc" id="L89">        setCommentText(element.element(&quot;CommentText&quot;).getText());</span>
+<span class="nc" id="L90">        setEntryID(element.valueOf(&quot;@entryID&quot;));</span>
+<span class="nc" id="L91">        formatAttributesValuesAsHTML();</span>
+<span class="nc" id="L92">    }</span>
+
+    /**
+     * Creates a new instance of blogComment
+     *
+     * @param entryID entry ID related to the comment
+     * @param pDate date of comment
+     * @param pAuthor author of the comment
+     * @param pPage web page of the author of comment
+     * @param pText text of comment
+     *
+     */
+<span class="nc" id="L104">    public BlogComment(String entryID, String pDate, String pAuthor, String pPage, String pText) {</span>
+<span class="nc" id="L105">        setEntryID(entryID);</span>
+<span class="nc" id="L106">        setDate(pDate);</span>
+<span class="nc" id="L107">        setAuthor(pAuthor);</span>
+<span class="nc" id="L108">        setWebPage(pPage);</span>
+<span class="nc" id="L109">        setCommentText(pText);</span>
+<span class="nc" id="L110">        formatAttributesValuesAsHTML();</span>
+<span class="nc" id="L111">    }</span>
+
+    /**
+     *
+     */
+    String getDate() {
+<span class="nc" id="L117">        return mDate;</span>
+    }
+
+    /**
+     *
+     */
+    private void setDate(String mDate) {
+<span class="nc" id="L124">        this.mDate = mDate;</span>
+<span class="nc" id="L125">    }</span>
+
+    /**
+     *
+     */
+    String getAuthor() {
+<span class="nc" id="L131">        return mAuthor;</span>
+    }
+
+    /**
+     *
+     */
+    private void setAuthor(String mAuthor) {
+<span class="nc" id="L138">        this.mAuthor = mAuthor;</span>
+<span class="nc" id="L139">    }</span>
+
+    /**
+     *
+     */
+    String getWebPage() {
+<span class="nc" id="L145">        return mWebPage;</span>
+    }
+
+    /**
+     *
+     */
+    private void setWebPage(String mWebPage) {
+<span class="nc" id="L152">        this.mWebPage = mWebPage;</span>
+<span class="nc" id="L153">    }</span>
+
+    /**
+     *
+     * @return text of comment
+     */
+    public String getCommentText() {
+<span class="nc" id="L160">        return mCommentText;</span>
+    }
+
+    /**
+     *
+     */
+    private void setCommentText(String mCommentText) {
+<span class="nc" id="L167">        this.mCommentText = mCommentText;</span>
+<span class="nc" id="L168">    }</span>
+
+    @Override
+    public DefaultElement toElement() {
+
+        // this is element Declaration in complete form.
+        DefaultElement lReturnElement;
+<span class="nc" id="L175">        DefaultElement lCommentText = new DefaultElement(&quot;CommentText&quot;);</span>
+
+<span class="nc" id="L177">        lCommentText.addText(mCommentText);</span>
+<span class="nc" id="L178">        lReturnElement = new DefaultElement(&quot;Comment&quot;);</span>
+
+        // lReturnElement.add(mNamespace);
+<span class="nc" id="L181">        lReturnElement.add(new DefaultAttribute(&quot;entryID&quot;, getEntryID()));</span>
+<span class="nc" id="L182">        lReturnElement.add(new DefaultAttribute(&quot;ID&quot;, getEntityID()));</span>
+<span class="nc" id="L183">        lReturnElement.add(new DefaultAttribute(&quot;date&quot;, mDate));</span>
+<span class="nc" id="L184">        lReturnElement.add(new DefaultAttribute(&quot;author&quot;, mAuthor));</span>
+<span class="nc" id="L185">        lReturnElement.add(new DefaultAttribute(&quot;webPage&quot;, mWebPage));</span>
+<span class="nc" id="L186">        lReturnElement.add(lCommentText);</span>
+
+<span class="nc" id="L188">        return lReturnElement;</span>
+    }
+
+    @Override
+    void formatAttributesValuesAsHTML() {
+<span class="nc" id="L193">        mAuthor = escapeHtml(mAuthor);</span>
+<span class="nc" id="L194">        mCommentText = escapeHtml(mCommentText);</span>
+<span class="nc" id="L195">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L199">        return new HashCodeBuilder(19, 1001).append(getAuthor()).append(getCommentText()).append(getDate()).append(</span>
+<span class="nc" id="L200">                getWebPage()).toHashCode();</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L206">            return false;</span>
+        }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L209">            return false;</span>
+        }
+<span class="nc" id="L211">        final BlogComment other = (BlogComment) obj;</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (!Objects.equals(this.mAuthor, other.mAuthor)) {</span>
+<span class="nc" id="L213">            return false;</span>
+        }
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        if (!Objects.equals(this.mCommentText, other.mCommentText)) {</span>
+<span class="nc" id="L216">            return false;</span>
+        }
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (!Objects.equals(this.mDate, other.mDate)) {</span>
+<span class="nc" id="L219">            return false;</span>
+        }
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        if (!Objects.equals(this.mEntryID, other.mEntryID)) {</span>
+<span class="nc" id="L222">            return false;</span>
+        }
+<span class="nc" id="L224">        return Objects.equals(this.mWebPage, other.mWebPage);</span>
+    }
+
+    /**
+     * @return the EntryID
+     */
+    public String getEntryID() {
+<span class="nc" id="L231">        return mEntryID;</span>
+    }
+
+    /**
+     */
+    void setEntryID(String mEntryID) {
+<span class="nc" id="L237">        this.mEntryID = mEntryID;</span>
+<span class="nc" id="L238">    }</span>
+}
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

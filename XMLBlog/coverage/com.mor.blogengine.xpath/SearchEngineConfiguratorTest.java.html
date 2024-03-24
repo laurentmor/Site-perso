@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchEngineConfiguratorTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.xpath</a> &gt; <span class="el_source">SearchEngineConfiguratorTest.java</span></div><h1>SearchEngineConfiguratorTest.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.mor.blogengine.xpath;
+
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.blogengine.exception.NoMatchesFoundException;
+import com.mor.test.XMLConsumingTestCase;
+import org.dom4j.InvalidXPathException;
+import org.dom4j.tree.DefaultElement;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/**
+ * @author laurent
+ */
+@DisplayName(&quot;Search Engine Configurator Test&quot;)
+class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
+
+    public SearchEngineConfiguratorTest() {
+<span class="fc" id="L41">        super();</span>
+<span class="fc" id="L42">    }</span>
+
+
+    /**
+     * Test pour assurer que la classe fournit le service correctement lorsqu'on
+     * lui donne les bons paramètres.
+     */
+    @Test
+    @DisplayName(&quot;Test Configurer Correctement Avec Element Existant&quot;)
+    void testConfigurerCorrectementAvecElementExistant() throws InvalidXPathException, NoMatchesFoundException {
+        try {
+            //mConfig.remove(&quot;application.mode&quot;);
+<span class="fc" id="L54">            SearchEngineConfigurator&lt;List&lt;DefaultElement&gt;&gt; configurator = new SearchEngineConfigurator&lt;&gt;(mConfig, getDefautDocument());</span>
+<span class="fc" id="L55">            List&lt;DefaultElement&gt; fnd = configurator.findContent(&quot;/root&quot;);</span>
+<span class="fc" id="L56">            assertEquals(fnd.getFirst().getName(), &quot;root&quot;);</span>
+<span class="nc" id="L57">        } catch (MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L58">            Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Test pour assurer que la classe fournit le service correctement lorsqu'on
+     * lui donne les bons paramètres.
+     */
+    @Test
+    @DisplayName(&quot;Test Configurer Correctement Avec Non Element Existant&quot;)
+    void testConfigurerCorrectementAvecNonElementExistant() {
+<span class="fc" id="L69">        Exception e = assertThrows(NoMatchesFoundException.class, () -&gt; {</span>
+<span class="fc" id="L70">            SearchEngineConfigurator&lt;List&lt;DefaultElement&gt;&gt; configurator = new SearchEngineConfigurator&lt;&gt;(mConfig, getDefautDocument());</span>
+            try {
+<span class="nc" id="L72">                configurator.findContent(&quot;/notFound&quot;);</span>
+<span class="nc" id="L73">            } catch (InvalidXPathException | MissingPropertyException | IncorrectPropertyValueException ex) {</span>
+<span class="nc" id="L74">                Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L75">            }</span>
+<span class="nc" id="L76">        });</span>
+<span class="fc" id="L77">        assertEquals(&quot;No matches of /notFound were found during search process - redefine your search&quot;, e.getMessage());</span>
+
+<span class="fc" id="L79">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

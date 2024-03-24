@@ -308,9 +308,16 @@ limitations under the License.
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.3.1</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <outputDirectory>${basedir}/target/coverage</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${basedir}/coverage</directory>
+
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
             <plugin>

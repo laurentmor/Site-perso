@@ -33,7 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Classe utilitaire pour la gestion du XML de blog
+ * Utility class that encapsulate i/o work
  *
  * @author Laurent
  * @version $version
@@ -50,31 +50,25 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements IXMLHa
      */
     private DefaultElement mRootElement = null;
 
+    @SneakyThrows
     private XMLHandlerImpl(@NonNull Properties config, Document d) {
         super(config);
 
         if (d != null) {
             mRootElement = (DefaultElement) d.getRootElement();
         }
-        try {
-            trace("Acquiring");
-        } catch (MissingPropertyException e) {
-            throw new RuntimeException(e);
-        } catch (IncorrectPropertyValueException e) {
-            throw new RuntimeException(e);
-        }
+        trace("Constructing XMLHandlerImpl");
+
     }
 
     /**
-     * Get an insance of class using singleton pattern implementation
+     * Get an instance of class using singleton pattern implementation
      *
      * @return an instance of class
      */
     public static XMLHandlerImpl getInstanceForDoc(Properties config, Document domTree) {
         if ((config != null)) {
             if (mInstance != null) {
-                System.out.println("Returning instance");
-
                 return mInstance;
             }
         }

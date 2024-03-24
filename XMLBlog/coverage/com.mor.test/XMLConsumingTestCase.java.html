@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XMLConsumingTestCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.test</a> &gt; <span class="el_source">XMLConsumingTestCase.java</span></div><h1>XMLConsumingTestCase.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+
+ * The MIT License
+
+ *
+
+ * Copyright 2015 Laurent Morissette.
+
+ *
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+
+ * in the Software without restriction, including without limitation the rights
+
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+
+ * copies of the Software, and to permit persons to whom the Software is
+
+ * furnished to do so, subject to the following conditions:
+
+ *
+
+ * The above copyright notice and this permission notice shall be included in
+
+ * all copies or substantial portions of the Software.
+
+ *
+
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+
+ * THE SOFTWARE.
+
+ */
+
+package com.mor.test;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.io.FileUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.io.File;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public abstract class XMLConsumingTestCase extends PropertiesConsumingTestCase {
+
+    protected RandomAccessFile lockedSource;
+
+    public XMLConsumingTestCase() {
+<span class="fc" id="L113">        super();</span>
+<span class="fc" id="L114">    }</span>
+
+    public static Document getDefautDocument() {
+        try {
+<span class="fc" id="L118">            return DocumentHelper.parseText(</span>
+                    &quot;&lt;root&gt;&lt;/root&gt;&quot;
+            );
+<span class="nc" id="L121">        } catch (DocumentException ex) {</span>
+<span class="nc" id="L122">            Logger.getLogger(XMLConsumingTestCase.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+<span class="nc" id="L124">        return null;</span>
+    }
+
+    public static Document getBlogDocument() {
+<span class="fc" id="L128">        String docText = &quot;&quot;&quot;</span>
+                &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+                &lt;!--Sample XML file generated by XMLSpy v2009 sp1 (https://www.altova.com)--&gt;
+
+                &lt;Blog xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;blog.xsd&quot;&gt;
+                    &lt;Entry date=&quot;2004-09-09&quot; ID=&quot;ID_152369776&quot; categoryID=&quot;ID_1222333&quot; allowComments=&quot;false&quot; &gt;
+                      \s
+                        &lt;Text&gt;
+                            test entry !
+                        &lt;/Text&gt;
+                        &lt;Resume&gt;
+                            feed
+                        &lt;/Resume&gt;
+                        &lt;Comment ID=&quot;ID_1476476016&quot; date=&quot;Mon Nov 23 00:00:00 EST 2009&quot; entryID=&quot;ID_152369776&quot; author=&quot;Mike&quot; webPage=&quot;no page&quot;&gt;
+                            &lt;CommentText&gt;Hi HI&lt;/CommentText&gt;
+                        &lt;/Comment&gt;
+                    &lt;/Entry&gt;
+                    &lt;Category name=&quot;test&quot; ID=&quot;ID_1222333&quot;/&gt;
+
+
+                    &lt;Category ID=&quot;ID_320524799&quot; name=&quot;added&quot; description=&quot;&quot;/&gt;
+
+                    &lt;Category ID=&quot;ID_-492027613&quot; name=&quot;remove&quot; description=&quot;&quot;/&gt;
+
+                &lt;/Blog&gt;&quot;&quot;&quot;;
+        try {
+<span class="fc" id="L154">            return DocumentHelper.parseText(</span>
+                    docText
+            );
+<span class="nc" id="L157">        } catch (DocumentException ex) {</span>
+<span class="nc" id="L158">            Logger.getLogger(XMLConsumingTestCase.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+<span class="nc" id="L160">        return null;</span>
+    }
+    public final File getTempFile() throws IOException {
+<span class="nc" id="L163">        return  File.createTempFile(&quot;test&quot;,&quot;xml&quot;);</span>
+
+    }
+    public final FileLock lockFile() throws IOException {
+        //locking file before write causes the needed IOExceptiom
+<span class="fc" id="L168">        File file = FileUtils.getFile(mConfig.getProperty(&quot;datasource.xml&quot;));</span>
+<span class="fc" id="L169">        lockedSource = new RandomAccessFile(file, &quot;rw&quot;);</span>
+<span class="fc" id="L170">        return lockedSource.getChannel().lock();</span>
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlDataSourceProviderTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.xml.io</a> &gt; <span class="el_source">XmlDataSourceProviderTest.java</span></div><h1>XmlDataSourceProviderTest.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.mor.blogengine.xml.io;
+
+// ~--- non-JDK imports --------------------------------------------------------
+
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.test.XMLConsumingTestCase;
+import lombok.SneakyThrows;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+
+import java.io.IOException;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author laurent
+ */
+@DisplayName(&quot;Xml Data Source Provider Tests&quot;)
+<span class="fc" id="L38">public class XmlDataSourceProviderTest extends XMLConsumingTestCase {</span>
+
+
+    @Test
+    @DisplayName(&quot;XmlDataSourceProviderTest.ProvideWithNoProperties&quot;)
+    void testProvideWithNoProperties() {
+<span class="pc" id="L44">        Exception e = assertThrows(NullPointerException.class, () -&gt; new XmlDataSourceProvider(null).provide());</span>
+<span class="fc" id="L45">        assertEquals(&quot;Properties null or not loaded&quot;, e.getMessage());</span>
+
+
+<span class="fc" id="L48">    }</span>
+
+<span class="pc" id="L50">    @SneakyThrows</span>
+    @Test
+    @DisplayName(&quot;XmlDataSourceProviderTest.ProvideWithProperties&quot;)
+    void testProvideWithProperties() {
+
+<span class="fc" id="L55">        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+<span class="fc" id="L56">        assertNotNull(xmlDataSourceProvider.provide());</span>
+<span class="fc" id="L57">    }</span>
+
+
+
+
+    @Test
+    @DisplayName(&quot;Test write() method with correct settings&quot;)
+    void writeFine() throws Exception {
+<span class="fc" id="L65">        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+        try {
+
+<span class="fc" id="L68">            assertTrue(xmlDataSourceProvider.write(getBlogDocument()));</span>
+<span class="nc" id="L69">        } catch (MissingPropertyException e) {</span>
+<span class="nc" id="L70">            throw new RuntimeException(e);</span>
+<span class="nc" id="L71">        } catch (IncorrectPropertyValueException e) {</span>
+<span class="nc" id="L72">            throw new Exception(e);</span>
+<span class="fc" id="L73">        }</span>
+<span class="fc" id="L74">    }</span>
+    @Test
+    @DisplayName(&quot;Test write() method with missing mode&quot;)
+    void writeWithMissingMode(){
+<span class="fc" id="L78">        assertThrows(MissingPropertyException.class, () -&gt; {</span>
+<span class="fc" id="L79">            mConfig.remove(&quot;application.mode&quot;);</span>
+<span class="fc" id="L80">            XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+<span class="nc" id="L81">            xmlDataSourceProvider.write(getBlogDocument());</span>
+
+<span class="nc" id="L83">        });</span>
+<span class="fc" id="L84">    }</span>
+    @Test
+    @DisplayName(&quot;Test write() method with incorrect mode&quot;)
+    void writeWithIncorrectMode(){
+<span class="fc" id="L88">        mConfig.setProperty(&quot;application.mode&quot;,&quot;UAT&quot;);</span>
+<span class="fc" id="L89">       assertThrows(IncorrectPropertyValueException.class, () -&gt; {</span>
+
+<span class="fc" id="L91">            XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+<span class="nc" id="L92">            xmlDataSourceProvider.write(getBlogDocument());</span>
+
+<span class="nc" id="L94">        });</span>
+<span class="fc" id="L95">    }</span>
+    @Test
+    @DisplayName(&quot;Test write() method causing IOException&quot;)
+    void writeCausingIOException(){
+
+<span class="fc" id="L100">       assertThrows(IOException.class, () -&gt; {</span>
+
+<span class="fc" id="L102">         lockFile();</span>
+<span class="fc" id="L103">           XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+<span class="nc" id="L104">            xmlDataSourceProvider.write(getBlogDocument());</span>
+
+<span class="nc" id="L106">        });</span>
+
+<span class="fc" id="L108">    }</span>
+
+    @DisplayName(&quot; Test saveChanges() in test mode with correct I/o&quot;)
+    @Test
+    void saveChangesWithCorrectIOInTestMode() {
+<span class="fc" id="L113">        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+        try {
+<span class="fc" id="L115">            assertFalse(xmlDataSourceProvider.saveChanges());</span>
+<span class="nc" id="L116">        } catch (MissingPropertyException e) {</span>
+<span class="nc" id="L117">            throw new RuntimeException(e);</span>
+<span class="nc" id="L118">        } catch (IncorrectPropertyValueException e) {</span>
+<span class="nc" id="L119">            throw new RuntimeException(e);</span>
+<span class="nc" id="L120">        } catch (IOException e) {</span>
+<span class="nc" id="L121">            throw new RuntimeException(e);</span>
+<span class="fc" id="L122">        }</span>
+<span class="fc" id="L123">    }</span>
+    //@Test
+    @DisplayName(&quot;Test save() method in Production Mode&quot;)
+    void saveInProductionMode() throws IOException, MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L127">       mConfig.setProperty(&quot;application.mode&quot;,&quot;Production&quot;);</span>
+<span class="nc" id="L128">        XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);</span>
+<span class="nc" id="L129">        xmlDataSourceProvider.setMProvidedDoc(getBlogDocument());</span>
+<span class="nc" id="L130">        assertTrue(xmlDataSourceProvider.saveChanges());</span>
+
+
+<span class="nc" id="L133">    }</span>
+}
+
+// ~ Formatted by Jindent --- http://www.jindent.com
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

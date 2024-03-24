@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EntryController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.controllers</a> &gt; <span class="el_source">EntryController.java</span></div><h1>EntryController.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package com.mor.blogengine.controllers;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import com.mor.blogengine.dao.BlogEntryRepository;
+import com.mor.blogengine.dao.IRepository;
+import com.mor.blogengine.exception.ElementExistingException;
+import com.mor.blogengine.exception.IncorrectPropertyValueException;
+import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.blogengine.exception.NoMatchesFoundException;
+import com.mor.blogengine.model.BlogEntry;
+import com.mor.blogengine.xpath.SearchCriteria;
+import org.dom4j.DocumentException;
+import org.dom4j.tree.DefaultElement;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author laurent
+ */
+public class EntryController extends BlogControllerBase implements IBlogElementController&lt;BlogEntry, DocumentException&gt; {
+
+    private final IRepository&lt;BlogEntry, DefaultElement, SearchCriteria, DocumentException&gt; repo;
+
+    /**
+     * Construct Entry controller class using given properties configuration
+     * @param config  related entryControlle configuration
+     */
+    public EntryController(Properties config) throws MissingPropertyException, IncorrectPropertyValueException {
+<span class="nc" id="L80">        super(config);</span>
+
+<span class="nc" id="L82">        repo = new BlogEntryRepository(mConfig, getDocument());</span>
+
+<span class="nc" id="L84">    }</span>
+
+    @Override
+    public Map&lt;String, BlogEntry&gt; getAllElements() {
+        try {
+<span class="nc" id="L89">            List&lt;DefaultElement&gt; elements = repo.getElementsForCriteria(SearchCriteria.ALL, null);</span>
+<span class="nc" id="L90">            return getFactory().createEntryMap(elements);</span>
+<span class="nc" id="L91">        } catch (NoMatchesFoundException ex) {</span>
+            try {
+<span class="nc" id="L93">                trace(ex.getMessage());</span>
+<span class="nc" id="L94">            } catch (MissingPropertyException | IncorrectPropertyValueException ex1) {</span>
+<span class="nc" id="L95">                Logger.getLogger(EntryController.class.getName()).log(Level.SEVERE, null, ex1);</span>
+<span class="nc" id="L96">            }</span>
+        }
+
+<span class="nc" id="L99">        return null;</span>
+    }
+
+    @Override
+    public boolean addNewElement(BlogEntry e) throws DocumentException {
+        try {
+<span class="nc" id="L105">            return repo.add(e);</span>
+<span class="nc" id="L106">        } catch (ElementExistingException ex) {</span>
+<span class="nc" id="L107">            Logger.getLogger(EntryController.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+
+<span class="nc" id="L110">        return false;</span>
+    }
+
+    @Override
+    public boolean deleteElement(BlogEntry e) throws DocumentException {
+        try {
+<span class="nc" id="L116">            return repo.remove(e);</span>
+<span class="nc" id="L117">        } catch (NoMatchesFoundException ex) {</span>
+<span class="nc" id="L118">            Logger.getLogger(EntryController.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+
+<span class="nc" id="L121">        return false;</span>
+    }
+
+    @Override
+    public boolean editElement(BlogEntry what, BlogEntry with) throws DocumentException {
+        try {
+<span class="nc" id="L127">            return repo.edit(what, with);</span>
+<span class="nc" id="L128">        } catch (NoMatchesFoundException | ElementExistingException ex) {</span>
+<span class="nc" id="L129">            return false;</span>
+        }
+    }
+
+    @Override
+    public Map&lt;String, BlogEntry&gt; getElementsForDate(String d) {
+        try {
+<span class="nc" id="L136">            return getFactory().createEntryMap(repo.getElementsForCriteria(SearchCriteria.DATE, d));</span>
+<span class="nc" id="L137">        } catch (NoMatchesFoundException ex) {</span>
+<span class="nc" id="L138">            Logger.getLogger(EntryController.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+
+<span class="nc" id="L141">        return null;</span>
+    }
+
+    /**
+     * For the moment there is no use of definition as no needs were shown To
+     * introduce parent entry concept
+     *
+     * @param parentID the parent node ID to check for
+     */
+    @Override
+    public Map&lt;String, BlogEntry&gt; getAllElements(String parentID) {
+<span class="nc" id="L152">        return getAllElements();</span>
+    }
+}
+
+//~ Formatted by Jindent --- http://www.jindent.com
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogEntry.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.model</a> &gt; <span class="el_source">BlogEntry.java</span></div><h1>BlogEntry.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package com.mor.blogengine.model;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import lombok.*;
+import org.dom4j.tree.DefaultAttribute;
+import org.dom4j.tree.DefaultElement;
+
+import java.io.Serial;
+
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
+/**
+ * Object representing a blog entry
+ *
+ * @author Laurent Morissette
+ *
+ */
+@SuppressWarnings(&quot;unused&quot;)
+@Getter
+<span class="nc" id="L66">@Setter</span>
+<span class="nc" id="L67">@RequiredArgsConstructor()</span>
+<span class="nc" id="L68">@ToString</span>
+<span class="nc bnc" id="L69" title="All 46 branches missed.">@EqualsAndHashCode(callSuper = false)</span>
+public final class BlogEntry extends AbstractBlogEntity {
+
+    @Serial
+    private static final long serialVersionUID = 1790652709303847978L;
+
+<span class="nc" id="L75">    private String mAllowComments = &quot;false&quot;;</span>
+
+<span class="nc" id="L77">    private String mCatID = null;</span>
+
+<span class="nc" id="L79">    private String mDate = null;</span>
+
+<span class="nc" id="L81">    private String mResume = null;</span>
+<span class="nc" id="L82">    private String mTexte = null;</span>
+
+
+    /**
+     * Creates a new instance of blogComment from xml node
+     *
+     * @param pElement - element to construct from
+     */
+<span class="nc bnc" id="L90" title="All 2 branches missed.">    public BlogEntry(@NonNull DefaultElement pElement) {</span>
+<span class="nc" id="L91">        super();</span>
+<span class="nc" id="L92">        mAssociatedElement = pElement;</span>
+<span class="nc" id="L93">        setMAllowComments(pElement.valueOf(&quot;@allowComments&quot;));</span>
+<span class="nc" id="L94">        setMDate(pElement.valueOf(&quot;@date&quot;));</span>
+<span class="nc" id="L95">        setMCatID(pElement.valueOf(&quot;@categoryID&quot;));</span>
+<span class="nc" id="L96">        setMTexte(pElement.element(&quot;Text&quot;).getText());</span>
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (pElement.element(&quot;Resume&quot;) == null) {</span>
+<span class="nc" id="L99">            setMResume(&quot;&quot;);</span>
+        } else {
+<span class="nc" id="L101">            setMResume(pElement.element(&quot;Resume&quot;).getTextTrim());</span>
+        }
+
+<span class="nc" id="L104">        formatAttributesValuesAsHTML();</span>
+<span class="nc" id="L105">    }</span>
+
+    /**
+     *
+     * @param pDate the date of entry redaction
+     * @param pTexte text content of entry
+     * @param pCatID category ID under which the entry is
+     * @param pResume a shot abstract of the entry
+     * @param pAllowComments are comments permitted ?
+     */
+<span class="nc" id="L115">    public BlogEntry(String pDate, String pTexte, String pCatID, String pResume, String pAllowComments) {</span>
+<span class="nc" id="L116">        setMCatID(pCatID);</span>
+<span class="nc" id="L117">        setMDate(pDate);</span>
+<span class="nc" id="L118">        setMTexte(pTexte);</span>
+<span class="nc" id="L119">        setMResume(pResume);</span>
+<span class="nc" id="L120">        setMAllowComments(pAllowComments);</span>
+<span class="nc" id="L121">        formatAttributesValuesAsHTML();</span>
+<span class="nc" id="L122">    }</span>
+
+    /**
+     *
+     * @return XML node representation of entry
+     */
+    @Override
+    public DefaultElement toElement() {
+
+        // this is element Declaration in complete form.
+        // QName lElementDecl = new QName(&quot;Entry&quot;, mNamespace);
+<span class="nc" id="L133">        DefaultElement lReturnElement = new DefaultElement(&quot;Entry&quot;);</span>
+
+<span class="nc" id="L135">        lReturnElement.add(new DefaultAttribute(&quot;date&quot;, getMDate()));</span>
+<span class="nc" id="L136">        lReturnElement.add(new DefaultAttribute(&quot;categoryID&quot;, getMCatID()));</span>
+<span class="nc" id="L137">        lReturnElement.add(new DefaultAttribute(&quot;allowComments&quot;, getMAllowComments()));</span>
+<span class="nc" id="L138">        lReturnElement.add(new DefaultAttribute(&quot;ID&quot;, getEntityID()));</span>
+
+//      this is element Declaration in complete form.
+        // QName lEntryTextDecl = new QName(&quot;Text&quot;, mNamespace);
+<span class="nc" id="L142">        DefaultElement lEntryText = new DefaultElement(&quot;Text&quot;);</span>
+
+<span class="nc" id="L144">        lEntryText.addText(getMTexte());</span>
+<span class="nc" id="L145">        lReturnElement.add(lEntryText);</span>
+
+        // QName lResumeDecl = new QName(&quot;Resume&quot;, mNamespace);
+<span class="nc" id="L148">        DefaultElement lEntryResume = new DefaultElement(&quot;Resume&quot;);</span>
+
+<span class="nc" id="L150">        lEntryResume.addText(getMResume());</span>
+<span class="nc" id="L151">        lReturnElement.add(lEntryResume);</span>
+
+<span class="nc" id="L153">        return lReturnElement;</span>
+    }
+
+    /**
+     *
+     * @return are comments permitted or not ?
+     */
+    public boolean canComment() {
+<span class="nc" id="L161">        return mAllowComments.equalsIgnoreCase(&quot;true&quot;);</span>
+    }
+
+
+    /**
+     *
+     */
+    @Override
+    void formatAttributesValuesAsHTML() {
+<span class="nc" id="L170">        mResume = escapeHtml(mResume);</span>
+<span class="nc" id="L171">        mTexte = escapeHtml(mTexte);</span>
+<span class="nc" id="L172">    }</span>
+
+
+}
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

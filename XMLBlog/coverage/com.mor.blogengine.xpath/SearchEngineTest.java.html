@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchEngineTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test in XMLBlog with jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.mor.blogengine.xpath</a> &gt; <span class="el_source">SearchEngineTest.java</span></div><h1>SearchEngineTest.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * &lt;p&gt;
+ * Copyright 2021 Laurent
+ * &lt;p&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+
+ * The MIT License
+
+ *
+
+ * Copyright 2015 Laurent Morissette.
+
+ *
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+
+ * in the Software without restriction, including without limitation the rights
+
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+
+ * copies of the Software, and to permit persons to whom the Software is
+
+ * furnished to do so, subject to the following conditions:
+
+ *
+
+ * The above copyright notice and this permission notice shall be included in
+
+ * all copies or substantial portions of the Software.
+
+ *
+
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+
+ * THE SOFTWARE.
+
+ */
+package com.mor.blogengine.xpath;
+
+import com.mor.test.XMLConsumingTestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.mor.blogengine.xpath.SearchEngine.getInstanceForDoc;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/**
+ * @author laurent
+ */
+@DisplayName(&quot;Search Engine Test&quot;)
+class SearchEngineTest extends XMLConsumingTestCase {
+
+    public SearchEngineTest() {
+<span class="fc" id="L111">        super();</span>
+<span class="fc" id="L112">    }</span>
+
+    @BeforeEach
+    void clean() {
+        try {
+<span class="fc" id="L117">            Field instance = SearchEngine.class.getDeclaredField(&quot;mInstance&quot;);</span>
+<span class="fc" id="L118">            instance.setAccessible(true);</span>
+<span class="fc" id="L119">            instance.set(null, null);</span>
+
+<span class="nc" id="L121">        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {</span>
+<span class="nc" id="L122">            Logger.getLogger(SearchEngineTest.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L123">        }</span>
+<span class="fc" id="L124">    }</span>
+
+    @Test
+    @DisplayName(&quot;Init Sans Doc&quot;)
+    void initSansDoc() {
+<span class="pc" id="L129">        Exception e = assertThrows(NullPointerException.class, () -&gt; getInstanceForDoc(null, null));</span>
+<span class="fc" id="L130">        assertEquals(&quot;Properties null or not loaded&quot;, e.getMessage());</span>
+<span class="fc" id="L131">    }</span>
+
+    @Test
+    @DisplayName(&quot;Init Avec Doc&quot;)
+    void initAvecDoc() {
+<span class="pc" id="L136">        Exception e = assertThrows(NullPointerException.class, () -&gt; getInstanceForDoc(null, getBlogDocument()));</span>
+<span class="fc" id="L137">        assertEquals(&quot;Properties null or not loaded&quot;, e.getMessage());</span>
+<span class="fc" id="L138">    }</span>
+
+    @Test
+    @DisplayName(&quot;Init Avec Config Sans Doc&quot;)
+    void initAvecConfigSansDoc() {
+<span class="pc" id="L143">        assertThrows(IllegalArgumentException.class, () -&gt; getInstanceForDoc(mConfig, null));</span>
+<span class="fc" id="L144">    }</span>
+
+    @Test
+    @DisplayName(&quot;Ini Correct&quot;)
+    void iniCorrect() {
+<span class="fc" id="L149">        getInstanceForDoc(mConfig, getBlogDocument());</span>
+<span class="fc" id="L150">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
