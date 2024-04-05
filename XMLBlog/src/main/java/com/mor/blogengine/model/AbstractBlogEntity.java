@@ -1,31 +1,32 @@
-/**
- * Copyright 2021 Laurent
- * <p>
+/*
+ * Copyright (c) 2024
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ *
  */
 package com.mor.blogengine.model;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.dom4j.Namespace;
-import org.dom4j.tree.DefaultElement;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.NoSuchElementException;
+import lombok.Getter;
+import org.dom4j.Namespace;
+import org.dom4j.tree.DefaultElement;
 
-/**
- * Changelog:<br/>
+/***Changelog:<br/>.
  * 0.1 Initial version of code based on specs stated as in SRS_blog.pdf<br/>
  * 0.3 Converted from JDom to dom4j API to support XPath processing<br/>
  * 0.4 Added Namespace declaration<br/>
@@ -40,7 +41,8 @@ import java.util.NoSuchElementException;
  * processing<br/>
  * 1.5 Rolled back from XOM to DOM4J as search functionality was not working
  * properly and switched to XPATH 1.0 which is non typed<br/>
- * <p>
+ *
+ *
  * Abstract entity class to build a domain blog class entity supported by dom4j
  * API
  *
@@ -49,84 +51,78 @@ import java.util.NoSuchElementException;
 @SuppressWarnings("unused")
 public abstract class AbstractBlogEntity implements Serializable {
 
-    /**
-     * Tags prefix part index in NS definition
-     */
-    private final static int PREFIX_PART = 0;
-    @Serial
-    private static final long serialVersionUID = 1L;
+  /**
+   * . Tags prefix part index in NS definition
+   */
+  private static final int PREFIX_PART = 0;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Namespace URI part index in NS definition
-     */
-    private static final int URI_PART = 1;
-    /**
-     * Complete Namespace infos
-     */
-    private final String[] mNamespaceParts = {"site", "https://xml.netbeans.org/schema/blog"};
-    /**
-     * Concrete Namespace declaration
-     */
-    protected final Namespace mNamespace = new Namespace(mNamespaceParts[PREFIX_PART], mNamespaceParts[URI_PART]);
-    /**
-     * Xml representation of this Entry
-     */
-    DefaultElement mAssociatedElement = null;
+  /** Namespace URI part index in NS definition. */
+  private static final int URI_PART = 1;
+  /** Complete Namespace infos. */
+  private final String[] mNamespaceParts = {"site", "https://xml.netbeans.org/schema/blog"};
+  /**
+   * Concrete Namespace declaration.
+   */
+  @Getter
+  private final Namespace namespace = new Namespace(mNamespaceParts[URI_PART],
+      mNamespaceParts[PREFIX_PART]);
+  /**
+   * Xml representation of this Entry
+   */
+  DefaultElement mAssociatedElement;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        AbstractBlogEntity ot = (AbstractBlogEntity) obj;
-
-        return getEntityID().equals(ot.getEntityID());
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
     }
 
-    /**
-     * @return unique identifier of element
-     */
-    public String getEntityID() {
-        if (mAssociatedElement != null) {
-            return getEntityIDInXml();
-        }
-
-        return "ID_" + hashCode();
+    if (getClass() != obj.getClass()) {
+      return false;
     }
 
-    /**
-     * @return unique identifier of element in XML
-     */
-    String getEntityIDInXml() throws NoSuchElementException {
-        {
-            if (mAssociatedElement.attribute("ID") == null) {
-                throw new NoSuchElementException("No ID attribute found, check XSD");
-            }
+    AbstractBlogEntity ot = (AbstractBlogEntity) obj;
 
-            return (mAssociatedElement.valueOf("@ID"));
-        }
+    return getEntityiD().equals(ot.getEntityiD());
+  }
+
+  /**
+   * @return unique identifier of element
+   */
+  public String getEntityiD() {
+    if (mAssociatedElement != null) {
+      return getEntityIdInXml();
     }
 
-    /**
-     * a-like as {@link #toString() }
-     *
-     * @return an XML representation of element
-     */
-    public abstract DefaultElement toElement();
+    return "ID_" + hashCode();
+  }
 
-    /**
-     * Format entity for correct HTML display
-     */
-    abstract void formatAttributesValuesAsHTML();
+  /**
+   * @return unique identifier of element in XML
+   */
+  String getEntityIdInXml() throws NoSuchElementException {
 
-    @Override
-    public abstract int hashCode();
+    if (mAssociatedElement.attribute("ID") == null) {
+      throw new NoSuchElementException("No ID attribute found, check XSD");
+    }
+
+    return mAssociatedElement.valueOf("@ID");
+
+  }
+
+  /**a-like as {@link #toString() }.
+   *
+   * @return an XML representation of element
+   */
+  public abstract DefaultElement toElement();
+
+  /**
+   * Format entity for correct HTML display
+   */
+  abstract void formatAttributes();
+
+  @Override
+  public abstract int hashCode();
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

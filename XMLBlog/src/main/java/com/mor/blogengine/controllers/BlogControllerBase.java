@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Laurent
+ * Copyright (c) 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ *
  */
 package com.mor.blogengine.controllers;
 
@@ -21,6 +23,8 @@ import com.mor.blogengine.xml.BlogEntityFactory;
 import com.mor.blogengine.xml.IBlogEntityFactory;
 import com.mor.blogengine.xml.io.XmlDataSourceProvider;
 import com.mor.common.PropertiesUserObject;
+import java.util.Properties;
+import javax.xml.parsers.ParserConfigurationException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -29,45 +33,43 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.util.Properties;
-
 /**
  * @author laurent
  */
 @Getter
 public abstract class BlogControllerBase extends PropertiesUserObject {
 
-    private final XmlDataSourceProvider provider;
-    /**
-     *
-     */
-    @Setter
-    private Document document = null;
-    @Setter
-    private IBlogEntityFactory<DefaultElement> factory = null;
+  private final XmlDataSourceProvider provider;
+  /**
+   *
+   */
+  @Setter
+  private Document document;
+  @Setter
+  private IBlogEntityFactory<DefaultElement> factory;
 
-    /**
-     * Base class for controllers configuration
-     * As we use same configuration in each context we can generalise it
-     *
-     * @param p Configuration settings
-     */
-    public BlogControllerBase(@NonNull Properties p) throws MissingPropertyException, IncorrectPropertyValueException {
+  /**
+   * Base class for controllers configuration As we use same configuration in each context we can
+   * generalise it
+   *
+   * @param p Configuration settings
+   */
+  public BlogControllerBase(@NonNull final Properties p)
+      throws MissingPropertyException, IncorrectPropertyValueException {
 
-        super(p);
-        provider = new XmlDataSourceProvider(mConfig);
-        try {
-            document = provider.provide();
-            factory = new BlogEntityFactory();
-        } catch (ParserConfigurationException ex) {
-            trace("Parser configuration error" + ex.getMessage());
-        } catch (DocumentException ex) {
-            trace("Document error " + ex.getMessage());
-        } catch (SAXException ex) {
-            trace(ex.getMessage() + "SaxError error");
-        }
-
+    super(p);
+    provider = new XmlDataSourceProvider(getConfig());
+    try {
+      document = provider.provide();
+      factory = new BlogEntityFactory();
+    } catch (ParserConfigurationException ex) {
+      trace("Parser configuration error" + ex.getMessage());
+    } catch (DocumentException ex) {
+      trace("Document error " + ex.getMessage());
+    } catch (SAXException ex) {
+      trace(ex.getMessage() + "SaxError error");
     }
+
+  }
 
 }
