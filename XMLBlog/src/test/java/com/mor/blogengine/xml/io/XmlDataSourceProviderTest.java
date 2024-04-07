@@ -27,11 +27,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
+import com.mor.common.BeanValidator;
 import com.mor.test.XMLConsumingTestCase;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import java.io.IOException;
+import java.util.Set;
+import javax.xml.parsers.ParserConfigurationException;
 import lombok.SneakyThrows;
+import org.dom4j.DocumentException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 
 /**
  * @author laurent
@@ -42,10 +49,13 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
   @Test
   @DisplayName("XmlDataSourceProviderTest.ProvideWithNoProperties")
-  void testProvideWithNoProperties() {
-    Exception e = assertThrows(NullPointerException.class,
-        () -> new XmlDataSourceProvider(null).provide());
-    assertEquals("Properties null or not loaded", e.getMessage());
+  void testProvideWithNoProperties()
+			throws DocumentException, MissingPropertyException, ParserConfigurationException, IncorrectPropertyValueException, SAXException {
+   XmlDataSourceProvider provider =new XmlDataSourceProvider(null);
+    Validator validator=new BeanValidator().getValidator();
+    Set<ConstraintViolation<XmlDataSourceProvider>> violations = validator.validate(provider);
+    getLog().info(violations.stream().toList().getFirst().getMessage());
+    assertFalse(violations.isEmpty());
 
 
   }

@@ -22,8 +22,6 @@ package com.mor.blogengine.model;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.NoSuchElementException;
-import lombok.Getter;
-import org.dom4j.Namespace;
 import org.dom4j.tree.DefaultElement;
 
 /***Changelog:<br/>.
@@ -51,23 +49,9 @@ import org.dom4j.tree.DefaultElement;
 @SuppressWarnings("unused")
 public abstract class AbstractBlogEntity implements Serializable {
 
-  /**
-   * . Tags prefix part index in NS definition
-   */
-  private static final int PREFIX_PART = 0;
   @Serial
   private static final long serialVersionUID = 1L;
 
-  /** Namespace URI part index in NS definition. */
-  private static final int URI_PART = 1;
-  /** Complete Namespace infos. */
-  private final String[] mNamespaceParts = {"site", "https://xml.netbeans.org/schema/blog"};
-  /**
-   * Concrete Namespace declaration.
-   */
-  @Getter
-  private final Namespace namespace = new Namespace(mNamespaceParts[URI_PART],
-      mNamespaceParts[PREFIX_PART]);
   /**
    * Xml representation of this Entry
    */

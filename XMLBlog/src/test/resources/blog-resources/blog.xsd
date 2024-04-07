@@ -1,104 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2024
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  ~
-  ~
-  -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-  <!-- Définition du ROOT elem 'Blog' -->
-  <xsd:annotation>
-    <!-- DOC-->
-    <xsd:documentation>
-      XSD pour le blog engine XML
-
-    </xsd:documentation>
-  </xsd:annotation>
-  <xsd:element name="Blog">
-    <xsd:complexType>
-      <xsd:sequence>
-        <!-- Début de définition de l'élément Entry -->
-        <xsd:element name="Entry ">
-          <xsd:annotation>
-            <xsd:documentation>
-              L'élément Entry représente un billet donné
-            </xsd:documentation>
-          </xsd:annotation>
-          <!-- DOC-->
-          <xsd:complexType>
-            <xsd:attribute name="date" use="required"/>
-            <xsd:attribute name="categoryID"/>
-            <xsd:attribute default="false" name="allowComments"/>
-            <xsd:attribute name="ID"/>
-            <xsd:attribute name="commentsCounts"/>
-            <xsd:sequence>
-              <xsd:element name="Text"/>
-              <xsd:element minOccurs="0" name="Resume">
-                <xsd:annotation>
-                  <xsd:documentation>Un court résumé du post</xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              <!-- Début de définition de l'élément Comment -->
-              <xsd:element name="Comment">
-                <xsd:annotation>
-                  <xsd:documentation>
-                    L'élément comment représente un commentaire d'un lecteur à propos d'un billet
-                    donné
-                  </xsd:documentation>
-                </xsd:annotation>
-                <!-- DOC-->
-                <xsd:complexType>
-                  <xsd:attribute name="ID" use="required"/>
-                  <xsd:attribute name="entryID" use="required"/>
-                  <xsd:attribute name="date" use="required"/>
-                  <xsd:attribute name="author"/>
-                  <xsd:attribute name="webPage"/>
-                  <xsd:sequence>
-                    <xsd:element name="CommentText"/>
-                  </xsd:sequence>
-                  <!-- Début de séquence définissant les sous éléments de Comment -->
-                  <!-- attributs de l'élément Comment-->
-                  <!--  Fin des attributs de l'élément comment-->
-                </xsd:complexType>
-              </xsd:element>
-              <!-- Fin de séquence définissant les sous éléments de Comment -->
-            </xsd:sequence>
-            <!-- Début de séquence définissant les sous éléments de Entry -->
-            <!-- Fin de séquence définissant les sous éléments de Entry -->
-            <!-- attributs de l'élément Entry-->
-            <!--  Fin des attributs de l'élément Entry-->
-          </xsd:complexType>
-        </xsd:element>
-        <!-- Fin de définition de l'élément Entry -->
-        <!-- Début de définition de l'élément Category -->
-        <xsd:element maxOccurs="unbounded" minOccurs="0" name="Category">
-          <xsd:annotation>
-            <xsd:documentation>
-              L'élément Categoy représente une catégorie pour un billet donné
-            </xsd:documentation>
-          </xsd:annotation>
-          <!-- DOC-->
-          <xsd:complexType>
-            <xsd:attribute name="ID" use="required"/>
-            <xsd:attribute name="name" use="required"/>
-            <xsd:attribute name="description"/>
-          </xsd:complexType>
-        </xsd:element>
-      </xsd:sequence>
-      <!-- Début de séquence définissant les sous éléments du Blog -->
-      <!-- Fin de séquence définissant les sous éléments du Blog -->
-    </xsd:complexType>
-  </xsd:element>
-  <!-- Fin du ROOT element-->
-</xsd:schema>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Blog">
+    <xs:annotation>
+      <xs:documentation>
+        ~ Copyright (c) 2024
+        ~
+        ~ Licensed under the Apache License, Version 2.0 (the "License");
+        ~ you may not use this file except in compliance with the License.
+        ~ You may obtain a copy of the License at
+        ~
+        ~     http://www.apache.org/licenses/LICENSE-2.0
+        ~
+        ~ Unless required by applicable law or agreed to in writing, software
+        ~ distributed under the License is distributed on an "AS IS" BASIS,
+        ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        ~ See the License for the specific language governing permissions and
+        ~ limitations under the License.
+        ~
+        ~
+        suppress XmlHighlighting, XmlHighlighting </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Category" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="ID" use="optional"/>
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="description" use="optional"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Entry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Comment">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="CommentText"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="ID"/>
+                  <xs:attribute type="xs:string" name="author"/>
+                  <xs:attribute type="xs:string" name="date"/>
+                  <xs:attribute type="xs:string" name="entryID"/>
+                  <xs:attribute type="xs:string" name="webPage"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="Resume"/>
+              <xs:element type="xs:string" name="Text"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="ID"/>
+            <xs:attribute type="xs:string" name="allowComments"/>
+            <xs:attribute type="xs:string" name="categoryID"/>
+            <xs:attribute type="xs:date" name="date"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
