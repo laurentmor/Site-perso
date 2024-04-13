@@ -7,3 +7,5 @@ target
 *.iml
 .idea
 /stePersonnelEar/stePersonnelEar.iml
+/XMLBlog/pom.xml.versionsBackup
+/Blog/pom.xml.versionsBackup
