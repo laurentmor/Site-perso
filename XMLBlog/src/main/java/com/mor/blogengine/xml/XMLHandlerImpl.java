@@ -1,20 +1,19 @@
-/*
- * Copyright (c) 2024
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- *
- */
+// * Copyright (c) 2024
+// *
+// * Licensed under the Apache License, Version 2.0 (the "License");
+// * you may not use this file except in compliance with the License.
+// * You may obtain a copy of the License at
+// *
+// *     http://www.apache.org/licenses/LICENSE-2.0
+// *
+// * Unless required by applicable law or agreed to in writing, software
+// * distributed under the License is distributed on an "AS IS" BASIS,
+// * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// * See the License for the specific language governing permissions and
+// * limitations under the License.
+// *
+// *
+
 package com.mor.blogengine.xml;
 
 //~--- non-JDK imports --------------------------------------------------------
@@ -34,7 +33,7 @@ import org.dom4j.Document;
 import org.dom4j.tree.DefaultElement;
 
 /**
- * Utility class that encapsulate i/o work
+ * Utility class that encapsulate i/o work.
  *
  * @author Laurent
  * @version $version
@@ -48,27 +47,29 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   static XMLHandlerImpl mInstance;
 
   /**
-   * XML root
+   * XML root.
    */
-  private DefaultElement mRootElement;
+  private DefaultElement rootElement;
 
   @SneakyThrows
-  private XMLHandlerImpl(@NonNull Properties config, Document d) {
+  private XMLHandlerImpl(final @NonNull Properties config, final Document d) {
     super(config);
 
     if (d != null) {
-      mRootElement = (DefaultElement) d.getRootElement();
+      rootElement = (DefaultElement) d.getRootElement();
     }
     trace("Constructing XMLHandlerImpl");
 
   }
 
   /**
-   * Get an instance of class using singleton pattern implementation
+   * Get an instance of class using singleton pattern implementation.
    *
+   * @param config the object config
+   * @param domTree the document tree
    * @return an instance of class
    */
-  public static XMLHandlerImpl getInstanceForDoc(Properties config, Document domTree) {
+  public static XMLHandlerImpl getInstanceForDoc(final Properties config, final Document domTree) {
     if (config != null) {
       if (mInstance != null) {
         return mInstance;
@@ -82,13 +83,13 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   }
 
   /**
-   * Add given Node to blog structure
+   * Add given Node to blog structure.
    *
    * @param element the element to add
    * @return added or not (true or false)
    */
   @Override
-  public boolean add(DefaultElement element) {
+  public boolean add(final DefaultElement element) {
     ArrayList<DefaultElement> list = new ArrayList<>();
 
     list.add(element);
@@ -97,14 +98,14 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   }
 
   /**
-   * remove given element to blog structure
+   * remove given element to blog structure.
    *
    * @param element the element to remove
    * @return removed or not (true or false)
    */
   @SneakyThrows
   @Override
-  public boolean remove(DefaultElement element) {
+  public boolean remove(final DefaultElement element) {
     boolean removed = false;
 
     try {
@@ -124,16 +125,16 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   }
 
   /**
-   * Append a node to parent node
+   * Append a node to parent node.
    *
    * @param root    The node to add under
    * @param content what to add to root node
    * @return appended or not
    */
   @Override
-  public boolean append(DefaultElement root, DefaultElement content) {
-    String elemID = root.valueOf("@ID");
-    DefaultElement elemInDoc = (DefaultElement) mRootElement.elementByID(elemID);
+  public boolean append(final DefaultElement root, final DefaultElement content) {
+    String elemId = root.valueOf("@ID");
+    DefaultElement elemInDoc = (DefaultElement) rootElement.elementByID(elemId);
 
     if (elemInDoc != null) {
       elemInDoc.add(content);
@@ -146,17 +147,17 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   }
 
   /**
-   * Add given Nodes to blog structure
+   * Add given Nodes to blog structure.
    *
    * @param addBatch the elements to add
    * @return added or not (true or false)
    */
   @Override
-  public boolean add(List<DefaultElement> addBatch) {
+  public boolean add(final List<DefaultElement> addBatch) {
     boolean added = false;
 
     for (val defaultElement : addBatch) {
-      mRootElement.add(defaultElement);
+      rootElement.add(defaultElement);
       added = true;
     }
 
@@ -164,7 +165,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   }
 
   /**
-   * remove given elements to blog structure
+   * remove given elements to blog structure.
    *
    * @param removeBatch the elements to remove
    * @return removed or not (true or false)
@@ -174,9 +175,9 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
     boolean removed = false;
 
     for (DefaultElement defaultElement : removeBatch) {
-      DefaultElement e = (DefaultElement) mRootElement.elementByID(defaultElement.valueOf("@ID"));
+      DefaultElement e = (DefaultElement) rootElement.elementByID(defaultElement.valueOf("@ID"));
 
-      removed = mRootElement.remove(e);
+      removed = rootElement.remove(e);
     }
 
     return removed;
@@ -184,16 +185,12 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
 
   @SneakyThrows
   @Override
-  public boolean remove(DefaultElement child, String parentID) {
+  public boolean remove(final DefaultElement child, final String parentId) {
     boolean removed;
-    DefaultElement foundParent = (DefaultElement) mRootElement.elementByID(parentID);
+    DefaultElement foundParent = (DefaultElement) rootElement.elementByID(parentId);
 
     if (foundParent != null) {
-      try {
-        trace("Parent found{0}");
-      } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-        trace(ex.getMessage());
-      }
+
 
       DefaultElement foundChild = (DefaultElement) foundParent.elementByID(child.valueOf("@ID"));
 

@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import com.mor.blogengine.model.BlogCategory;
 import com.mor.blogengine.xpath.SearchCriteria;
@@ -32,7 +31,7 @@ import org.dom4j.tree.DefaultElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings ("unchecked")
 public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
 
   @BeforeEach
@@ -92,13 +91,5 @@ public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
     assertEquals(expected, actual);
   }
 
-  //@Test
-  public void append() {
-    BlogCategoryRepository b = new BlogCategoryRepository(null, null);
-    BlogCategory what = null;
-    boolean expected = true;
-    boolean actual = b.append(what);
 
-    assertEquals(expected, actual);
-  }
 }

@@ -15,34 +15,28 @@
  *
  *
  */
-package com.mor.blogengine.exception;
 
-import java.io.Serial;
-import lombok.extern.slf4j.Slf4j;
+package com.mor.common;
 
 /**
- * @author laurent
+ * Current application log level.
  */
-@Slf4j
-public class MissingPropertyException extends Exception {
-
-  @Serial
-  private static final long serialVersionUID = 1L;
+public enum LogLevel {
 
   /**
-   * Creates a new instance of
-   * <code>MissingPropertyException</code> without detail message.
+   * Debug log level.
    */
-  public MissingPropertyException() {
-  }
-
+  DEBUG(),
   /**
-   *
+   * info log level.
    */
-  public MissingPropertyException(String property) {
-
-    log.error("Property missing : {}{}", property, getStackTrace());
-  }
-
-
+  INFO(),
+  /**
+   * Error log level.
+   */
+  ERROR(),
+  /**
+   * Warning log level.
+   */
+  WARN()
 }

@@ -33,7 +33,7 @@
             <recipe>org.openrewrite.java.OrderImports</recipe>
             <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
             <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
-           </activeRecipes>
+          </activeRecipes>
           <activeStyles>
             <style>org.openrewrite.java.GoogleJavaFormat</style>
           </activeStyles>
@@ -218,8 +218,6 @@
     </dependency>
 
 
-
-
     <dependency>
       <artifactId>commons-lang</artifactId>
       <groupId>commons-lang</groupId>
@@ -313,7 +311,7 @@
       <artifactId>byte-buddy</artifactId>
       <groupId>net.bytebuddy</groupId>
       <scope>test</scope>
-      <version>1.12.16</version>
+      <version>1.14.13</version>
 
     </dependency>
     <!-- still, some benefit from additional support-->
@@ -341,22 +339,39 @@
       <version>${jupiter.version}</version>
     </dependency>
     <dependency>
-      <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
       <version>${validation.api.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
+      <groupId>org.hibernate.validator</groupId>
       <version>${hibernate.validator.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.glassfish/jakarta.el -->
     <dependency>
-      <groupId>org.glassfish</groupId>
       <artifactId>jakarta.el</artifactId>
-      <version>5.0.0-M1</version>
+      <groupId>org.glassfish</groupId>
       <scope>test</scope>
+      <version>5.0.0-M1</version>
     </dependency>
+    <dependency>
+      <artifactId>logback-core</artifactId>
+      <groupId>ch.qos.logback</groupId>
+      <version>${logback.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <version>2.1.0-alpha1</version>
+    </dependency>
+    <dependency>
+      <artifactId>logback-classic</artifactId>
+      <groupId>ch.qos.logback</groupId>
+      <version>${logback.classic.version}</version>
+    </dependency>
+
 
   </dependencies>
 
@@ -372,16 +387,18 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <properties>
-    <validation.api.version>3.0.2</validation.api.version>
     <aspectj.version>3.23.1</aspectj.version>
     <commons.io.version>2.11.0</commons.io.version>
     <commons.lang.version>2.6</commons.lang.version>
     <dom4j.version>2.1.4</dom4j.version>
+    <hibernate.validator.version>8.0.0.Final</hibernate.validator.version>
     <jaxen.version>1.1.4</jaxen.version>
     <jaxp.version>1.4.2</jaxp.version>
     <junit-jupiter-version>5.10.0</junit-jupiter-version>
     <jupiter.version>5.10.0</jupiter.version>
     <license.dir>${basedir}</license.dir>
+    <logback.classic.version>1.4.14</logback.classic.version>
+    <logback.version>1.4.12</logback.version>
     <lombok.version>1.18.30</lombok.version>
     <maven.compiler.plugin.source>21</maven.compiler.plugin.source>
     <maven.compiler.plugin.target>21</maven.compiler.plugin.target>
@@ -390,9 +407,10 @@
     <mokito.version>4.8.1</mokito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.version>${project.version}</project.version>
+    <slf4j.provider.version>2.0.12</slf4j.provider.version>
     <slf4j.version>2.0.7</slf4j.version>
     <spring-test.version>6.1.3</spring-test.version>
-    <hibernate.validator.version>8.0.0.Final</hibernate.validator.version>
+    <validation.api.version>3.0.2</validation.api.version>
   </properties>
   <!-- //Site DESC-->
   <reporting>

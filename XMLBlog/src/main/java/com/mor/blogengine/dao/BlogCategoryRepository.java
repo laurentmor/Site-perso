@@ -15,9 +15,12 @@
  *
  *
  */
+
 package com.mor.blogengine.dao;
 
 //~--- non-JDK imports --------------------------------------------------------
+
+import static com.mor.blogengine.xpath.SearchCriteria.SINGLE;
 
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
@@ -35,16 +38,20 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 /**
- * @author laurent
+ * * Category repository object.
+ *
+ *  @author laurent
  */
 @SuppressWarnings("unused")
-public class BlogCategoryRepository extends BlogRepositoryBase
-    implements Repository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> {
+public final class BlogCategoryRepository extends BlogRepositoryBase
+    implements Repository<BlogCategory,
+                            DefaultElement, SearchCriteria, DocumentException> {
 
   /**
-   * Default constructor
-   *
+    Default constructor.
+
    * @param d      document instance that holds blog data
+
    * @param config global configuration file for application
    */
   public BlogCategoryRepository(final Properties config, final Document d) {
@@ -53,74 +60,72 @@ public class BlogCategoryRepository extends BlogRepositoryBase
   }
 
   /**
-   * add a category to blog
+   * add a category to blog.
    *
    * @param t the category to add
    * @return true if Category added correctly
    * @throws ElementExistingException if element to add exist
    */
   @Override
-  public boolean add(BlogCategory t) throws ElementExistingException {
+  public boolean add(final BlogCategory t) throws ElementExistingException {
 
     List<DefaultElement> list;
-    boolean added = false;
+    boolean added;
 
     try {
-      list = getElementsForCriteria(SearchCriteria.SINGLE, t.getEntityiD());
+      list = getElementsForCriteria(SINGLE, t.getEntityiD());
 
       if (list == null) {
         throw new NoMatchesFoundException();
       } else {
-        trace("Element already in ");
+        //trace("Element already in ");
 
         throw new ElementExistingException();
       }
     } catch (NoMatchesFoundException ex) {
-      try {
-        trace("No match of element found proceeding to add operation");
-      } catch (MissingPropertyException | IncorrectPropertyValueException ex1) {
-        Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex1);
-      }
 
       added = getHandler().add(t.toElement());
 
-    } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-      Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
     }
-
     return added;
   }
 
   /**
-   * append a category to a parent one to a blog
+   * append a category to a parent one to a blog.
    *
    * @param what     the category to append
-   * @param parentID the ID of parent category to append to
-   * @return true if Category appended correctly do not use subcategory concept not considered
+   * @param parentId the ID of parent category to append to
+   * @return true if Category appended correctly do not use
    */
   @Override
-  public boolean append(BlogCategory what, String parentID) {
+  public boolean append(final BlogCategory what, final String parentId) {
+    return false;
+  }
+
+  @Override
+  public boolean append(final BlogCategory what) throws DocumentException {
     return false;
   }
 
   /**
-   * remove a category to blog
+   * remove a category to blog.
    *
    * @param t the category to remove
    * @return true if Category removed correctly
    */
   @Override
-  public boolean remove(BlogCategory t) throws NoMatchesFoundException {
+  public boolean remove(final BlogCategory t) throws NoMatchesFoundException {
     boolean removed;
 
-    List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE,
+    List<DefaultElement> foundMatches = getElementsForCriteria(SINGLE,
         t.getEntityiD());
 
     if (foundMatches == null) {
       try {
         trace("No match of element found remove failed");
       } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-        Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(BlogCategoryRepository.class.getName())
+            .log(Level.SEVERE, null, ex);
       }
 
       throw new NoMatchesFoundException();
@@ -132,30 +137,31 @@ public class BlogCategoryRepository extends BlogRepositoryBase
   }
 
   /**
-   * edit a category in a blog
+   * edit a category in a blog.
    *
    * @param t  the category to edit
    * @param t2 the new category
    * @return true if Category edited correctly
    */
   @Override
-  public boolean edit(BlogCategory t, BlogCategory t2)
+  public boolean edit(final BlogCategory t, final BlogCategory t2)
       throws NoMatchesFoundException {
 
-    List<DefaultElement> foundMatches = getElementsForCriteria(SearchCriteria.SINGLE,
+    List<DefaultElement> foundMatches = getElementsForCriteria(SINGLE,
         t.getEntityiD());
 
     if (foundMatches == null) {
       try {
         trace("No match of element found edit failed");
       } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-        Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(BlogCategoryRepository.class.getName())
+            .log(Level.SEVERE, null, ex);
       }
 
       throw new NoMatchesFoundException();
     } else {
       AtomicBoolean edited = new AtomicBoolean(false);
-//            edited = false;
+
       try {
         if (remove(t) && add(t2)) {
           edited.set(true);
@@ -168,30 +174,22 @@ public class BlogCategoryRepository extends BlogRepositoryBase
     }
   }
 
+
+
   /**
-   * Enable the search for certain category and criteria in XML <br/>
+   * Enable the search for certain category and criteria in XML. <br/>
    *
-   * @param searchParam what to search<br/>
+   * @param sc what to search<br/>
    * @param paramValue  search for what criteria<br/>
    * @return list of results<br/>
    */
   @Override
-  public List<DefaultElement> getElementsForCriteria(final SearchCriteria searchParam,
+  public List<DefaultElement> getElementsForCriteria(final SearchCriteria sc,
       final String paramValue)
       throws NoMatchesFoundException {
 
     return getSearchEngine().getElementsForCriteria("Category",
-        searchParam, paramValue);
+        sc, paramValue);
   }
 
-  /**
-   * append a category to a parent one to a blog.
-   *
-   * @param what the category to append
-   * @return true if Category appended correctly
-   */
-  @Override
-  public boolean append(final BlogCategory what) {
-    return append(what, null);
-  }
 }

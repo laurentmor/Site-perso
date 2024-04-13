@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author laurent
  */
-@DisplayName("X Path Expression Builder Test")
+@DisplayName("XPath Expression Builder Test")
 class XPathExpressionBuilderTest {
 
   private List<String> nodes;
