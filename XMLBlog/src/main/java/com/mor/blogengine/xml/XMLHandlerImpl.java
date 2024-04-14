@@ -65,7 +65,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   /**
    * Get an instance of class using singleton pattern implementation.
    *
-   * @param config the object config
+   * @param config  the object config
    * @param domTree the document tree
    * @return an instance of class
    */
@@ -190,7 +190,6 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
     DefaultElement foundParent = (DefaultElement) rootElement.elementByID(parentId);
 
     if (foundParent != null) {
-
 
       DefaultElement foundChild = (DefaultElement) foundParent.elementByID(child.valueOf("@ID"));
 

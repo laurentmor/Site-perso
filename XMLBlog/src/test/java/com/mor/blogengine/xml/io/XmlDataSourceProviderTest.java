@@ -19,7 +19,6 @@ package com.mor.blogengine.xml.io;
 
 // ~--- non-JDK imports --------------------------------------------------------
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -43,16 +42,16 @@ import org.xml.sax.SAXException;
 /**
  * @author laurent
  */
-@DisplayName("Xml Data Source Provider Tests")
+@DisplayName ("Xml Data Source Provider Tests")
 public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
 
   @Test
-  @DisplayName("XmlDataSourceProviderTest.ProvideWithNoProperties")
+  @DisplayName ("XmlDataSourceProviderTest.ProvideWithNoProperties")
   void testProvideWithNoProperties()
-			throws DocumentException, MissingPropertyException, ParserConfigurationException, IncorrectPropertyValueException, SAXException {
-   XmlDataSourceProvider provider =new XmlDataSourceProvider(null);
-    Validator validator=new BeanValidator().getValidator();
+      throws DocumentException, MissingPropertyException, ParserConfigurationException, IncorrectPropertyValueException, SAXException {
+    XmlDataSourceProvider provider = new XmlDataSourceProvider(null);
+    Validator validator = new BeanValidator().getValidator();
     Set<ConstraintViolation<XmlDataSourceProvider>> violations = validator.validate(provider);
     getLog().info(violations.stream().toList().getFirst().getMessage());
     assertFalse(violations.isEmpty());
@@ -62,7 +61,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
   @SneakyThrows
   @Test
-  @DisplayName("XmlDataSourceProviderTest.ProvideWithProperties")
+  @DisplayName ("XmlDataSourceProviderTest.ProvideWithProperties")
   void testProvideWithProperties() {
 
     XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
@@ -71,7 +70,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
 
   @Test
-  @DisplayName("Test write() method with correct settings")
+  @DisplayName ("Test write() method with correct settings")
   void writeFine() throws Exception {
     XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
     try {
@@ -85,7 +84,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   @Test
-  @DisplayName("Test write() method with missing mode")
+  @DisplayName ("Test write() method with missing mode")
   void writeWithMissingMode() {
     assertThrows(MissingPropertyException.class, () -> {
       mConfig.remove("application.mode");
@@ -96,7 +95,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   @Test
-  @DisplayName("Test write() method with incorrect mode")
+  @DisplayName ("Test write() method with incorrect mode")
   void writeWithIncorrectMode() {
     mConfig.setProperty("application.mode", "UAT");
     assertThrows(IncorrectPropertyValueException.class, () -> {
@@ -108,7 +107,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   @Test
-  @DisplayName("Test write() method causing IOException")
+  @DisplayName ("Test write() method causing IOException")
   void writeCausingIOException() {
 
     assertThrows(IOException.class, () -> {
@@ -121,7 +120,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
   }
 
-  @DisplayName(" Test saveChanges() in test mode with correct I/o")
+  @DisplayName (" Test saveChanges() in test mode with correct I/o")
   @Test
   void saveChangesWithCorrectIOInTestMode() {
     XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
@@ -133,7 +132,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   //@Test
-  @DisplayName("Test save() method in Production Mode")
+  @DisplayName ("Test save() method in Production Mode")
   void saveInProductionMode()
       throws IOException, MissingPropertyException, IncorrectPropertyValueException {
     mConfig.setProperty("application.mode", "Production");

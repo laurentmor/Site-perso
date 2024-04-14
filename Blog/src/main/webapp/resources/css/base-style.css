@@ -26,36 +26,36 @@
 */
 
 #h {
-    background-color: #086FA1
+  background-color: #086FA1
 }
 
 body {
-    background-color: #235D79
+  background-color: #235D79
 }
 
 #x {
-    background-color: #034769
+  background-color: #034769
 }
 
 #header {
-    padding: 0 0 0 0;
-    background-color: #3CA0D0;
-    height: 50px;
-    margin: 0;
+  padding: 0 0 0 0;
+  background-color: #3CA0D0;
+  height: 50px;
+  margin: 0;
 
 }
 
 #menu {
-    margin-top: 0;
-    border-right: 3px solid #FFFFFF;
-    border-bottom: 3px solid #FFFFFF;
-    width: 225px;
-    height: 150px;
-    background-color: #63ADD0;
-    float: left;
+  margin-top: 0;
+  border-right: 3px solid #FFFFFF;
+  border-bottom: 3px solid #FFFFFF;
+  width: 225px;
+  height: 150px;
+  background-color: #63ADD0;
+  float: left;
 }
 
 #menu #nav {
 
-    list-style-type: none;
+  list-style-type: none;
 }

@@ -64,7 +64,7 @@ public class CommentController extends BlogControllerBase implements
   @Override
   public boolean addNewElement(BlogComment e) throws DocumentException {
     try {
-      return repo.append(e, e.getEntryID());
+      return repo.append(e, e.getEntryId());
     } catch (NoMatchesFoundException ex) {
       Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
     }

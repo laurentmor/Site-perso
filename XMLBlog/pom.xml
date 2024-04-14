@@ -246,11 +246,13 @@
       <scope>test</scope>
       <version>${spring-test.version}</version>
     </dependency>
+    <!--region Description
     <dependency>
       <artifactId>jaxp-api</artifactId>
       <groupId>javax.xml</groupId>
       <version>${jaxp.version}</version>
     </dependency>
+    endregion-->
     <dependency>
       <artifactId>jaxen</artifactId>
       <groupId>jaxen</groupId>

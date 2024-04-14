@@ -213,7 +213,7 @@ public final class XPathExpressionBuilder {
   String addNodesToExpression(final boolean includePrefix) {
     int lNodeCount = mSubNodeList.size();
     StringBuilder sb = new StringBuilder(lNodeCount * (mPrefix != null ? (mPrefix.length() + 3)
-        : 3)); // pre-allocate StringBuilder size
+                                                           : 3)); // pre-allocate StringBuilder size
 
     String prefix = includePrefix ? mPrefix + ":" : "";
 

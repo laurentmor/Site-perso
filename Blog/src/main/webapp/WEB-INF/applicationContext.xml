@@ -19,20 +19,20 @@
 
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-    <!--bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="/WEB-INF/jdbc.properties" />
+  <!--bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+        p:location="/WEB-INF/jdbc.properties" />
 
 <bean id="dataSource"
-    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-    p:driverClassName="${jdbc.driverClassName}"
-    p:url="${jdbc.url}"
-    p:username="${jdbc.username}"
-    p:password="${jdbc.password}" /-->
+  class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+  p:driverClassName="${jdbc.driverClassName}"
+  p:url="${jdbc.url}"
+  p:username="${jdbc.username}"
+  p:password="${jdbc.password}" /-->
 
-    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc.) -->
+  <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc.) -->
 
 </beans>

@@ -42,10 +42,11 @@ public class NoMatchesFoundException extends Exception {
    */
   public NoMatchesFoundException(String pSearchedTerm, boolean doDebug) {
     super("No matches of " + pSearchedTerm
-        + " were found during search process - redefine your search");
+              + " were found during search process - redefine your search");
     if (doDebug) {
       log.log(Level.INFO, "No matches of " + pSearchedTerm
-          + " were found during search process - redefine your search", getStackTrace());
+                              + " were found during search process - redefine your search",
+          getStackTrace());
     }
 
 

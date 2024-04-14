@@ -19,9 +19,9 @@
 
 
 <decorators defaultdir="/WEB-INF/template">
-    <decorator name="base" page="base.jsp">
-        <pattern>/*</pattern>
+  <decorator name="base" page="base.jsp">
+    <pattern>/*</pattern>
 
-    </decorator>
+  </decorator>
 
 </decorators>

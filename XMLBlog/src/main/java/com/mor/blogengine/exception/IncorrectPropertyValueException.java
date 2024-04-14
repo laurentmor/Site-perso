@@ -43,7 +43,7 @@ public class IncorrectPropertyValueException extends Exception {
   public IncorrectPropertyValueException(String propertyName, String currentValue,
       Enum<?>... choices) {
     System.err.print(propertyName + "is set incorrectly to : " + currentValue
-        + " it should be one of these values: ");
+                         + " it should be one of these values: ");
     IntStream.range(0, choices.length - 1).mapToObj(i -> choices[i].name())
         .map(choice -> choice + ",").forEach(System.err::print);
     System.err.println(choices[choices.length - 1]);

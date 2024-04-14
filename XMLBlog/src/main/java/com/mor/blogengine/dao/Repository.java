@@ -24,27 +24,25 @@ import com.mor.blogengine.exception.NoMatchesFoundException;
 import java.util.List;
 
 /**
-This repository interface is intended to hide implementation details.
- * from the controller layer
- * For instance: adding a BlogEntry is really simple process,<br/>
- * the {@link #add(java.lang.Object)} implementation would use null
- * {@link #getElementsForCriteria(java.lang.Object, java.lang.String)
- * }
- * to check if such entry exists in which case return false<br/>
- * User would be notified by controller and asked if he'd like to edit the found
- * entry
-
+ * This repository interface is intended to hide implementation details. from the controller layer
+ * For instance: adding a BlogEntry is really simple process,<br/> the
+ * {@link #add(java.lang.Object)} implementation would use null
+ * {@link #getElementsForCriteria(java.lang.Object, java.lang.String) } to check if such entry
+ * exists in which case return false<br/> User would be notified by controller and asked if he'd
+ * like to edit the found entry
+ * <p>
  * Changes : Removed find method to generalize search mechanism.
  *
  * @param <T> Repository type @see model layer
  * @param <R> Specify return type of blog data structure
  * @param <S> search criteria data holder
- * @param <D>  data source exception
+ * @param <D> data source exception
  * @author laurent
  */
 public interface Repository<T, R, S, D extends Throwable> {
 
-  /** add an element to blog.
+  /**
+   * add an element to blog.
    *
    * @param t model object to add
    * @return true is added correctly
@@ -52,7 +50,8 @@ public interface Repository<T, R, S, D extends Throwable> {
    */
   boolean add(T t) throws ElementExistingException, D;
 
-  /** append an element to a parent one to a blog.
+  /**
+   * append an element to a parent one to a blog.
    *
    * @param what     the element to append
    * @param parentId the ID of parent element to append to
@@ -61,7 +60,8 @@ public interface Repository<T, R, S, D extends Throwable> {
   boolean append(T what, String parentId)
       throws NoMatchesFoundException, D;
 
-  /** append an element to a parent one to a blog.
+  /**
+   * append an element to a parent one to a blog.
    *
    * @param what the element to append
    * @return true if element appended correctly

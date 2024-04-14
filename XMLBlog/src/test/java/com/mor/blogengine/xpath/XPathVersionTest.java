@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author laurent
  */
-@DisplayName("XPath Version Test")
+@DisplayName ("XPath Version Test")
 class XPathVersionTest {
 
 
@@ -33,7 +33,7 @@ class XPathVersionTest {
    * Test of valueOf method, of class XPathVersion.
    */
   @Test
-  @DisplayName("Test Value Of")
+  @DisplayName ("Test Value Of")
   void testValueOf() {
     String aName = "typeLess";
     XPathVersion expResult = XPathVersion.typeLess;
@@ -45,7 +45,7 @@ class XPathVersionTest {
    * Test of getVersion method, of class XPathVersion.
    */
   @Test
-  @DisplayName("Test Get Version")
+  @DisplayName ("Test Get Version")
   void testGetVersion() {
 
     XPathVersion instance = XPathVersion.typeLess;

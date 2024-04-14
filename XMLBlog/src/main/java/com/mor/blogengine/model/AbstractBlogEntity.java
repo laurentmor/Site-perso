@@ -46,7 +46,7 @@ import org.dom4j.tree.DefaultElement;
  *
  * @author Laurent
  */
-@SuppressWarnings("unused")
+@SuppressWarnings ("unused")
 public abstract class AbstractBlogEntity implements Serializable {
 
   @Serial
@@ -96,7 +96,8 @@ public abstract class AbstractBlogEntity implements Serializable {
 
   }
 
-  /**a-like as {@link #toString() }.
+  /**
+   * a-like as {@link #toString() }.
    *
    * @return an XML representation of element
    */

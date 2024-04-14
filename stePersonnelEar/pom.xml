@@ -18,26 +18,26 @@
   -->
 
 <project>
-    <parent>
-        <artifactId>POMSitePersonnel</artifactId>
-        <groupId>com.mor.web.sitePersonnel</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>stePersonnelEar</artifactId>
-    <name>stePersonnelEar</name>
-    <packaging>ear</packaging>
+  <artifactId>stePersonnelEar</artifactId>
+  <dependencies>
+    <dependency>
+      <artifactId>XMLBlog</artifactId>
+      <groupId>com.mor.web.sitePersonnel</groupId>
+      <type>jar</type>
+      <version>1.0-RELEASE</version>
+    </dependency>
+
+
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
+  <name>stePersonnelEar</name>
+  <packaging>ear</packaging>
+  <parent>
+    <artifactId>POMSitePersonnel</artifactId>
+    <groupId>com.mor.web.sitePersonnel</groupId>
     <version>1.0-SNAPSHOT</version>
-    <url>http://maven.apache.org</url>
+  </parent>
+  <url>http://maven.apache.org</url>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.mor.web.sitePersonnel</groupId>
-            <artifactId>XMLBlog</artifactId>
-            <version>1.0-RELEASE</version>
-            <type>jar</type>
-        </dependency>
-
-
-    </dependencies>
+  <version>1.0-SNAPSHOT</version>
 </project>

@@ -40,18 +40,17 @@ import org.dom4j.tree.DefaultElement;
 /**
  * * Category repository object.
  *
- *  @author laurent
+ * @author laurent
  */
-@SuppressWarnings("unused")
+@SuppressWarnings ("unused")
 public final class BlogCategoryRepository extends BlogRepositoryBase
     implements Repository<BlogCategory,
-                            DefaultElement, SearchCriteria, DocumentException> {
+                             DefaultElement, SearchCriteria, DocumentException> {
 
   /**
-    Default constructor.
-
+   * Default constructor.
+   *
    * @param d      document instance that holds blog data
-
    * @param config global configuration file for application
    */
   public BlogCategoryRepository(final Properties config, final Document d) {
@@ -175,12 +174,11 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
   }
 
 
-
   /**
    * Enable the search for certain category and criteria in XML. <br/>
    *
-   * @param sc what to search<br/>
-   * @param paramValue  search for what criteria<br/>
+   * @param sc         what to search<br/>
+   * @param paramValue search for what criteria<br/>
    * @return list of results<br/>
    */
   @Override

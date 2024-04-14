@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author laurent
  */
-@DisplayName("XPath Expression Builder Test")
+@DisplayName ("XPath Expression Builder Test")
 class XPathExpressionBuilderTest {
 
   private List<String> nodes;
@@ -81,7 +81,7 @@ class XPathExpressionBuilderTest {
    * Test afin d'obtenir une expression sans attributs et sans prefixe de NS
    */
   @Test
-  @DisplayName("Test Expression Sans NS Sans Attributs")
+  @DisplayName ("Test Expression Sans NS Sans Attributs")
   void testExpressionSansNSSansAttributs() {
     XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, XPathVersion.typeLess);
     String expected = "/R1//N1//N2//N3";
@@ -93,7 +93,7 @@ class XPathExpressionBuilderTest {
    * Test afin d'obtenir une expression sans attributs
    */
   @Test
-  @DisplayName("Test Expression Avec NS Sans Attributs")
+  @DisplayName ("Test Expression Avec NS Sans Attributs")
   void testExpressionAvecNSSansAttributs() {
     XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
         XPathVersion.typeLess, true);
@@ -103,7 +103,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Expression Avec NS Et Un Noeud")
+  @DisplayName ("Test Expression Avec NS Et Un Noeud")
   void testExpressionAvecNSEtUnNoeud() {
     nodes.clear();
     nodes.add("N1");
@@ -115,7 +115,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Expression Sans NS Et Un Noeud")
+  @DisplayName ("Test Expression Sans NS Et Un Noeud")
   void testExpressionSansNSEtUnNoeud() {
     nodes.clear();
     nodes.add("N1");
@@ -127,7 +127,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Convert Attribute List To String List Non Null")
+  @DisplayName ("Test Convert Attribute List To String List Non Null")
   void testConvertAttributeListToStringListNonNull() {
     XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, attList,
         XPathVersion.typeLess);
@@ -140,7 +140,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Convert Attribute List To String List Null")
+  @DisplayName ("Test Convert Attribute List To String List Null")
   void testConvertAttributeListToStringListNull() {
     XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, null,
         XPathVersion.typeLess);
@@ -150,7 +150,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Add Nodes To Expression Avec NS")
+  @DisplayName ("Test Add Nodes To Expression Avec NS")
   void testAddNodesToExpressionAvecNS() {
     XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
         XPathVersion.typeLess, true);
@@ -160,7 +160,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Add Nodes To Expression Sans NS")
+  @DisplayName ("Test Add Nodes To Expression Sans NS")
   void testAddNodesToExpressionSansNS() {
     XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
         XPathVersion.typeLess, false);
@@ -170,7 +170,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Add Plusieurs Attributs")
+  @DisplayName ("Test Add Plusieurs Attributs")
   void testAddPlusieursAttributs() {
     XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
         XPathVersion.typeLess);
@@ -180,7 +180,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Add Un Attribut")
+  @DisplayName ("Test Add Un Attribut")
   void testAddUnAttribut() {
     attList.clear();
     attList.add(new DefaultAttribute("A1", "V1"));
@@ -192,7 +192,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Format Key Attribute Value Avec Int")
+  @DisplayName ("Test Format Key Attribute Value Avec Int")
   void testFormatKeyAttributeValueAvecInt() {
     XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
         XPathVersion.typed);
@@ -202,7 +202,7 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName("Test Format Key Attribute Value Avec Boolean")
+  @DisplayName ("Test Format Key Attribute Value Avec Boolean")
   void testFormatKeyAttributeValueAvecBoolean() {
     XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
         XPathVersion.typed);

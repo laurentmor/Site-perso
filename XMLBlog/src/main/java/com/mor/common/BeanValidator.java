@@ -31,10 +31,14 @@ import lombok.Getter;
 @Getter
 public class BeanValidator {
 
-  /**The needed Validator.*/
+  /**
+   * The needed Validator.
+   */
   private final Validator validator;
 
-  /** construct validator.*/
+  /**
+   * construct validator.
+   */
   public BeanValidator() {
 
     try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {

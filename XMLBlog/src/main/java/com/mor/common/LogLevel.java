@@ -28,15 +28,12 @@ public enum LogLevel {
    */
   DEBUG(),
   /**
-   * info log level.
-   */
-  INFO(),
-  /**
    * Error log level.
    */
   ERROR(),
   /**
    * Warning log level.
    */
-  WARN()
+  WARN(),
+  INFO()
 }

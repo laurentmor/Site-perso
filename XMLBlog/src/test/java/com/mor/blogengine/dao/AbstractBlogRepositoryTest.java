@@ -23,6 +23,6 @@ import com.mor.test.XMLConsumingTestCase;
 
 public abstract class AbstractBlogRepositoryTest extends XMLConsumingTestCase {
 
-  @SuppressWarnings("rawtypes")
+  @SuppressWarnings ("rawtypes")
   Repository repository;
 }

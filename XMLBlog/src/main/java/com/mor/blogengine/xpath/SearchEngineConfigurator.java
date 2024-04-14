@@ -48,7 +48,7 @@ public class SearchEngineConfigurator<resultType extends List<?>> extends Proper
   }
 
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings ("unchecked")
   resultType findContent(String pExpression)
       throws InvalidXPathException, NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
 

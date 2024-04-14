@@ -17,127 +17,128 @@
   ~
   -->
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mor.web.sitePersonnel</groupId>
-    <artifactId>POMSitePersonnel</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>POMSitePersonnel</name>
-    <url>https://maven.apache.org</url>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    <description>
-        Ceci est le site personnel de Laurent Morissette
-    </description>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+  <artifactId>POMSitePersonnel</artifactId>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>apache-rat-plugin</artifactId>
+          <groupId>org.apache.rat</groupId>
+          <version>0.7</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-license-plugin</artifactId>
+          <configuration>
+            <header>src/main/etc/Licence.txt</header>
 
-    <!-- Management definition -->
-    <distributionManagement>
-        <repository>
-            <id>Laurent-PC</id>
-            <name>Laurent-PC-releases</name>
-            <url>http://localhost:8080/repo/libs-releases-local</url>
-        </repository>
-    </distributionManagement>
-
-
-    <developers>
-        <developer>
-            <id>Laurent</id>
-            <name>Laurent Morissette</name>
-            <email>laurent.morissette@gmail.com</email>
-            <roles>
-                <role>Team leader</role>
-                <role>QA</role>
-            </roles>
-        </developer>
-    </developers>
-    <!-- QA aspects -->
-    <issueManagement>
-        <system>Trac</system>
-        <url>https://trac2.assembla.com/XMLBlogDEV</url>
-    </issueManagement>
-    <scm>
-        <connection>
-            scm:git:https://github.com/laurentmor/Site-perso.git
-        </connection>
-        <developerConnection>
-            scm:https://github.com/laurentmor/Site-perso.git
-        </developerConnection>
-        <url>https://github.com/laurentmor/Site-perso.git</url>
-    </scm>
-    <licenses>
-        <license>
-            <name>The apache License</name>
-            <distribution>manual</distribution>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-    <ciManagement>
-        <system>
-            Trsvis
-        </system>
-        <url>
-            http://localhost:8080/
-        </url>
-
-    </ciManagement>
-
-    <!-- Architecture -->
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.rat</groupId>
-                    <artifactId>apache-rat-plugin</artifactId>
-                    <version>0.7</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.mycila.maven-license-plugin</groupId>
-                    <artifactId>maven-license-plugin</artifactId>
-                    <configuration>
-                        <header>src/main/etc/Licence.txt</header>
-
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <showDeprecation>true</showDeprecation>
+          </configuration>
+          <groupId>com.mycila.maven-license-plugin</groupId>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <showDeprecation>true</showDeprecation>
 
 
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
+          </configuration>
+          <groupId>org.apache.maven.plugins</groupId>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgument>-Xlint:unchecked</compilerArgument>
 
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.1</version>
+      </plugin>
+    </plugins>
+  </build>
+  <ciManagement>
+    <system>
+      Trsvis
+    </system>
+    <url>
+      http://localhost:8080/
+    </url>
 
-    <modules>
-        <module>XMLBlog</module>
-        <module>stePersonnelEar</module>
-        <module>Blog</module>
-    </modules>
+  </ciManagement>
+  <dependencies>
+    <dependency>
+      <artifactId>junit</artifactId>
+      <groupId>junit</groupId>
+      <scope>test</scope>
+      <version>4.13.2</version>
+    </dependency>
+  </dependencies>
+  <description>
+    Ceci est le site personnel de Laurent Morissette
+  </description>
+  <developers>
+    <developer>
+      <email>laurent.morissette@gmail.com</email>
+      <id>Laurent</id>
+      <name>Laurent Morissette</name>
+      <roles>
+        <role>Team leader</role>
+        <role>QA</role>
+      </roles>
+    </developer>
+  </developers>
+  <distributionManagement>
+    <repository>
+      <id>Laurent-PC</id>
+      <name>Laurent-PC-releases</name>
+      <url>http://localhost:8080/repo/libs-releases-local</url>
+    </repository>
+  </distributionManagement>
+  <groupId>com.mor.web.sitePersonnel</groupId>
+  <issueManagement>
+    <system>Trac</system>
+    <url>https://trac2.assembla.com/XMLBlogDEV</url>
+  </issueManagement>
+
+  <!-- Management definition -->
+  <licenses>
+    <license>
+      <distribution>manual</distribution>
+      <name>The apache License</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+
+  <modelVersion>4.0.0</modelVersion>
+  <!-- QA aspects -->
+  <modules>
+    <module>XMLBlog</module>
+    <module>stePersonnelEar</module>
+    <module>Blog</module>
+  </modules>
+  <name>POMSitePersonnel</name>
+  <packaging>pom</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!-- Architecture -->
+  <scm>
+    <connection>
+      scm:git:https://github.com/laurentmor/Site-perso.git
+    </connection>
+    <developerConnection>
+      scm:https://github.com/laurentmor/Site-perso.git
+    </developerConnection>
+    <url>https://github.com/laurentmor/Site-perso.git</url>
+  </scm>
+  <url>https://maven.apache.org</url>
+
+  <version>1.0-SNAPSHOT</version>
 </project>
