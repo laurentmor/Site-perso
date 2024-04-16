@@ -23,18 +23,23 @@ import com.mor.blogengine.exception.NoMatchesFoundException;
 import java.util.List;
 
 /**
- * Specific interface for any BlogSearchEngine<br/>
+ * Specific interface for any BlogSearchEngine.<br/>
  *
- * @param <returnType>
+ * @param <R> Result data type.
  * @author Laurent
- * @version 2.0 made all method private due to the introduction of searchCriteria concept public
- * access no longer needed
+ * @version 2.0  all method private due to the introduction of searchCriteria concept public. access
+ * no longer needed.
  */
-public interface IBlogSearchEngine<returnType> {
+public interface IBlogSearchEngine<R> {
 
   /**
+   * Search method.
+   *
+   * @param criteria      Search criteria type
+   * @param elementType   wheat element type to search for
+   * @param criteriaValue value to search for
    * @return list of found elements
    */
-  List<returnType> getElementsForCriteria(String elementType, SearchCriteria criteria,
+  List<R> getElementsForCriteria(String elementType, SearchCriteria criteria,
       String criteriaValue) throws NoMatchesFoundException;
 }

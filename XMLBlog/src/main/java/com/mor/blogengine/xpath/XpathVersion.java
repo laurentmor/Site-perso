@@ -15,20 +15,26 @@
  *
  *
  */
+
 package com.mor.blogengine.xpath;
 
 import lombok.Getter;
 
 /**
+ * Supported versions enum.
+ *
  * @author laurent
  */
 @Getter
-public enum XPathVersion {
+public enum XpathVersion {
 
+  /**
+   *
+   */
   typeLess(1.0f), typed(2.0f);
   private final float version;
 
-  XPathVersion(float v) {
+  XpathVersion(final float v) {
     version = v;
   }
 

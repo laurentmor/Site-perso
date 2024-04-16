@@ -33,19 +33,17 @@ import org.dom4j.tree.DefaultElement;
 /**
  * @author laurent
  */
+@Setter
+@Getter
 public class BlogRepositoryBase extends PropertiesUserObject {
 
   /**
    * object that do I/O operations.
    */
-  @Getter
-  @Setter
   private IXMLHandler<DefaultElement> handler;
   /**
    * object that do search operations.
    */
-  @Getter
-  @Setter
   private IBlogSearchEngine<DefaultElement> searchEngine;
 
 

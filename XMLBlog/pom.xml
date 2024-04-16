@@ -30,15 +30,23 @@
         <artifactId>rewrite-maven-plugin</artifactId>
         <configuration>
           <activeRecipes>
+            <recipe>org.openrewrite.java.dependencies.DependencyVulnerabilityCheck</recipe>
             <recipe>org.openrewrite.java.OrderImports</recipe>
             <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
             <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
+            <recipe>org.openrewrite.xml.format.NormalizeLineBreaks</recipe>
+
           </activeRecipes>
           <activeStyles>
             <style>org.openrewrite.java.GoogleJavaFormat</style>
           </activeStyles>
         </configuration>
         <dependencies>
+          <dependency>
+            <artifactId>rewrite-java-dependencies</artifactId>
+            <groupId>org.openrewrite.recipe</groupId>
+            <version>1.6.0</version>
+          </dependency>
           <dependency>
             <artifactId>rewrite-static-analysis</artifactId>
             <groupId>org.openrewrite.recipe</groupId>

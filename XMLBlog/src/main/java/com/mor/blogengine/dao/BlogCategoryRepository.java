@@ -79,7 +79,7 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
       } else {
         //trace("Element already in ");
 
-        throw new ElementExistingException();
+        throw new ElementExistingException("Category " + t.getEntityiD());
       }
     } catch (NoMatchesFoundException ex) {
 
@@ -102,7 +102,7 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
   }
 
   @Override
-  public boolean append(final BlogCategory what) throws DocumentException {
+  public boolean append(final BlogCategory what) {
     return false;
   }
 

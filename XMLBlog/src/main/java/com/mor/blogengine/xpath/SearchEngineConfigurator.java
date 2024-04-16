@@ -15,6 +15,7 @@
  *
  *
  */
+
 package com.mor.blogengine.xpath;
 
 //~--- non-JDK imports --------------------------------------------------------
@@ -33,37 +34,45 @@ import org.dom4j.InvalidXPathException;
 import org.dom4j.XPath;
 
 /**
- * Content finder<br/>
+ * Content finder.
  *
- * @param <resultType>
+ * @param <R> Search result data type
  * @author laurent
  */
-public class SearchEngineConfigurator<resultType extends List<?>> extends PropertiesUserObject {
+public final class SearchEngineConfigurator<R extends List<?>>
+    extends PropertiesUserObject {
 
-  private final Document mDoc;
+  /**
+   * Document to search on.
+   */
+  private final Document document;
 
-  SearchEngineConfigurator(@NonNull Properties config, Document searchDoc) {
+  SearchEngineConfigurator(final @NonNull Properties config,
+      final @NonNull Document searchDoc) {
     super(config);
-    mDoc = searchDoc;
+    document = searchDoc;
   }
 
 
-  @SuppressWarnings ("unchecked")
-  resultType findContent(String pExpression)
-      throws InvalidXPathException, NoMatchesFoundException, MissingPropertyException, IncorrectPropertyValueException {
+  @SuppressWarnings("unchecked")
+  R findContent(final String expression)
+      throws InvalidXPathException,
+                 NoMatchesFoundException,
+                 MissingPropertyException,
+                 IncorrectPropertyValueException {
 
-    XPath xpathSelector = createXPath(pExpression);
+    XPath xpathSelector = createXPath(expression);
 
-    resultType list;
-    if (!xpathSelector.selectNodes(mDoc).isEmpty()) {
-      list = (resultType) xpathSelector.selectNodes(mDoc);
+    R list;
+    if (!xpathSelector.selectNodes(document).isEmpty()) {
+      list = (R) xpathSelector.selectNodes(document);
     } else {
       list = null;
     }
-    trace("Searched " + pExpression);
+    trace("Searched " + expression);
     if (list == null) {
 
-      throw new NoMatchesFoundException(pExpression, isDebugOn());
+      throw new NoMatchesFoundException(expression, isDebugOn());
 
     }
 

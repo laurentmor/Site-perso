@@ -47,7 +47,7 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
    * Test to ensure that SearchEngine is configured fine
    */
   @Test
-  @DisplayName ("Test to ensure that SearchEngine is configured fine - Element found")
+  @DisplayName("Test to ensure that SearchEngine is configured fine - Element found")
   void testIfSearchEngineIsConfiguredFineElementFound()
       throws InvalidXPathException, NoMatchesFoundException {
     try {
@@ -65,7 +65,7 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
    * Test to ensure that SearchEngine is configured fine - Element not found
    */
   @Test
-  @DisplayName ("Test to ensure that SearchEngine is configured fine - Element not found")
+  @DisplayName("Test to ensure that SearchEngine is configured fine - Element not found")
   void testIfSearchEngineIsConfiguredFineElementNotFound() {
     Exception e = assertThrows(NoMatchesFoundException.class, () -> {
       SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(

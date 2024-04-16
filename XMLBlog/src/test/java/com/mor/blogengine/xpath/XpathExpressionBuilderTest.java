@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
  * @author laurent
  */
 @DisplayName ("XPath Expression Builder Test")
-class XPathExpressionBuilderTest {
+class XpathExpressionBuilderTest {
 
   private List<String> nodes;
 
@@ -44,7 +44,7 @@ class XPathExpressionBuilderTest {
   private List<DefaultAttribute> attList;
 
 
-  public XPathExpressionBuilderTest() {
+  public XpathExpressionBuilderTest() {
   }
 
   @BeforeAll
@@ -81,9 +81,9 @@ class XPathExpressionBuilderTest {
    * Test afin d'obtenir une expression sans attributs et sans prefixe de NS
    */
   @Test
-  @DisplayName ("Test Expression Sans NS Sans Attributs")
+  @DisplayName("Test Expression Sans NS Sans Attributs")
   void testExpressionSansNSSansAttributs() {
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, XPathVersion.typeLess);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(root, nodes, XpathVersion.typeLess);
     String expected = "/R1//N1//N2//N3";
     String result = builder.compileExpression();
     assertEquals(expected, result);
@@ -93,45 +93,45 @@ class XPathExpressionBuilderTest {
    * Test afin d'obtenir une expression sans attributs
    */
   @Test
-  @DisplayName ("Test Expression Avec NS Sans Attributs")
+  @DisplayName("Test Expression Avec NS Sans Attributs")
   void testExpressionAvecNSSansAttributs() {
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
-        XPathVersion.typeLess, true);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(ns, root, nodes,
+        XpathVersion.typeLess, true);
     String expected = "/NS:R1//NS:N1//NS:N2//NS:N3";
     String result = builder.compileExpression();
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Expression Avec NS Et Un Noeud")
+  @DisplayName("Test Expression Avec NS Et Un Noeud")
   void testExpressionAvecNSEtUnNoeud() {
     nodes.clear();
     nodes.add("N1");
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
-        XPathVersion.typeLess, true);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(ns, root, nodes,
+        XpathVersion.typeLess, true);
     String expected = "/NS:R1//NS:N1";
     String result = builder.compileExpression();
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Expression Sans NS Et Un Noeud")
+  @DisplayName("Test Expression Sans NS Et Un Noeud")
   void testExpressionSansNSEtUnNoeud() {
     nodes.clear();
     nodes.add("N1");
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
-        XPathVersion.typeLess, false);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(ns, root, nodes,
+        XpathVersion.typeLess, false);
     String expected = "/R1//N1";
     String result = builder.compileExpression();
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Convert Attribute List To String List Non Null")
+  @DisplayName("Test Convert Attribute List To String List Non Null")
   void testConvertAttributeListToStringListNonNull() {
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, attList,
-        XPathVersion.typeLess);
-    List<String> result = builder.convertAttributeListToStringList(attList);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(root, nodes, attList,
+        XpathVersion.typeLess);
+    List<String> result = builder.convertAttributeList(attList);
     List<String> expected = new ArrayList<>();
     expected.add("A1='V1'");
     expected.add("A2='V2'");
@@ -140,72 +140,72 @@ class XPathExpressionBuilderTest {
   }
 
   @Test
-  @DisplayName ("Test Convert Attribute List To String List Null")
+  @DisplayName("Test Convert Attribute List To String List Null")
   void testConvertAttributeListToStringListNull() {
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(root, nodes, null,
-        XPathVersion.typeLess);
-    List<String> result = builder.convertAttributeListToStringList(null);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(root, nodes, null,
+        XpathVersion.typeLess);
+    List<String> result = builder.convertAttributeList(null);
     List<String> expected = new ArrayList<>();
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Add Nodes To Expression Avec NS")
+  @DisplayName("Test Add Nodes To Expression Avec NS")
   void testAddNodesToExpressionAvecNS() {
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
-        XPathVersion.typeLess, true);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(ns, root, nodes,
+        XpathVersion.typeLess, true);
     String result = builder.addNodesToExpression(true);
     String expected = "//NS:N1//NS:N2//NS:N3";
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Add Nodes To Expression Sans NS")
+  @DisplayName("Test Add Nodes To Expression Sans NS")
   void testAddNodesToExpressionSansNS() {
-    XPathExpressionBuilder builder = new XPathExpressionBuilder(ns, root, nodes,
-        XPathVersion.typeLess, false);
+    XpathExpressionBuilder builder = new XpathExpressionBuilder(ns, root, nodes,
+        XpathVersion.typeLess, false);
     String result = builder.addNodesToExpression();
     String expected = "//N1//N2//N3";
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Add Plusieurs Attributs")
+  @DisplayName("Test Add Plusieurs Attributs")
   void testAddPlusieursAttributs() {
-    XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
-        XPathVersion.typeLess);
+    XpathExpressionBuilder instance = new XpathExpressionBuilder(root, nodes, attList,
+        XpathVersion.typeLess);
     String expResult = "[@A1='V1' and @A2='V2' and @A3='V3']";
     String result = instance.addAttributesToExpression();
     assertEquals(expResult, result);
   }
 
   @Test
-  @DisplayName ("Test Add Un Attribut")
+  @DisplayName("Test Add Un Attribut")
   void testAddUnAttribut() {
     attList.clear();
     attList.add(new DefaultAttribute("A1", "V1"));
-    XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
-        XPathVersion.typeLess);
+    XpathExpressionBuilder instance = new XpathExpressionBuilder(root, nodes, attList,
+        XpathVersion.typeLess);
     String expResult = "[@A1='V1']";
     String result = instance.addAttributesToExpression();
     assertEquals(expResult, result);
   }
 
   @Test
-  @DisplayName ("Test Format Key Attribute Value Avec Int")
+  @DisplayName("Test Format Key Attribute Value Avec Int")
   void testFormatKeyAttributeValueAvecInt() {
-    XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
-        XPathVersion.typed);
+    XpathExpressionBuilder instance = new XpathExpressionBuilder(root, nodes, attList,
+        XpathVersion.typed);
     String result = instance.formatKeyAttributeValue("K1", "3");
     String expected = "K1=xs:double(3)";
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName ("Test Format Key Attribute Value Avec Boolean")
+  @DisplayName("Test Format Key Attribute Value Avec Boolean")
   void testFormatKeyAttributeValueAvecBoolean() {
-    XPathExpressionBuilder instance = new XPathExpressionBuilder(root, nodes, attList,
-        XPathVersion.typed);
+    XpathExpressionBuilder instance = new XpathExpressionBuilder(root, nodes, attList,
+        XpathVersion.typed);
     String result = instance.formatKeyAttributeValue("K1", "true");
     String expected = "K1=xs:boolean(true)";
     assertEquals(expected, result);

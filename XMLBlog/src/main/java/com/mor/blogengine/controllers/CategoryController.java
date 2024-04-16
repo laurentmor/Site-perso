@@ -106,7 +106,7 @@ public class CategoryController extends BlogControllerBase implements
   public boolean editElement(BlogCategory what, BlogCategory with) throws DocumentException {
     try {
       return repo.edit(what, with);
-    } catch (NoMatchesFoundException | ElementExistingException ex) {
+    } catch (NoMatchesFoundException ex) {
       return false;
     }
   }

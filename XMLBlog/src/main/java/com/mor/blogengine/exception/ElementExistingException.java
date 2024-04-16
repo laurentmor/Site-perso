@@ -15,19 +15,20 @@
  *
  *
  */
+
 package com.mor.blogengine.exception;
 
 import java.io.Serial;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Exception to prevent duplicate XML element
+ * Exception to prevent duplicate XML element.
  *
  * @author Laurent
  * @version 1.1
  * @since 1.2
  */
-@Log
+@Slf4j
 public class ElementExistingException extends Exception {
 
   @Serial
@@ -47,7 +48,7 @@ public class ElementExistingException extends Exception {
    *
    * @param msg the detail message.
    */
-  public ElementExistingException(String msg) {
+  public ElementExistingException(final String msg) {
     super("A Blog element with same attributes exists" + msg);
     log.info("A Blog element with same attributes exists" + msg);
   }

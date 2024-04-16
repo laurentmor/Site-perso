@@ -21,7 +21,6 @@ package com.mor.blogengine.controllers;
 
 import com.mor.blogengine.dao.BlogCommentRepository;
 import com.mor.blogengine.dao.Repository;
-import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
@@ -87,7 +86,7 @@ public class CommentController extends BlogControllerBase implements
   public boolean editElement(BlogComment what, BlogComment with) throws DocumentException {
     try {
       return repo.edit(what, with);
-    } catch (NoMatchesFoundException | ElementExistingException ex) {
+    } catch (NoMatchesFoundException ex) {
       return false;
     }
   }

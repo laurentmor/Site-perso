@@ -15,52 +15,53 @@
  *
  *
  */
+
 package com.mor.blogengine.xpath;
 
 /**
- * Enum for parametrized searching i.e. search post of certain date or category
+ * Enum for parametrized searching i.e. search post of certain date or category.
  *
  * @author laurent
  */
 public enum SearchCriteria {
 
   /**
-   * Get All elements
+   * Get All elements.
    */
   ALL {
   },
   /**
-   * Get elements for Date
+   * Get elements for Date.
    */
   DATE {
   },
   /**
-   *
+   * Get elements for month.
    */
   MONTH {
   },
   /**
-   * Get element for category
+   * Get element for category.
    */
   CATEGORY {
   },
   /**
-   * Get Element for author
+   * Get Element for author.
    */
   AUTHOR {
   },
   /**
-   * Get a single element
+   * Get a single element.
    */
   SINGLE {
   },
   /**
-   *
+   * Get single element with parent.
    */
   SINGLE_WITH_PARENT {
   },
   /**
-   *
+   * Get element by Entry id.
    */
   BY_ENTRY_ID {
   }

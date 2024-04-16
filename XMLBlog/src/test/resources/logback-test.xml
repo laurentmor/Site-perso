@@ -51,9 +51,10 @@
   <import class="ch.qos.logback.core.ConsoleAppender"/>
 
   <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
-
   <root>
     <appender-ref ref="STDOUT"/>
-    <appender-ref ref="LOKI"/>
+    <!--appender-ref ref="LOKI"/-->
   </root>
+
+  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
 </configuration>

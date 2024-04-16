@@ -84,7 +84,7 @@ public interface Repository<T, R, S, D extends Throwable> {
    * @return true if element edited correctly
    */
   boolean edit(T t, T t2)
-      throws NoMatchesFoundException, D, ElementExistingException;
+      throws NoMatchesFoundException, D;
 
   /**
    * Enable the search for certain category and criteria in XML.

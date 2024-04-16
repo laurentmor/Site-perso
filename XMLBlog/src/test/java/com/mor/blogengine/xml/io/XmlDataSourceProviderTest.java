@@ -34,7 +34,6 @@ import java.io.IOException;
 import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 import lombok.SneakyThrows;
-import org.dom4j.DocumentException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -47,9 +46,9 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
 
   @Test
-  @DisplayName ("XmlDataSourceProviderTest.ProvideWithNoProperties")
+  @DisplayName("XmlDataSourceProviderTest.ProvideWithNoProperties")
   void testProvideWithNoProperties()
-      throws DocumentException, MissingPropertyException, ParserConfigurationException, IncorrectPropertyValueException, SAXException {
+      throws ParserConfigurationException, SAXException {
     XmlDataSourceProvider provider = new XmlDataSourceProvider(null);
     Validator validator = new BeanValidator().getValidator();
     Set<ConstraintViolation<XmlDataSourceProvider>> violations = validator.validate(provider);
@@ -61,7 +60,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
   @SneakyThrows
   @Test
-  @DisplayName ("XmlDataSourceProviderTest.ProvideWithProperties")
+  @DisplayName("XmlDataSourceProviderTest.ProvideWithProperties")
   void testProvideWithProperties() {
 
     XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
@@ -70,7 +69,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
 
   @Test
-  @DisplayName ("Test write() method with correct settings")
+  @DisplayName("Test write() method with correct settings")
   void writeFine() throws Exception {
     XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
     try {
@@ -84,7 +83,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   @Test
-  @DisplayName ("Test write() method with missing mode")
+  @DisplayName("Test write() method with missing mode")
   void writeWithMissingMode() {
     assertThrows(MissingPropertyException.class, () -> {
       mConfig.remove("application.mode");
@@ -95,7 +94,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   @Test
-  @DisplayName ("Test write() method with incorrect mode")
+  @DisplayName("Test write() method with incorrect mode")
   void writeWithIncorrectMode() {
     mConfig.setProperty("application.mode", "UAT");
     assertThrows(IncorrectPropertyValueException.class, () -> {
@@ -107,7 +106,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   @Test
-  @DisplayName ("Test write() method causing IOException")
+  @DisplayName("Test write() method causing IOException")
   void writeCausingIOException() {
 
     assertThrows(IOException.class, () -> {
@@ -120,7 +119,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
 
   }
 
-  @DisplayName (" Test saveChanges() in test mode with correct I/o")
+  @DisplayName(" Test saveChanges() in test mode with correct I/o")
   @Test
   void saveChangesWithCorrectIOInTestMode() {
     XmlDataSourceProvider xmlDataSourceProvider = new XmlDataSourceProvider(mConfig);
@@ -132,7 +131,7 @@ public class XmlDataSourceProviderTest extends XMLConsumingTestCase {
   }
 
   //@Test
-  @DisplayName ("Test save() method in Production Mode")
+  @DisplayName("Test save() method in Production Mode")
   void saveInProductionMode()
       throws IOException, MissingPropertyException, IncorrectPropertyValueException {
     mConfig.setProperty("application.mode", "Production");
