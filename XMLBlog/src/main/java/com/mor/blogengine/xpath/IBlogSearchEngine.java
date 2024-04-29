@@ -17,29 +17,29 @@
  */
 package com.mor.blogengine.xpath;
 
-//~--- JDK imports ------------------------------------------------------------
+// ~--- JDK imports ------------------------------------------------------------
 
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import java.util.List;
 
 /**
- * Specific interface for any BlogSearchEngine.<br/>
+ * Specific interface for any BlogSearchEngine.
  *
  * @param <R> Result data type.
  * @author Laurent
- * @version 2.0  all method private due to the introduction of searchCriteria concept public. access
- * no longer needed.
+ * @version 2.0
  */
 public interface IBlogSearchEngine<R> {
 
   /**
    * Search method.
    *
-   * @param criteria      Search criteria type
-   * @param elementType   wheat element type to search for
-   * @param criteriaValue value to search for
+   * @param c Search criteria type
+   * @param e wheat element type to search for
+   * @param cv value to search for
    * @return list of found elements
+   * @throws NoMatchesFoundException when search found nothing
    */
-  List<R> getElementsForCriteria(String elementType, SearchCriteria criteria,
-      String criteriaValue) throws NoMatchesFoundException;
+  List<R> getElementsForCriteria(String e, SearchCriteria c, String cv)
+      throws NoMatchesFoundException;
 }

@@ -29,22 +29,32 @@ import java.util.ArrayList;
 import java.util.List;
 import org.dom4j.tree.DefaultElement;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings ("unchecked")
-public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
+/** Category Repository test. */
+@SuppressWarnings("unchecked")
+public final class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
 
+  /** Default constructor. */
+  public BlogCategoryRepositoryTest() {}
+
+  /** Setup. */
   @BeforeEach
   public void beforeTest() {
     repository = new BlogCategoryRepository(mConfig, getBlogDocument());
   }
 
+  /** Test if repository is created fine */
   @Test
+  @DisplayName("Test if repository is created fine")
   public void BlogCategoryRepository() {
     assertNotNull(repository);
   }
 
-  //@Test
+  /** Test if add works fine */
+  @Test
+  @DisplayName("Test if add works fine")
   public void add() {
 
     BlogCategory t = new BlogCategory("");
@@ -59,7 +69,13 @@ public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
     assertEquals(expected, actual);
   }
 
-  //@Test
+  /**
+   * Test if remove works fine.
+   *
+   * @throws NoMatchesFoundException when element to remove is not found
+   */
+  // @Test
+  @DisplayName("Test if remove works fine")
   public void remove() throws NoMatchesFoundException {
     BlogCategoryRepository b = new BlogCategoryRepository(null, null);
     BlogCategory t = null;
@@ -69,7 +85,12 @@ public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
     assertEquals(expected, actual);
   }
 
-  //@Test
+  /**
+   * Test if edi works fine.
+   *
+   * @throws NoMatchesFoundException when element to edit is not found
+   */
+  // @Test
   public void edit() throws NoMatchesFoundException {
     BlogCategoryRepository b = new BlogCategoryRepository(null, null);
     BlogCategory t = null;
@@ -80,7 +101,13 @@ public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
     assertEquals(expected, actual);
   }
 
-  //@Test
+  // @Test
+  /**
+   * Test if getElementsForCriteria works fine
+   *
+   * @throws NoMatchesFoundException when element to search for is not found
+   */
+  // @Test
   public void getElementsForCriteria() throws NoMatchesFoundException {
     BlogCategoryRepository b = new BlogCategoryRepository(null, null);
     SearchCriteria searchParam = SearchCriteria.ALL;
@@ -90,6 +117,4 @@ public class BlogCategoryRepositoryTest extends AbstractBlogRepositoryTest {
 
     assertEquals(expected, actual);
   }
-
-
 }

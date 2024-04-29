@@ -17,11 +17,13 @@
  */
 package com.mor.blogengine.model;
 
-//~--- non-JDK imports --------------------------------------------------------
+// ~--- non-JDK imports --------------------------------------------------------
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.NoSuchElementException;
+import lombok.Getter;
+import lombok.Setter;
 import org.dom4j.tree.DefaultElement;
 
 /***Changelog:<br/>.
@@ -39,44 +41,33 @@ import org.dom4j.tree.DefaultElement;
  * processing<br/>
  * 1.5 Rolled back from XOM to DOM4J as search functionality was not working
  * properly and switched to XPATH 1.0 which is non typed<br/>
- *
- *
  * Abstract entity class to build a domain blog class entity supported by dom4j
  * API
  *
  * @author Laurent
  */
-@SuppressWarnings ("unused")
+@Setter
+@Getter
+@SuppressWarnings("unused")
 public abstract class AbstractBlogEntity implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
-  /**
-   * Xml representation of this Entry
-   */
-  DefaultElement mAssociatedElement;
+  /** Xml representation of this Entry. */
+  private DefaultElement element;
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
-
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-
-    AbstractBlogEntity ot = (AbstractBlogEntity) obj;
-
-    return getEntityiD().equals(ot.getEntityiD());
+  /** Default. */
+  public AbstractBlogEntity() {
+    super();
   }
 
   /**
+   * .
+   *
    * @return unique identifier of element
    */
-  public String getEntityiD() {
-    if (mAssociatedElement != null) {
+  public String getId() {
+    if (element != null) {
       return getEntityIdInXml();
     }
 
@@ -88,12 +79,11 @@ public abstract class AbstractBlogEntity implements Serializable {
    */
   String getEntityIdInXml() throws NoSuchElementException {
 
-    if (mAssociatedElement.attribute("ID") == null) {
+    if (element.attribute("ID") == null) {
       throw new NoSuchElementException("No ID attribute found, check XSD");
     }
 
-    return mAssociatedElement.valueOf("@ID");
-
+    return element.valueOf("@ID");
   }
 
   /**
@@ -101,13 +91,8 @@ public abstract class AbstractBlogEntity implements Serializable {
    *
    * @return an XML representation of element
    */
-  public abstract DefaultElement toElement();
+  protected abstract DefaultElement toElement();
 
-  /**
-   * Format entity for correct HTML display
-   */
+  /** Format entity for correct HTML display. */
   abstract void formatAttributes();
-
-  @Override
-  public abstract int hashCode();
 }

@@ -28,14 +28,15 @@ import lombok.Getter;
 @Getter
 public enum XpathVersion {
 
-  /**
-   *
-   */
-  typeLess(1.0f), typed(2.0f);
+  /** no type support. */
+  typeLess(1.0f),
+  /** type support. */
+  typed(2.0f);
+
+  /** version holder. */
   private final float version;
 
   XpathVersion(final float v) {
     version = v;
   }
-
 }

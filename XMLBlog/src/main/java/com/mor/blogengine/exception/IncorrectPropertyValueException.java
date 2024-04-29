@@ -18,34 +18,31 @@
 package com.mor.blogengine.exception;
 
 import java.io.Serial;
-import java.util.stream.IntStream;
+import lombok.extern.slf4j.Slf4j;
 
 /**
+ * Exception when a property is incorrectly set.
+ *
  * @author laurent
  */
+@Slf4j
 public class IncorrectPropertyValueException extends Exception {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   /**
-   * Creates a new instance of
-   * <code>IncorrectPropertyValueException</code> without detail message.
+   * Constructs an instance with detail. message.
+   *
+   * @param propertyName name of the incorrect property
+   * @param currentValue current property value
+   * @param choices correct choices list
    */
-  public IncorrectPropertyValueException() {
-  }
-
-  /**
-   * Constructs an instance of
-   * <code>IncorrectPropertyValueException</code> with the specified detail
-   * message.
-   */
-  public IncorrectPropertyValueException(String propertyName, String currentValue,
-      Enum<?>... choices) {
-    System.err.print(propertyName + "is set incorrectly to : " + currentValue
-                         + " it should be one of these values: ");
-    IntStream.range(0, choices.length - 1).mapToObj(i -> choices[i].name())
-        .map(choice -> choice + ",").forEach(System.err::print);
-    System.err.println(choices[choices.length - 1]);
+  public IncorrectPropertyValueException(
+      final String propertyName, final String currentValue, final Enum<?>... choices) {
+    log.error(
+        "{} is set incorrectly to : {} it should be one of these values: {}",
+        propertyName,
+        currentValue,
+        choices);
   }
 }

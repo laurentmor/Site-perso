@@ -17,10 +17,9 @@
  */
 package com.mor.blogengine.controllers;
 
-//~--- non-JDK imports --------------------------------------------------------
+// ~--- non-JDK imports --------------------------------------------------------
 
 import com.mor.blogengine.dao.BlogCommentRepository;
-import com.mor.blogengine.dao.Repository;
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
@@ -35,24 +34,26 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 /**
+ * Manages Comments.
+ *
  * @author laurent
  */
-
-
-public class CommentController extends BlogControllerBase implements
-    IBlogElementController<BlogComment, DocumentException> {
-
-  private final Repository<BlogComment, DefaultElement, SearchCriteria, DocumentException> repo;
+public final class CommentController
+    extends BlogControllerBase<BlogComment, DefaultElement, SearchCriteria, DocumentException>
+    implements IBlogElementController<BlogComment, DocumentException> {
 
   /**
+   * Controller constructor with config.
    *
+   * @param config the configuration
+   * @throws MissingPropertyException if a property is missing from config
+   * @throws IncorrectPropertyValueException if a property has incorrect value
    */
-  public CommentController(Properties config)
+  public CommentController(final Properties config)
       throws MissingPropertyException, IncorrectPropertyValueException {
     super(config);
 
-    repo = new BlogCommentRepository(config, getDocument());
-
+    repository = new BlogCommentRepository(config, getDocument());
   }
 
   @Override
@@ -61,9 +62,9 @@ public class CommentController extends BlogControllerBase implements
   }
 
   @Override
-  public boolean addNewElement(BlogComment e) throws DocumentException {
+  public boolean addNewElement(final BlogComment e) throws DocumentException {
     try {
-      return repo.append(e, e.getEntryId());
+      return getRepository().append(e, e.getEntryId());
     } catch (NoMatchesFoundException ex) {
       Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -72,9 +73,9 @@ public class CommentController extends BlogControllerBase implements
   }
 
   @Override
-  public boolean deleteElement(BlogComment e) throws DocumentException {
+  public boolean deleteElement(final BlogComment e) throws DocumentException {
     try {
-      return repo.remove(e);
+      return getRepository().remove(e);
     } catch (NoMatchesFoundException ex) {
       Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -83,29 +84,30 @@ public class CommentController extends BlogControllerBase implements
   }
 
   @Override
-  public boolean editElement(BlogComment what, BlogComment with) throws DocumentException {
+  public boolean editElement(final BlogComment what, final BlogComment with)
+      throws DocumentException {
     try {
-      return repo.edit(what, with);
+      return getRepository().edit(what, with);
     } catch (NoMatchesFoundException ex) {
       return false;
     }
   }
 
   @Override
-  public Map<String, BlogComment> getElementsForDate(String d) {
+  public Map<String, BlogComment> getElementsForDate(final String d) {
     return null;
   }
 
   @Override
-  public Map<String, BlogComment> getAllElements(String parentID) {
+  public Map<String, BlogComment> getAllElements(final String parentID) {
     try {
-      List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, parentID);
+      List<DefaultElement> list =
+          getRepository().getElementsForCriteria(SearchCriteria.ALL, parentID);
 
       return getFactory().createCommentMap(list);
 
     } catch (NoMatchesFoundException ex) {
       return null;
     }
-
   }
 }

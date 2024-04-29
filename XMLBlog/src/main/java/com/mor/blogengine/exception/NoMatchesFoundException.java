@@ -22,35 +22,34 @@ import java.util.logging.Level;
 import lombok.extern.java.Log;
 
 /**
+ * exception when a given search returns nothing.
+ *
  * @author Laurent
  */
 @Log
 public class NoMatchesFoundException extends Exception {
 
-  //private @Log4j l;
-  @Serial
-  private static final long serialVersionUID = 1L;
+  // private @Log4j l;
+  @Serial private static final long serialVersionUID = 1L;
 
   /**
+   * Create exception with stacktrace if debug is on.
    *
+   * @param doDebug if true, stacktrace is printed
+   * @param pSearchedTerm what term is NotFound
    */
-  public NoMatchesFoundException() {
-  }
-
-  /**
-   *
-   */
-  public NoMatchesFoundException(String pSearchedTerm, boolean doDebug) {
-    super("No matches of " + pSearchedTerm
-              + " were found during search process - redefine your search");
+  public NoMatchesFoundException(final String pSearchedTerm, final boolean doDebug) {
+    super(
+        "No matches of "
+            + pSearchedTerm
+            + " were found during search process - redefine your search");
     if (doDebug) {
-      log.log(Level.INFO, "No matches of " + pSearchedTerm
-                              + " were found during search process - redefine your search",
+      log.log(
+          Level.INFO,
+          "No matches of "
+              + pSearchedTerm
+              + " were found during search process - redefine your search",
           getStackTrace());
     }
-
-
   }
-
-
 }

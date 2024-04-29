@@ -2,10 +2,10 @@
 /Blog/target/
 nbactions.xml
 /XMLBlog/nb-configuration.xml
-target
+/XMLBlog/target
 .svn
 *.iml
 .idea
-/stePersonnelEar/stePersonnelEar.iml
+/stePersonnelEar/target
 /XMLBlog/pom.xml.versionsBackup
 /Blog/pom.xml.versionsBackup

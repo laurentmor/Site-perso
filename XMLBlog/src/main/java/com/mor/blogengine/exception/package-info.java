@@ -15,7 +15,5 @@
  *
  *
  */
-/**
- * Package containing all classes of exception nature
- */
+/** Package containing all classes of exception nature. */
 package com.mor.blogengine.exception;

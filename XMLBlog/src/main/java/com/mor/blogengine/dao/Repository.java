@@ -18,20 +18,19 @@
 
 package com.mor.blogengine.dao;
 
-
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.NoMatchesFoundException;
 import java.util.List;
 
 /**
  * This repository interface is intended to hide implementation details. from the controller layer
- * For instance: adding a BlogEntry is really simple process,<br/> the
- * {@link #add(java.lang.Object)} implementation would use null
- * {@link #getElementsForCriteria(java.lang.Object, java.lang.String) } to check if such entry
- * exists in which case return false<br/> User would be notified by controller and asked if he'd
- * like to edit the found entry
- * <p>
- * Changes : Removed find method to generalize search mechanism.
+ * For instance: adding a BlogEntry is really simple process,<br>
+ * the {@link #add(java.lang.Object)} implementation would use null {@link
+ * #getElementsForCriteria(java.lang.Object, java.lang.String) } to check if such entry exists in
+ * which case return false<br>
+ * User would be notified by controller and asked if he'd like to edit the found entry
+ *
+ * <p>Changes : Removed find method to generalize search mechanism.
  *
  * @param <T> Repository type @see model layer
  * @param <R> Specify return type of blog data structure
@@ -47,24 +46,27 @@ public interface Repository<T, R, S, D extends Throwable> {
    * @param t model object to add
    * @return true is added correctly
    * @throws ElementExistingException if given element is present
+   * @throws D when dataSource exception occurs
    */
   boolean add(T t) throws ElementExistingException, D;
 
   /**
    * append an element to a parent one to a blog.
    *
-   * @param what     the element to append
+   * @param what the element to append
    * @param parentId the ID of parent element to append to
    * @return true if element appended correctly
+   * @throws D when dataSource exception occurs
+   * @throws NoMatchesFoundException when parentId can't be found
    */
-  boolean append(T what, String parentId)
-      throws NoMatchesFoundException, D;
+  boolean append(T what, String parentId) throws NoMatchesFoundException, D;
 
   /**
    * append an element to a parent one to a blog.
    *
    * @param what the element to append
    * @return true if element appended correctly
+   * @throws D when dataSource exception occurs
    */
   boolean append(T what) throws D;
 
@@ -73,26 +75,29 @@ public interface Repository<T, R, S, D extends Throwable> {
    *
    * @param t the element to remove
    * @return true if element removed correctly
+   * @throws D when dataSource exception occurs
+   * @throws NoMatchesFoundException when parentId can't be found
    */
   boolean remove(T t) throws NoMatchesFoundException, D;
 
   /**
    * edit a element in a blog.
    *
-   * @param t  the element to edit
+   * @param t the element to edit
    * @param t2 the new element
    * @return true if element edited correctly
+   * @throws D when dataSource exception occurs
+   * @throws NoMatchesFoundException when parentId can't be found
    */
-  boolean edit(T t, T t2)
-      throws NoMatchesFoundException, D;
+  boolean edit(T t, T t2) throws NoMatchesFoundException, D;
 
   /**
    * Enable the search for certain category and criteria in XML.
    *
-   * @param searchParam what to search<br/>
-   * @param paramValue  search for what criteria<br/>
-   * @return list of results<br/>
+   * @param searchParam what to search<br>
+   * @param paramValue search for what criteria<br>
+   * @return list of results<br>
+   * @throws NoMatchesFoundException when parentId can't be found
    */
-  List<R> getElementsForCriteria(S searchParam, String paramValue)
-      throws NoMatchesFoundException;
+  List<R> getElementsForCriteria(S searchParam, String paramValue) throws NoMatchesFoundException;
 }

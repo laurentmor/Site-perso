@@ -17,58 +17,70 @@
  */
 package com.mor.blogengine.controllers;
 
-//~--- JDK imports ------------------------------------------------------------
+// ~--- JDK imports ------------------------------------------------------------
 
 import java.util.Map;
 
 /**
- * @param <Type>                The type of entity managed by the controller
- * @param <dataSourceException>
+ * Controller interface.
+ *
+ * @param <T> The type of entity managed by the controller
+ * @param <D> datasource exception
  * @author laurent
  */
-public interface IBlogElementController<Type, dataSourceException extends Throwable> {
+public interface IBlogElementController<T, D extends Throwable> {
 
   /**
+   * Get all corresponding elements.
+   *
    * @return All elements of concrete type
+   * @throws D when dataSource exception occurs
    */
-  Map<String, Type> getAllElements() throws dataSourceException;
+  Map<String, T> getAllElements() throws D;
 
   /**
+   * get all elements with given parent ID.
+   *
    * @param parentID the parent node ID to check for
    * @return All elements of concrete type
+   * @throws D when dataSource exception occurs
    */
-  Map<String, Type> getAllElements(String parentID) throws dataSourceException;
+  Map<String, T> getAllElements(String parentID) throws D;
 
   /**
-   * Add an element of given type to data structure
+   * Add an element of given type to data structure.
    *
    * @param e The element to add
    * @return true if element was added correctly
+   * @throws D when dataSource exception occurs
    */
-  boolean addNewElement(Type e) throws dataSourceException;
+  boolean addNewElement(T e) throws D;
 
   /**
-   * Delete (remove) a given element from data Structure
+   * Delete (remove) a given element from data Structure.
    *
    * @param e The element to remove
    * @return true if removed correctly
+   * @throws D when dataSource exception occurs
    */
-  boolean deleteElement(Type e) throws dataSourceException;
+  boolean deleteElement(T e) throws D;
 
   /**
-   * edit an element
+   * edit an element.
    *
    * @param editWhat the element to edit
    * @param withWhat what to replace it with
    * @return true if edited correctly
+   * @throws D when dataSource exception occurs
    */
-  boolean editElement(Type editWhat, Type withWhat) throws dataSourceException;
+  boolean editElement(T editWhat, T withWhat) throws D;
 
   /**
-   * get an element for date
+   * get an element for date.
    *
    * @param d the date to search for
    * @return resulting element
+   * @throws D when dataSource exception occurs
    */
-  Map<String, Type> getElementsForDate(String d) throws dataSourceException;
+  Map<String, T> getElementsForDate(String d) throws D;
 }

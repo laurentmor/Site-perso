@@ -21,28 +21,22 @@ import java.io.Serial;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * exception when config is missing a property.
+ *
  * @author laurent
  */
 @Slf4j
 public class MissingPropertyException extends Exception {
 
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   /**
-   * Creates a new instance of
-   * <code>MissingPropertyException</code> without detail message.
-   */
-  public MissingPropertyException() {
-  }
-
-  /**
+   * Create a named property.
    *
+   * @param property the missing property name
    */
-  public MissingPropertyException(String property) {
+  public MissingPropertyException(final String property) {
 
     log.error("Property missing : {}{}", property, getStackTrace());
   }
-
-
 }

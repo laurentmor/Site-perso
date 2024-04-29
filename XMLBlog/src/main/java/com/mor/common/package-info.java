@@ -16,9 +16,10 @@
  *
  */
 /**
- * Package containing all classes of common use to all layers<br/>
+ * Package containing all classes of common use to all layers.
+ *
  * <ul>
- * <li> inner class Properties managent super class </li>
+ *   <li>inner class Properties management super class
  * </ul>
  */
 package com.mor.common;

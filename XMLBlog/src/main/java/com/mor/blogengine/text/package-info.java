@@ -15,7 +15,5 @@
  *
  *
  */
-/**
- * Package containing all classes of raw text management
- */
+/** Package containing all classes of raw text management. */
 package com.mor.blogengine.text;

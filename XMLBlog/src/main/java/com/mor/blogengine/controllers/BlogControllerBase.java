@@ -17,6 +17,7 @@
  */
 package com.mor.blogengine.controllers;
 
+import com.mor.blogengine.dao.Repository;
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
 import com.mor.blogengine.xml.BlogEntityFactory;
@@ -27,38 +28,45 @@ import java.util.Properties;
 import javax.xml.parsers.ParserConfigurationException;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 import org.xml.sax.SAXException;
 
 /**
- * @author laurent
+ * Blog controller superclass.
+ *
+ * @param <T> Model type
+ * @param <R> return type
+ * @param <S> search Type
+ * @param <D> dataSourceException type
  */
 @Getter
-public abstract class BlogControllerBase extends PropertiesUserObject {
+public abstract class BlogControllerBase<T, R, S, D extends Throwable>
+    extends PropertiesUserObject {
 
-  private final XmlDataSourceProvider provider;
-  /**
-   *
-   */
-  @Setter
+  /** repository instance. */
+  protected Repository<T, R, S, D> repository;
+
+  /** The XML document itself. */
   private Document document;
-  @Setter
+
+  /** the entity factory that creates concrete model objects. */
   private IBlogEntityFactory<DefaultElement> factory;
 
   /**
    * Base class for controllers configuration As we use same configuration in each context we can
-   * generalise it
+   * generalise it.
    *
    * @param p Configuration settings
+   * @throws MissingPropertyException when mode Property is not set
+   * @throws IncorrectPropertyValueException when a config property is set wrong
    */
   public BlogControllerBase(@NonNull final Properties p)
       throws MissingPropertyException, IncorrectPropertyValueException {
 
     super(p);
-    provider = new XmlDataSourceProvider(getConfig());
+    XmlDataSourceProvider provider = new XmlDataSourceProvider(getConfig());
     try {
       document = provider.provide();
       factory = new BlogEntityFactory();
@@ -69,7 +77,5 @@ public abstract class BlogControllerBase extends PropertiesUserObject {
     } catch (SAXException ex) {
       trace(ex.getMessage() + "SaxError error");
     }
-
   }
-
 }

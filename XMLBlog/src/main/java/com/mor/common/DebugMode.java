@@ -18,17 +18,14 @@
 package com.mor.common;
 
 /**
+ * Debug mode status.
+ *
  * @author laurent
  */
 public enum DebugMode {
-  On("On"),
+  /** Debug mode on flag. */
+  On,
 
-  /**
-   *
-   */
-  Off("Off");
-
-  DebugMode(String pDebugMode) {
-  }
-
+  /** Debug mode off fag. */
+  Off
 }

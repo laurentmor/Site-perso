@@ -1,0 +1,13 @@
+module XMLBlog {
+  /* requires java.logging;
+  requires org.dom4j;
+  requires jakarta.el;
+  requires junit;
+  requires java.xml;
+  requires static org.junit.jupiter.api;
+  requires org.apache.commons.io;
+  requires jakarta.validation;
+  requires org.slf4j;
+  requires static lombok;
+  requires commons.lang;*/
+}

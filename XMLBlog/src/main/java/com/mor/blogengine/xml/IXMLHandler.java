@@ -17,12 +17,12 @@
  */
 package com.mor.blogengine.xml;
 
-//~--- JDK imports ------------------------------------------------------------
+// ~--- JDK imports ------------------------------------------------------------
 
 import java.util.List;
 
 /**
- * Interface providing management service for blog Structure
+ * Interface providing management service for blog Structure.
  *
  * @param <T> Structure element type
  * @author Laurent
@@ -31,7 +31,7 @@ import java.util.List;
 public interface IXMLHandler<T> {
 
   /**
-   * add an element in blog structure
+   * add an element in blog structure.
    *
    * @param element the element to add
    * @return true if added correctly
@@ -39,7 +39,7 @@ public interface IXMLHandler<T> {
   boolean add(T element);
 
   /**
-   * add a batch of elements in blog structure
+   * add a batch of elements in blog structure.
    *
    * @param addBatch the batch of element to add
    * @return true if added correctly
@@ -47,7 +47,7 @@ public interface IXMLHandler<T> {
   boolean add(List<T> addBatch);
 
   /**
-   * remove a batch of elements in blog structure
+   * remove a batch of elements in blog structure.
    *
    * @param removeBatch the batch of element to remove
    * @return true if removed correctly
@@ -55,7 +55,7 @@ public interface IXMLHandler<T> {
   boolean remove(List<T> removeBatch);
 
   /**
-   * remove an element in blog structure
+   * remove an element in blog structure.
    *
    * @param element element to remove
    * @return true if removed correctly
@@ -63,26 +63,27 @@ public interface IXMLHandler<T> {
   boolean remove(T element);
 
   /**
-   * remove an element with a parent node in blog structure
+   * remove an element with a parent node in blog structure.
    *
-   * @param child    the child element to remove
+   * @param child the child element to remove
    * @param parentID parent node unique ID
    * @return true if removed correctly
    */
   boolean remove(T child, String parentID);
 
   /**
-   * remove a batch of elements with a parent node in blog structure
+   * remove a batch of elements with a parent node in blog structure.
    *
    * @param removeBatch the batch of element to remove
+   * @param id the parent Id
    * @return true if removed correctly
    */
-  boolean remove(List<T> removeBatch, String parentID);
+  boolean remove(List<T> removeBatch, String id);
 
   /**
-   * add an element to a node in blog structure
+   * add an element to a node in blog structure.
    *
-   * @param root    the node to add to
+   * @param root the node to add to
    * @param content the element to add
    * @return true if added correctly
    */

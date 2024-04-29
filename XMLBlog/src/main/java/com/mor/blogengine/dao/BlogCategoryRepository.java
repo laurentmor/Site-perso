@@ -18,7 +18,7 @@
 
 package com.mor.blogengine.dao;
 
-//~--- non-JDK imports --------------------------------------------------------
+// ~--- non-JDK imports --------------------------------------------------------
 
 import static com.mor.blogengine.xpath.SearchCriteria.SINGLE;
 
@@ -42,20 +42,18 @@ import org.dom4j.tree.DefaultElement;
  *
  * @author laurent
  */
-@SuppressWarnings ("unused")
+@SuppressWarnings("unused")
 public final class BlogCategoryRepository extends BlogRepositoryBase
-    implements Repository<BlogCategory,
-                             DefaultElement, SearchCriteria, DocumentException> {
+    implements Repository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> {
 
   /**
    * Default constructor.
    *
-   * @param d      document instance that holds blog data
+   * @param d document instance that holds blog data
    * @param config global configuration file for application
    */
   public BlogCategoryRepository(final Properties config, final Document d) {
     super(d, config);
-
   }
 
   /**
@@ -72,19 +70,18 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
     boolean added;
 
     try {
-      list = getElementsForCriteria(SINGLE, t.getEntityiD());
+      list = getElementsForCriteria(SINGLE, t.getId());
 
       if (list == null) {
-        throw new NoMatchesFoundException();
+        throw new NoMatchesFoundException("", isDebugOn());
       } else {
-        //trace("Element already in ");
+        // trace("Element already in ");
 
-        throw new ElementExistingException("Category " + t.getEntityiD());
+        throw new ElementExistingException("Category " + t.getId());
       }
     } catch (NoMatchesFoundException ex) {
 
       added = getHandler().add(t.toElement());
-
     }
     return added;
   }
@@ -92,7 +89,7 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
   /**
    * append a category to a parent one to a blog.
    *
-   * @param what     the category to append
+   * @param what the category to append
    * @param parentId the ID of parent category to append to
    * @return true if Category appended correctly do not use
    */
@@ -116,18 +113,16 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
   public boolean remove(final BlogCategory t) throws NoMatchesFoundException {
     boolean removed;
 
-    List<DefaultElement> foundMatches = getElementsForCriteria(SINGLE,
-        t.getEntityiD());
+    List<DefaultElement> foundMatches = getElementsForCriteria(SINGLE, t.getId());
 
     if (foundMatches == null) {
       try {
         trace("No match of element found remove failed");
       } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-        Logger.getLogger(BlogCategoryRepository.class.getName())
-            .log(Level.SEVERE, null, ex);
+        Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
       }
 
-      throw new NoMatchesFoundException();
+      throw new NoMatchesFoundException("", isDebugOn());
     } else {
       removed = getHandler().remove(foundMatches);
     }
@@ -138,26 +133,23 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
   /**
    * edit a category in a blog.
    *
-   * @param t  the category to edit
+   * @param t the category to edit
    * @param t2 the new category
    * @return true if Category edited correctly
    */
   @Override
-  public boolean edit(final BlogCategory t, final BlogCategory t2)
-      throws NoMatchesFoundException {
+  public boolean edit(final BlogCategory t, final BlogCategory t2) throws NoMatchesFoundException {
 
-    List<DefaultElement> foundMatches = getElementsForCriteria(SINGLE,
-        t.getEntityiD());
+    List<DefaultElement> foundMatches = getElementsForCriteria(SINGLE, t.getId());
 
     if (foundMatches == null) {
       try {
         trace("No match of element found edit failed");
       } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
-        Logger.getLogger(BlogCategoryRepository.class.getName())
-            .log(Level.SEVERE, null, ex);
+        Logger.getLogger(BlogCategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
       }
 
-      throw new NoMatchesFoundException();
+      throw new NoMatchesFoundException("", isDebugOn());
     } else {
       AtomicBoolean edited = new AtomicBoolean(false);
 
@@ -166,28 +158,24 @@ public final class BlogCategoryRepository extends BlogRepositoryBase
           edited.set(true);
         }
       } catch (ElementExistingException ex) {
-        //trace();
+        // trace();
       }
 
       return edited.get();
     }
   }
 
-
   /**
-   * Enable the search for certain category and criteria in XML. <br/>
+   * Enable the search for certain category and criteria in XML. <br>
    *
-   * @param sc         what to search<br/>
-   * @param paramValue search for what criteria<br/>
-   * @return list of results<br/>
+   * @param sc what to search<br>
+   * @param paramValue search for what criteria<br>
+   * @return list of results<br>
    */
   @Override
-  public List<DefaultElement> getElementsForCriteria(final SearchCriteria sc,
-      final String paramValue)
-      throws NoMatchesFoundException {
+  public List<DefaultElement> getElementsForCriteria(
+      final SearchCriteria sc, final String paramValue) throws NoMatchesFoundException {
 
-    return getSearchEngine().getElementsForCriteria("Category",
-        sc, paramValue);
+    return getSearchEngine().getElementsForCriteria("Category", sc, paramValue);
   }
-
 }

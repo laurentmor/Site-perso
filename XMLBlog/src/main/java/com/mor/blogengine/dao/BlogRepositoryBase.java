@@ -31,26 +31,29 @@ import org.dom4j.Document;
 import org.dom4j.tree.DefaultElement;
 
 /**
+ * Repository superclass.
+ *
  * @author laurent
  */
 @Setter
 @Getter
 public class BlogRepositoryBase extends PropertiesUserObject {
 
-  /**
-   * object that do I/O operations.
-   */
+  /** object that do I/O operations. */
   private IXMLHandler<DefaultElement> handler;
-  /**
-   * object that do search operations.
-   */
+
+  /** object that do search operations. */
   private IBlogSearchEngine<DefaultElement> searchEngine;
 
-
+  /**
+   * Default constructor.
+   *
+   * @param d document to work on
+   * @param p application config
+   */
   public BlogRepositoryBase(final Document d, final @NonNull Properties p) {
     super(p);
     handler = XMLHandlerImpl.getInstanceForDoc(getConfig(), d);
     searchEngine = SearchEngine.getInstanceForDoc(getConfig(), d);
   }
-
 }

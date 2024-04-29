@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright (c) 2024
   ~
@@ -17,13 +16,11 @@
   ~
   -->
 
-<!DOCTYPE module PUBLIC
-  "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
-  "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
-<module name="Checker">
-  <module name="TreeWalker">
-    <module name="AvoidStarImport">
-      <property name="severity" value="warning"/>
-    </module>
-  </module>
-</module>
+
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
+  "https://checkstyle.org/dtds/suppressions_1_0.dtd">
+
+<suppressions>
+  <suppress checks="VisibilityModifier" files="BlogControllerBase.java"/>
+</suppressions>

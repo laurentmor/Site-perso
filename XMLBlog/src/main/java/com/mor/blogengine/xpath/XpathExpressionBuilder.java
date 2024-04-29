@@ -18,7 +18,7 @@
 
 package com.mor.blogengine.xpath;
 
-//~--- non-JDK imports --------------------------------------------------------
+// ~--- non-JDK imports --------------------------------------------------------
 
 import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -30,93 +30,90 @@ import org.dom4j.tree.DefaultAttribute;
 /**
  * Builder class that can supply either XPATH 1.0 and 2.0.
  *
- * @author Laurent<br />
+ * @author Laurent<br>
  */
 public final class XpathExpressionBuilder {
 
-  /**
-   * Default xpath version support.
-   */
+  /** Default xpath version support. */
   private final XpathVersion version;
-  /**
-   * Should a presented prefix by applied to expression content.
-   */
+
+  /** Should a presented prefix by applied to expression content. */
   private final boolean considerPrefix;
-  /**
-   * Searched nodes attributes.
-   */
+
+  /** Searched nodes attributes. */
   private final List<DefaultAttribute> attributes;
-  /**
-   * Root node.
-   */
+
+  /** Root node. */
   private final String root;
-  /**
-   * list of child nodes required until reaching searched.
-   */
+
+  /** list of child nodes required until reaching searched. */
   private final List<String> subNodes;
-  /**
-   * Namespace prefix as i.e 'site'.
-   */
+
+  /** Namespace prefix as i.e 'site'. */
   private String prefix;
 
   /**
-   * Build an XPATH expression builder Object with Following parameters.<br/>
+   * Build an XPATH expression builder Object with Following parameters.<br>
    *
-   * @param rootNode     Main node of document<br/>
-   * @param nodes        sub-Node list that compose a tree i.e.
-   *                     <code>Node1,Node2,Node3</code>
+   * @param rootNode Main node of document<br>
+   * @param nodes sub-Node list that compose a tree i.e. <code>Node1,Node2,Node3</code>
    * @param xpathVersion Xpath version supported
    */
-  public XpathExpressionBuilder(final String rootNode, final List<String> nodes,
-      final XpathVersion xpathVersion) {
+  public XpathExpressionBuilder(
+      final String rootNode, final List<String> nodes, final XpathVersion xpathVersion) {
     this(null, rootNode, nodes, null, false, xpathVersion);
   }
 
   /**
-   * Build an XPATH expression builder Object with Following parameters<br/>.
+   * Build an XPATH expression builder Object with Following parameters<br>
+   * .
    *
-   * @param nodes        sub-Node list that compose a tree i.e Node1,Node2,Node3
+   * @param nodes sub-Node list that compose a tree i.e Node1,Node2,Node3
    * @param xpathVersion The XPath version supported
-   * @param pref         Namespace prefix
-   * @param rootNode     base of expression
-   * @param consider     should we include prefix in expression
+   * @param pref Namespace prefix
+   * @param rootNode base of expression
+   * @param consider should we include prefix in expression
    */
-  public XpathExpressionBuilder(final String pref, final String rootNode,
+  public XpathExpressionBuilder(
+      final String pref,
+      final String rootNode,
       final List<String> nodes,
-      final XpathVersion xpathVersion, final boolean consider) {
+      final XpathVersion xpathVersion,
+      final boolean consider) {
     this(pref, rootNode, nodes, null, consider, xpathVersion);
   }
 
   /**
    * Build an XPATH expression builder Object with Following parameters.
    *
-   * @param xpathVersion    supported xpath Version
-   * @param pRootNode       Main node of document<br/>
-   * @param pNodeList       sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
-   * @param pAttributesList final node attributes list<br/> Usage:<br/>
-   *                        <code> String prefix="aPrefix"; String root="Root"; List nodes=new
-   *                        Arraylist(); nodes.add("Node1"); Attribute attrib=new
-   *                        Attribute("number","1"); List attributes=new ArrayList();
-   *                        attributes.add(attrib); //in the end with would do: String
-   *                        expression=new
-   *                        XpathExpressionBuilder(prefix,root,nodes,attributes).compileExpression();
-   *                        //expression would then be: /aPrefix:root//aPrefix:Node1 <br/>
-   * @nuber="1"] </code>
+   * @param xpathVersion supported xpath Version
+   * @param pRootNode Main node of document<br>
+   * @param pNodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br>
+   * @param pAttributesList final node attributes list<br>
+   *     Usage:<br>
+   *     String prefix="aPrefix"; String root="Root"; List nodes=new Arraylist();
+   *     nodes.add("Node1"); Attribute attrib=new Attribute("number","1"); List attributes=new
+   *     ArrayList(); attributes.add(attrib); //in the end with would do: String expression=new
+   *     XpathExpressionBuilder(prefix,root,nodes,attributes).compileExpression(); //expression
+   *     would then be: /aPrefix:root//aPrefix:Node1 <br>
+   *     nuber="1"]
    */
-  @SuppressWarnings("checkstyle:LineLength")
-  public XpathExpressionBuilder(final String pRootNode, final List<String> pNodeList,
-      final List<DefaultAttribute> pAttributesList, final XpathVersion xpathVersion) {
+  public XpathExpressionBuilder(
+      final String pRootNode,
+      final List<String> pNodeList,
+      final List<DefaultAttribute> pAttributesList,
+      final XpathVersion xpathVersion) {
     this(null, pRootNode, pNodeList, pAttributesList, false, xpathVersion);
   }
 
   /**
    * Build an XPATH expression builder Object with Following parameters.
    *
-   * @param xpathVersion  supported xPathVersion
-   * @param pref          an element ca# n have a prefix or not i.e &lt;XXX:YYY&gt;
-   * @param rootNode      Main node of document<br/>
-   * @param nodeList      sub-Node list that compose a tree i.e Node1,Node2,Node3<br/>
-   * @param attributeList final node attributes list<br/>
+   * @param xpathVersion supported xPathVersion
+   * @param pref an element ca# n have a prefix or not i.e &lt;XXX:YYY&gt;
+   * @param rootNode Main node of document<br>
+   * @param nodeList sub-Node list that compose a tree i.e Node1,Node2,Node3<br>
+   * @param attributeList final node attributes list<br>
    * @param includePrefix include prefix or not in expression. Usage:<code> *  String
    *                      prefix="aPrefix"; String root="Root"; List nodes=new Arraylist();
    *                      nodes.add("Node1"); Attribute attrib=new Attribute("number","1"); List
@@ -126,10 +123,13 @@ public final class XpathExpressionBuilder {
    *                      //expression would then be: /aPrefix:root//aPrefix:Node1[@num=1]
    *                      </code>
    */
-  public XpathExpressionBuilder(final String pref, final String rootNode,
+  public XpathExpressionBuilder(
+      final String pref,
+      final String rootNode,
       final List<String> nodeList,
       final List<DefaultAttribute> attributeList,
-      final boolean includePrefix, final XpathVersion xpathVersion) {
+      final boolean includePrefix,
+      final XpathVersion xpathVersion) {
     considerPrefix = includePrefix;
 
     if (includePrefix) {
@@ -163,7 +163,10 @@ public final class XpathExpressionBuilder {
   }
 
   /**
+   * convert given attributes to Xpath.
    *
+   * @param l attribute List
+   * @return converted attributes List
    */
   List<String> convertAttributeList(@NotNull final List<DefaultAttribute> l) {
     List<String> list = new ArrayList<>();
@@ -172,11 +175,9 @@ public final class XpathExpressionBuilder {
 
         String currentKey = attribute.getName();
         String currentValue = attribute.getValue();
-        String keyValueString = formatKeyAttributeValue(currentKey,
-            currentValue);
+        String keyValueString = formatKeyAttributeValue(currentKey, currentValue);
 
         list.add(keyValueString);
-
       }
     }
 
@@ -188,12 +189,16 @@ public final class XpathExpressionBuilder {
   }
 
   /**
-   *
+   * @param includePrefix should we include NS
+   * @return Nodes String
    */
   String addNodesToExpression(final boolean includePrefix) {
     int lNodeCount = subNodes.size();
-    StringBuilder sb = new StringBuilder(lNodeCount * (prefix != null ? (prefix.length() + 3)
-                                                           : 3)); // pre-allocate StringBuilder size
+    final int i = 3;
+    StringBuilder sb =
+        new StringBuilder(
+            lNodeCount
+                * (prefix != null ? (prefix.length() + i) : i)); // pre-allocate StringBuilder size
 
     String p = includePrefix ? this.prefix + ":" : "";
 
@@ -205,9 +210,10 @@ public final class XpathExpressionBuilder {
     return sb.toString();
   }
 
-
   /**
+   * add proper attributes to expression.
    *
+   * @return expression with attributes
    */
   String addAttributesToExpression() {
     if (attributes == null || attributes.isEmpty()) {
@@ -228,23 +234,23 @@ public final class XpathExpressionBuilder {
   }
 
   /**
+   * Typed format of an attribute.
    *
+   * @param pKey attribute name
+   * @param pValue attribute value
+   * @return correctly formatted attribute
    */
-  String formatKeyAttributeValue(String pKey, String pValue) {
-    String lKeyValueString = "";
+  String formatKeyAttributeValue(final String pKey, final String pValue) {
 
     // strong typing was introduced in XPATH 2.0 only
     if (XpathVersion.typed == version) {
       if (NumberUtils.isNumber(pValue)) {
-        lKeyValueString = pKey + "=" + "xs:double(" + pValue + ")";
+        return pKey + "=" + "xs:double(" + pValue + ")";
       } else if (Boolean.parseBoolean(pValue)) {
-        lKeyValueString = pKey + "=" + "xs:boolean(" + pValue + ")";
+        return pKey + "=" + "xs:boolean(" + pValue + ")";
       }
-    } else {
-      lKeyValueString = pKey + "=" + "'" + pValue + "'";
-
     }
 
-    return lKeyValueString;
+    return pKey + "=" + "'" + pValue + "'";
   }
 }

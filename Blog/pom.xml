@@ -63,81 +63,13 @@
 
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
-    <!-- https://mvnrepository.com/artifact/org.apache.maven.doxia/doxia-modules -->
-    <dependency>
-      <artifactId>doxia-modules</artifactId>
-      <groupId>org.apache.maven.doxia</groupId>
-      <type>pom</type>
-      <version>2.0.0-M9</version>
-    </dependency>
 
     <dependency>
       <artifactId>maven-site-plugin</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>guava</artifactId>
-          <groupId>com.google.guava</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>doxia-module-markdown</artifactId>
-          <groupId>org.apache.maven.doxia</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-collections</artifactId>
-          <groupId>commons-collections</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-compress</artifactId>
-          <groupId>org.apache.commons</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>velocity-tools-generic</artifactId>
-          <groupId>org.apache.velocity.tools</groupId>
-        </exclusion>
-      </exclusions>
       <groupId>org.apache.maven.plugins</groupId>
-      <version>4.0.0-M13</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
-    <dependency>
-      <artifactId>velocity-tools-generic</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-collections</artifactId>
-          <groupId>commons-collections</groupId>
-        </exclusion>
-      </exclusions>
-      <groupId>org.apache.velocity.tools</groupId>
-      <version>3.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>commons-digester3</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-beanutils</artifactId>
-          <groupId>commons-beanutils</groupId>
-        </exclusion>
-      </exclusions>
-      <groupId>org.apache.commons</groupId>
-      <version>3.2</version>
-    </dependency>
-    <dependency>
-      <artifactId>commons-collections4</artifactId>
-      <groupId>org.apache.commons</groupId>
-      <version>4.5.0-M1</version>
-    </dependency>
-    <dependency>
-      <artifactId>commons-compress</artifactId>
-      <groupId>org.apache.commons</groupId>
-      <version>1.26.1</version>
+      <version>3.7.1</version>
     </dependency>
 
-    <dependency>
-      <artifactId>guava</artifactId>
-      <groupId>com.google.guava</groupId>
-      <version>33.1.0-jre</version>
-    </dependency>
 
     <dependency>
       <artifactId>spring-aop</artifactId>

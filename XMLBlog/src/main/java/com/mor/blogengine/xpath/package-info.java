@@ -15,7 +15,5 @@
  *
  *
  */
-/**
- * Package containing all classes of XPATH search Layer
- */
+/** Package containing all classes of XPATH search Layer. */
 package com.mor.blogengine.xpath;

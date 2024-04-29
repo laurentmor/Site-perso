@@ -1,22 +1,24 @@
-// * Copyright (c) 2024
-// *
-// * Licensed under the Apache License, Version 2.0 (the "License");
-// * you may not use this file except in compliance with the License.
-// * You may obtain a copy of the License at
-// *
-// *     http://www.apache.org/licenses/LICENSE-2.0
-// *
-// * Unless required by applicable law or agreed to in writing, software
-// * distributed under the License is distributed on an "AS IS" BASIS,
-// * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// * See the License for the specific language governing permissions and
-// * limitations under the License.
-// *
-// *
+/*
+ * Copyright (c) 2024
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
+ */
 
 package com.mor.blogengine.xml;
 
-//~--- non-JDK imports --------------------------------------------------------
+// ~--- non-JDK imports --------------------------------------------------------
 
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
@@ -38,17 +40,13 @@ import org.dom4j.tree.DefaultElement;
  * @author Laurent
  * @version $version
  */
-public final class XMLHandlerImpl extends PropertiesUserObject implements
-    IXMLHandler<DefaultElement> {
+public final class XMLHandlerImpl extends PropertiesUserObject
+    implements IXMLHandler<DefaultElement> {
 
-  /**
-   * class instance
-   */
-  static XMLHandlerImpl mInstance;
+  /** class instance. */
+  private static XMLHandlerImpl instance;
 
-  /**
-   * XML root.
-   */
+  /** XML root. */
   private DefaultElement rootElement;
 
   @SneakyThrows
@@ -59,27 +57,26 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
       rootElement = (DefaultElement) d.getRootElement();
     }
     trace("Constructing XMLHandlerImpl");
-
   }
 
   /**
    * Get an instance of class using singleton pattern implementation.
    *
-   * @param config  the object config
+   * @param config the object config
    * @param domTree the document tree
    * @return an instance of class
    */
   public static XMLHandlerImpl getInstanceForDoc(final Properties config, final Document domTree) {
     if (config != null) {
-      if (mInstance != null) {
-        return mInstance;
+      if (instance != null) {
+        return instance;
       }
     }
     if (config != null) {
-      mInstance = new XMLHandlerImpl(config, domTree);
+      instance = new XMLHandlerImpl(config, domTree);
     }
 
-    return mInstance;
+    return instance;
   }
 
   /**
@@ -127,7 +124,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   /**
    * Append a node to parent node.
    *
-   * @param root    The node to add under
+   * @param root The node to add under
    * @param content what to add to root node
    * @return appended or not
    */
@@ -171,7 +168,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
    * @return removed or not (true or false)
    */
   @Override
-  public boolean remove(List<DefaultElement> removeBatch) {
+  public boolean remove(final List<DefaultElement> removeBatch) {
     boolean removed = false;
 
     for (DefaultElement defaultElement : removeBatch) {
@@ -209,7 +206,7 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
   }
 
   @Override
-  public boolean remove(List<DefaultElement> removeBatch, String parentID) {
+  public boolean remove(final List<DefaultElement> removeBatch, final String parentID) {
     boolean removed = false;
 
     for (val defaultElement : removeBatch) {
@@ -218,5 +215,4 @@ public final class XMLHandlerImpl extends PropertiesUserObject implements
 
     return removed;
   }
-
 }

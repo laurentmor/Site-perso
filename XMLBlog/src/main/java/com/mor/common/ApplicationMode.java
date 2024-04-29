@@ -18,13 +18,14 @@
 package com.mor.common;
 
 /**
+ * Different application modes.
+ *
  * @author laurent
  */
 public enum ApplicationMode {
 
-  Test(), Production();
-
-  ApplicationMode() {
-  }
-
+  /** when app is in test. */
+  Test(),
+  /** when app is in production. */
+  Production()
 }

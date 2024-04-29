@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2024
  *
@@ -21,8 +20,14 @@ package com.mor.blogengine.dao;
 
 import com.mor.test.XMLConsumingTestCase;
 
+/** Repository test case type. */
 public abstract class AbstractBlogRepositoryTest extends XMLConsumingTestCase {
 
-  @SuppressWarnings ("rawtypes")
+  @SuppressWarnings("rawtypes")
   Repository repository;
+
+  /** Default constructor. */
+  public AbstractBlogRepositoryTest() {
+    super();
+  }
 }

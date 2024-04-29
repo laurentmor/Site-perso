@@ -18,22 +18,15 @@
 
 package com.mor.common;
 
-/**
- * Current application log level.
- */
+/** Current application log level. */
 public enum LogLevel {
 
-  /**
-   * Debug log level.
-   */
+  /** Debug log level. */
   DEBUG(),
-  /**
-   * Error log level.
-   */
+  /** Error log level. */
   ERROR(),
-  /**
-   * Warning log level.
-   */
+  /** Warning log level. */
   WARN(),
+  /** info log level. */
   INFO()
 }

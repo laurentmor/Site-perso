@@ -17,10 +17,9 @@
  */
 package com.mor.blogengine.controllers;
 
-//~--- non-JDK imports --------------------------------------------------------
+// ~--- non-JDK imports --------------------------------------------------------
 
 import com.mor.blogengine.dao.BlogCategoryRepository;
-import com.mor.blogengine.dao.Repository;
 import com.mor.blogengine.exception.ElementExistingException;
 import com.mor.blogengine.exception.IncorrectPropertyValueException;
 import com.mor.blogengine.exception.MissingPropertyException;
@@ -36,30 +35,31 @@ import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultElement;
 
 /**
+ * Manages Categories.
+ *
  * @author laurent
  */
-public class CategoryController extends BlogControllerBase implements
-    IBlogElementController<BlogCategory, DocumentException> {
+public final class CategoryController
+    extends BlogControllerBase<BlogCategory, DefaultElement, SearchCriteria, DocumentException>
+    implements IBlogElementController<BlogCategory, DocumentException> {
 
   /**
-   * repository to interface with data source
-   */
-  private final Repository<BlogCategory, DefaultElement, SearchCriteria, DocumentException> repo;
-
-  /**
+   * Default constructor.
    *
+   * @param config - app configuration
+   * @throws MissingPropertyException when a config property is missing
+   * @throws IncorrectPropertyValueException when a config property is incorrectly set
    */
-  public CategoryController(Properties config)
+  public CategoryController(final Properties config)
       throws MissingPropertyException, IncorrectPropertyValueException {
     super(config);
-    repo = new BlogCategoryRepository(getConfig(), getDocument());
-
+    repository = new BlogCategoryRepository(getConfig(), getDocument());
   }
 
   @Override
   public Map<String, BlogCategory> getAllElements() {
     try {
-      List<DefaultElement> list = repo.getElementsForCriteria(SearchCriteria.ALL, null);
+      List<DefaultElement> list = getRepository().getElementsForCriteria(SearchCriteria.ALL, null);
 
       if (list != null) {
         return getFactory().createCategoryMap(list);
@@ -81,9 +81,9 @@ public class CategoryController extends BlogControllerBase implements
   }
 
   @Override
-  public boolean addNewElement(BlogCategory e) throws DocumentException {
+  public boolean addNewElement(final BlogCategory e) throws DocumentException {
     try {
-      return repo.add(e);
+      return getRepository().add(e);
     } catch (ElementExistingException ex) {
       Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -92,9 +92,9 @@ public class CategoryController extends BlogControllerBase implements
   }
 
   @Override
-  public boolean deleteElement(BlogCategory e) throws DocumentException {
+  public boolean deleteElement(final BlogCategory e) throws DocumentException {
     try {
-      return repo.remove(e);
+      return getRepository().remove(e);
     } catch (NoMatchesFoundException ex) {
       Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -103,21 +103,22 @@ public class CategoryController extends BlogControllerBase implements
   }
 
   @Override
-  public boolean editElement(BlogCategory what, BlogCategory with) throws DocumentException {
+  public boolean editElement(final BlogCategory what, final BlogCategory with)
+      throws DocumentException {
     try {
-      return repo.edit(what, with);
+      return getRepository().edit(what, with);
     } catch (NoMatchesFoundException ex) {
       return false;
     }
   }
 
   @Override
-  public Map<String, BlogCategory> getElementsForDate(String d) {
+  public Map<String, BlogCategory> getElementsForDate(final String d) {
     return null;
   }
 
   @Override
-  public Map<String, BlogCategory> getAllElements(String parentID) {
+  public Map<String, BlogCategory> getAllElements(final String parentID) {
     throw new UnsupportedOperationException("Use non-parametrised version");
   }
 }

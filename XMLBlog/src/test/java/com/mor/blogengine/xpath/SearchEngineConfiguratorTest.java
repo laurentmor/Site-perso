@@ -33,27 +33,27 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
+ * Search Engine Configurator Test suite
+ *
  * @author laurent
  */
-@DisplayName ("Search Engine Configurator Test")
-class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
+@DisplayName("Search Engine Configurator Test")
+public final class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
 
+  /** Default constructor. */
   public SearchEngineConfiguratorTest() {
     super();
   }
 
-
-  /*
-   * Test to ensure that SearchEngine is configured fine
-   */
+  /** Test to ensure that SearchEngine is configured fine. */
   @Test
   @DisplayName("Test to ensure that SearchEngine is configured fine - Element found")
   void testIfSearchEngineIsConfiguredFineElementFound()
       throws InvalidXPathException, NoMatchesFoundException {
     try {
-      //mConfig.remove("application.mode");
-      SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(
-          mConfig, getDefautDocument());
+      // mConfig.remove("application.mode");
+      SearchEngineConfigurator<List<DefaultElement>> configurator =
+          new SearchEngineConfigurator<>(mConfig, getDefautDocument());
       List<DefaultElement> fnd = configurator.findContent("/root");
       assertEquals(fnd.getFirst().getName(), "root");
     } catch (MissingPropertyException | IncorrectPropertyValueException ex) {
@@ -61,24 +61,27 @@ class SearchEngineConfiguratorTest extends XMLConsumingTestCase {
     }
   }
 
-  /*
-   * Test to ensure that SearchEngine is configured fine - Element not found
-   */
+  /** Test to ensure that SearchEngine is configured fine - Element not found. */
   @Test
   @DisplayName("Test to ensure that SearchEngine is configured fine - Element not found")
   void testIfSearchEngineIsConfiguredFineElementNotFound() {
-    Exception e = assertThrows(NoMatchesFoundException.class, () -> {
-      SearchEngineConfigurator<List<DefaultElement>> configurator = new SearchEngineConfigurator<>(
-          mConfig, getDefautDocument());
-      try {
-        configurator.findContent("/notFound");
-      } catch (InvalidXPathException | MissingPropertyException |
-               IncorrectPropertyValueException ex) {
-        Logger.getLogger(SearchEngineConfiguratorTest.class.getName()).log(Level.SEVERE, null, ex);
-      }
-    });
-    assertEquals("No matches of /notFound were found during search process - redefine your search",
+    Exception e =
+        assertThrows(
+            NoMatchesFoundException.class,
+            () -> {
+              SearchEngineConfigurator<List<DefaultElement>> configurator =
+                  new SearchEngineConfigurator<>(mConfig, getDefautDocument());
+              try {
+                configurator.findContent("/notFound");
+              } catch (InvalidXPathException
+                  | MissingPropertyException
+                  | IncorrectPropertyValueException ex) {
+                Logger.getLogger(SearchEngineConfiguratorTest.class.getName())
+                    .log(Level.SEVERE, null, ex);
+              }
+            });
+    assertEquals(
+        "No matches of /notFound were found during search process - redefine your search",
         e.getMessage());
-
   }
 }
