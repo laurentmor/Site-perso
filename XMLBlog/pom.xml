@@ -454,7 +454,7 @@
     <jupiter.version>5.10.0</jupiter.version>
     <license.dir>${basedir}</license.dir>
     <logback.classic.version>1.4.14</logback.classic.version>
-    <logback.version>1.4.14</logback.version>
+    <logback.version>1.5.13</logback.version>
     <lombok.version>1.18.30</lombok.version>
     <maven-jxr-plugin.version>3.3.2</maven-jxr-plugin.version>
     <maven.compiler.plugin.source>21</maven.compiler.plugin.source>
